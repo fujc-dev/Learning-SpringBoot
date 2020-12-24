@@ -53,6 +53,13 @@ No qualifying bean of type 'com.zc58s.springbootbasic.pojo.definition.Animal' av
                 这是Spring推荐的写法。
 
 ```
+
+
+#### 生命周期
+```$xslt
+SptingIoc的生命周期，指的是Bean从扫描，到加载，再到读取，再到销毁，这几个步骤。
+
+```
     
 
 
