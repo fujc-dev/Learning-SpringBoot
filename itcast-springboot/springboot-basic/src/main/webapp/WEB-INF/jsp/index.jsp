@@ -11,6 +11,6 @@
     <title>SpringBoot视图解析器</title>
 </head>
 <body>
-<h1>SpringBoot视图解析器</h1>
+<h1>${message}</h1>
 </body>
 </html>
