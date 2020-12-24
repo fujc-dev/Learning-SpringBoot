@@ -1,25 +1,34 @@
-演示依赖注入
+#### 演示依赖注入
 
-人依赖动物，比如：人依赖狗狗看门。依赖猫咪抓老鼠等等。
+```
+需求：人依赖动物，比如：人依赖狗狗看门。依赖猫咪抓老鼠等等。
+```
 
+```
 定义一个Person的接口，
 addAnimal方法，让这个人依赖某一个Animal。
 service 方法，通过依赖的Animal，通过这个Animal的能力，去完成某一件事情。
+定义一个Animal的接口，包含一个use方法，该方法是狗狗的能力，狗有看门的能力，猫咪有抓老鼠的能力。
+```
 
-顶一个Animal的接口，包含一个use方法，该方法是狗狗的能力，狗有看门的能力，猫咪有抓老鼠的能力。
 
+#### @Autowired
 
-@Autowired
-
+```$xslt
 在使用Autowired作为依赖注入时，假如有两个子类的情况下，程序会报一个org.springframework.beans.factory.UnsatisfiedDependencyException的异常。
 以程序中的猫狗为例，@Autowired不知道为BusinessPearson注入猫还是狗。
-//Error creating bean with name 'businessPearson' defined in file [E:\MyProjects\Learning-SpringBoot\itcast-springboot\springboot-basic\target\classes\com\zc58s\springbootbasic\pojo\definition\impl\BusinessPearson.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.zc58s.springbootbasic.pojo.definition.Animal' available: expected single matching bean but found 2: cat,dog
+//Error creating bean with name 'businessPearson' defined in file 
+[E:\MyProjects\Learning-SpringBoot\itcast-springboot\springboot-basic\target\classes\com\zc58s\springbootbasic\pojo\definition\
+impl\BusinessPearson.class]: Unsatisfied dependency expressed through constructor parameter 0; 
+nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: 
+No qualifying bean of type 'com.zc58s.springbootbasic.pojo.definition.Animal' available: expected single matching bean but found 2: cat,dog
 就是说，我不知道到底该注入谁进去。
+```
 
-
-依赖注入案例：
-    分析：
-        @Autowired默认是按照类型进行匹配的。那么在本例中在使用@Autowired时，首先BusinessPearson需要注入的是一个Animal的接口，那么，
+#### 依赖注入案例
+```
+分析：
+    @Autowired默认是按照类型进行匹配的。那么在本例中在使用@Autowired时，首先BusinessPearson需要注入的是一个Animal的接口，那么，
     @Autowired就会去容器里面找，类型是Animal的，此时找到两个Dog、Cat，但是程序不知道选择那个。
     解决方案：
             1、在可以将BusinessPearson中声明的Animal的成员变量的名称改为dog。或者cat，用于匹配需要注入的Animal.
@@ -42,5 +51,8 @@ service 方法，通过依赖的Animal，通过这个Animal的能力，去完成
                     this.animal = animal;
                 }
                 这是Spring推荐的写法。
+
+```
+    
 
 
