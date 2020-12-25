@@ -1,7 +1,8 @@
-package com.zc58s.springbootbasic.pojo.definition.impl;
+package com.zc58s.springiocdemo.pojo.definition.impl;
 
-import com.zc58s.springbootbasic.pojo.definition.Animal;
-import com.zc58s.springbootbasic.pojo.definition.Person;
+
+import com.zc58s.springiocdemo.pojo.definition.Animal;
+import com.zc58s.springiocdemo.pojo.definition.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

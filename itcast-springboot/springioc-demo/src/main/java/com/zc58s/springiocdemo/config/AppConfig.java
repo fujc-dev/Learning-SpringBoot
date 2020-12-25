@@ -1,4 +1,4 @@
-package com.zc58s.springbootbasic.config;
+package com.zc58s.springiocdemo.config;
 
 /*
  * springboot-basic
@@ -8,8 +8,6 @@ package com.zc58s.springbootbasic.config;
  * @create time : 2020/12/24 14:42
  */
 
-import com.zc58s.springbootbasic.pojo.User;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,33 +30,10 @@ import org.springframework.context.annotation.Configuration;
 //@ComponentScan  //不带任何参数的扫描，仅仅值扫描当前报包下面的文件
 //@ComponentScan("com.zc58s.springbootbasic.*")
 //@ComponentScan(basePackages = "com.zc58s.springbootbasic.*")
-@ComponentScan(basePackages = {"com.zc58s.springbootbasic.pojo.*"}, lazyInit = true)
+@ComponentScan(basePackages = {"com.zc58s.springiocdemo.pojo.*"})
 //@ComponentScan(basePackageClasses = Company.class)
 //@ComponentScan(basePackageClasses = {Company.class})
-
 public class AppConfig {
 
-    /**
-     * @return
-     */
-    @Bean
-    public User initUser() {
-        User user = new User();
-        user.setId(1L);
-        user.setUsername("傅均承");
-        user.setNode("野生JAVA开发工程师");
-        return user;
-    }
 
-    /**
-     * 在使用了@Component注解的Company类中的属性使用@Value注解，那么此时再注入Company的Bean，标记了@Value标签的属性的值，好像是改不掉的。
-     *
-     * @return
-     */
-    @Bean("test")
-    public Company getDefaultUserInfo() {
-        Company company = new Company();
-        company.setName("四川旷谷信息工程有限公司x");
-        return company;
-    }
 }
