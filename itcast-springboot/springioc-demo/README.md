@@ -40,10 +40,29 @@ ConfigurableBeanFactory.SCOPE_SINGLETON
 -Dspring.profile.active=dev
 ```
 
+### 条件装配Bean
+```$xslt
+在@Bean
+@Conditional(DatabaseConditional.class)
+条件需要自己实现。通过实现Condition接口
+public class DatabaseConditional implements Condition{
+    
+    @Override
+    public boolean matches(ConditionContext context,AnnotatedTypeMetadata metadata){
+
+    } 
+}
+```
 
 ### XML方式配置Bean
 ```$xslt
 这种情况我个人觉得，一般是那种项目升级时用到的。将古老的spring-bean.xml文件
 配置的AppConfig中。
 格式：@ImportResource(value="{classpath:spring-bean.xml}")
+```
+
+
+### 使用Spring EL装配Bean
+```$xslt
+    了解有这个功能即可。
 ```
