@@ -16,4 +16,8 @@ import org.springframework.stereotype.Component;
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ScopeBean {
     private int id = 1;
+
+    public  ScopeBean(){
+        System.out.println("初始化加载");
+    }
 }

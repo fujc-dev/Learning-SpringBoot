@@ -29,4 +29,21 @@ ConfigurableBeanFactory.SCOPE_PROTOTYPE
 ConfigurableBeanFactory.SCOPE_SINGLETON
 @Scope("prototype")
 @Scope("singleton")
+
+在WEB开发中，还有请求、会话、应用等等。参考WebApplicationContext类
+```
+
+### @Profile机制（了解一下就可以了）
+```$xslt
+这个针对环境使用的时候的注入，
+@Profile("dev")
+-Dspring.profile.active=dev
+```
+
+
+### XML方式配置Bean
+```$xslt
+这种情况我个人觉得，一般是那种项目升级时用到的。将古老的spring-bean.xml文件
+配置的AppConfig中。
+格式：@ImportResource(value="{classpath:spring-bean.xml}")
 ```
