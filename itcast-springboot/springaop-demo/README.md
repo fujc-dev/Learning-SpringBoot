@@ -30,13 +30,16 @@
     2、另外一个参数是一个接口（这传递进去的是接口的Class对象，可以将其理解为.NET里面的类型），拿到了Class对象，就那到了方法。
     3、最后一个参数是InvocationHandler，表示的是代理具体要做的事情。
     最后关键的来了。
-    能拿到类加载器，能拿到方法，能拿到具体要做的事情， 那么构建一个代理类就出来了（这是我的理解，但是怎么完成构建这个代理类的，我还需要继续学习）。
+    能拿到类加载器，能拿到方法，能拿到具体要做的事情， 那么构建一个代理类就出来了（但是怎么完成构建这个代理类的，我还需要继续学习）。
     Proxy.newProxyInstance返回的是一个Object，这个Object从定义来讲，返回的按理是继承自第二个参数的类的实例，
-    也就是我们代理模式中Proxy类（就是已经被添加了小广告的产物）。
+    也就是我们代理模式中Proxy类（就是已经被添加了小广告的产物）。    
+```
 
-    单论反射，类加载器，类实例都能理解。
-    
 
-        
+### Proxy.newProxyInstance
+```$xslt
+    Class<?> cl = getProxyClass0(loader, intfs);
+    cons.newInstance(new Object[]{h});
+    Objects.requireNonNull(subKeyFactory.apply(key, parameter));
 ```
 
