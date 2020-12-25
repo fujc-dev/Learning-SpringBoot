@@ -35,6 +35,11 @@ public class ProxyBean implements InvocationHandler {
          * Class<?>[] interfaces,被代理的对象的接口
          * InvocationHandler h 代理需要做的那些使用
          */
+        System.out.println(target.getClass().getName());
+        Class<?>[] dataset= target.getClass().getInterfaces();
+        for (int i = 0;i<dataset.length;i++){
+            System.out.println(dataset[0].getName());;
+        }
         Object proxy = Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), proxyBean);
         return proxy;
     }
