@@ -2,7 +2,7 @@
 
 ### java.lang.reflect.Proxy实现动态代理
 ```$xslt
-    暂时不知道Proxy到底能玩出多大的花样。
+    暂时不知道java.lang.reflect.Proxy到底能玩出多大的花样。
     就目前我的理解来说，Proxy就是一个代理对象，想象成代理模式，单纯的理解这个这个代理模式要简单的多。
     代理模式原型：
         Subject类是一个抽象的方法类型；
