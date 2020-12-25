@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 //@ComponentScan  //不带任何参数的扫描，仅仅值扫描当前报包下面的文件
 //@ComponentScan("com.zc58s.springbootbasic.*")
 //@ComponentScan(basePackages = "com.zc58s.springbootbasic.*")
-@ComponentScan(basePackages = {"com.zc58s.springiocdemo.pojo.*"})
+@ComponentScan(basePackages = {"com.zc58s.springiocdemo.pojo"})
 //@ComponentScan(basePackageClasses = Company.class)
 //@ComponentScan(basePackageClasses = {Company.class})
 public class AppConfig {
