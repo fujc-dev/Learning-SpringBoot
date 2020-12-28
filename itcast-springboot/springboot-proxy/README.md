@@ -18,7 +18,7 @@ private final BiFunction<K, P, V> valueFactory;
 ```
 ```text
 WeakCache：指的是缓存,K，P，V是泛型。
-这个WeakCache<K, P, V>创建出来的目的就是为了进行
+这个WeakCache<K, P, V>，这个类在java.lang.reflect包下，创建出来的目的就是为了反射服务的。想法就局限在这个角度，能方便代理的理解。
 V,代表存储的值
 K,key值
 P,参数
