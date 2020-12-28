@@ -210,7 +210,7 @@ private static final class ProxyClassFactory implements BiFunction<ClassLoader, 
             }
             long num = nextUniqueNumber.getAndIncrement();
             String proxyName = proxyPkg + proxyClassNamePrefix + num;
-            //生产.class文件，最主要的就是这个，这里面花里胡哨的东西太多了，看着有难度，
+            //生产.class文件，最主要的就是这个，这里面花里胡哨的东西太多了，看着有难度，反正我没看。
             //
             byte[] proxyClassFile = ProxyGenerator.generateProxyClass(proxyName, interfaces, accessFlags);
             try {
