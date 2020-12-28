@@ -12,6 +12,13 @@ import java.lang.reflect.Proxy;
 /*
  * 依赖java.lang.reflect.Proxy动态代理对象，进行自定义拦截开发。
  * InvocationHandler是一个抽象的调用处理程序。
+ * <p>
+ * 设计总结：
+ * Interceptor称之为拦截器，其目的是需要对某一个函数方法的运行过程进行监听，我们总结并抽象出来的一个接口，
+ * 里面包含了对方法的执行前、执行后以及正常执行以及异常等等的处理，或者称为处理办法。
+ * ProxyBean实现了InvocationHandler接口，必须要实现的，因为java.lang.reflect.Proxy.newProxyInstance
+ * 方法需要这个对象，其目的就是在动态创建代理对象的时候方便注入。
+ * </p>
  * @author      : fjc.dane@gmail.com
  * @create time : 2020/12/25 14:41
  */
