@@ -47,6 +47,7 @@ public class ProxyBean implements InvocationHandler {
         for (int i = 0;i<dataset.length;i++){
             System.out.println(dataset[0].getName());;
         }
+        //target.getClass().getInterfaces() 获取target这个类所实现的所有接口
         Object proxy = Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), proxyBean);
         return proxy;
     }
