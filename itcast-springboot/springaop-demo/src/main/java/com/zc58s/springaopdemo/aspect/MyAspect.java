@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 切面定义
  * <p>
- * 在{@link MyAspect}切面类中，定义了before、after、afterReturning、afterThrowing这四个方法，并且在方法上面，定义了切点。
+ * 在{@link MyAspect}切面类中，定义了before、after、afterReturning、afterThrowing这四个方法，并且在方法上面标记了正则式，如下：
  * </p>
  * <p>
  * <i>execution(* com.zc58s.springaopdemo.service.impl.UserServiceImpl.printUser(..))</i>
  * </p>
  * <p>
  * 修改记录：
- *
+ * 1、
  * </p>
  */
 @Aspect
