@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 class SpringbootDatabaseApplicationTests {
@@ -35,13 +36,13 @@ class SpringbootDatabaseApplicationTests {
     void addPeopleAndIdcard() {
         //创建身份证信息
         Idcard idcard = new Idcard();
-        idcard.setIdCardCode("123456789");
+        idcard.setIdCardCode(UUID.randomUUID().toString().toUpperCase());
 
         //创建公民信息
         People people = new People();
-        people.setName("傅均承");
+        people.setName("啥也不是");
         people.setSex("男");
-        people.setAge(32);
+        people.setAge(33);
         //将公民与身份证信息关联
         people.setIdcard(idcard);
 
