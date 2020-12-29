@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS tab_people
  
 -- 添加数据
 INSERT INTO tab_idcard(idCard_code) VALUE('123456789');
-INSERT INTO tab_people(NAME,sex,age,card_id) VALUES('pan_junbiao的博客','男',32,1); 
+INSERT INTO tab_people(NAME,sex,age,card_id) VALUES('啥也不是','男',33,1); 
 ```
 #### Spring Data JPA 一对多 多表关联查询，先建表
 ```sql
@@ -220,7 +220,7 @@ CREATE TABLE IF NOT EXISTS tab_mapping
 ) COMMENT = '映射信息表';
  
 -- 添加数据
-INSERT INTO tab_user(NAME) VALUES('admin'),('pan_junbiao的博客');
+INSERT INTO tab_user(NAME) VALUES('admin'),('啥也不是');
 INSERT INTO tab_role(role_name) VALUES('系统管理员'),('新闻管理员'),('广告管理员');
 INSERT INTO tab_mapping(user_id,role_id) VALUES(1,1),(1,2),(1,3),(2,2),(2,3);
 ```

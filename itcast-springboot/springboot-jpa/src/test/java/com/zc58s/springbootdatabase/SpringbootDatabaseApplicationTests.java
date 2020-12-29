@@ -1,4 +1,4 @@
-package com.zc58s.springbootdatabase;
+package com.zc58s.springbootjpa;
 
 import com.zc58s.springbootjpa.dao.FactoryRepository;
 import com.zc58s.springbootjpa.dao.M2MUserRepository;
@@ -39,7 +39,7 @@ class SpringbootDatabaseApplicationTests {
 
         //创建公民信息
         People people = new People();
-        people.setName("pan_junbiao的博客");
+        people.setName("傅均承");
         people.setSex("男");
         people.setAge(32);
         //将公民与身份证信息关联
