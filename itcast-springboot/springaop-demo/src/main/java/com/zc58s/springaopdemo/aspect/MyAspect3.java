@@ -7,14 +7,13 @@ import com.zc58s.springaopdemo.service.impl.UserValidatorImpl;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 
 /**
  * 切面定义
  * <p>
- * 在{@link MyAspect}切面类中，定义了before、after、afterReturning、afterThrowing这四个方法，并且在方法上面标记了正则式，如下：
+ * 在{@link MyAspect3}切面类中，定义了before、after、afterReturning、afterThrowing这四个方法，并且在方法上面标记了正则式，如下：
  * </p>
  * <p>
  * <i>execution(* com.zc58s.springaopdemo.service.impl.UserServiceImpl.printUser(..))</i>
@@ -23,11 +22,11 @@ import org.springframework.core.annotation.Order;
  * 修改记录：
  * </p>
  * <p>1、在代码中所有的方法都包含相同的正则式，这显然比较冗余，新增pointCut方法作为切点，并在方法上标记切点； </p>
- * <p>2、在老的接口不能变的情况下，我么通过Aop实现对新接口的引入，{@link com.zc58s.springaopdemo.service.UserValidator}; </p>
+ * <p>2、在老的接口不能变的情况下，我么通过Aop实现对新接口的引入，{@link UserValidator}; </p>
  */
 @Aspect
-@Order(1)
-public class MyAspect {
+@Order(3)
+public class MyAspect3 {
 
     /**
      * Spring以 @{@link Aspect}作为切面声明，当以@{@link Aspect}作为注解时，Spring就知道这是一个切面，然后我们就可以通过各类注解来定义各类通知。
@@ -45,7 +44,7 @@ public class MyAspect {
      * @ {@link AfterThrowing} 异常通知
      * </p>
      */
-    public MyAspect() {
+    public MyAspect3() {
 
     }
 
