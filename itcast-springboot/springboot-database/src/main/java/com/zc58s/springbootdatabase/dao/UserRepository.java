@@ -1,6 +1,6 @@
 package com.zc58s.springbootdatabase.dao;
 
-import com.zc58s.springbootdatabase.pojo.User;
+import com.zc58s.springbootdatabase.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -58,6 +58,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return
      */
     User getUserById(Long id);
-
 
 }

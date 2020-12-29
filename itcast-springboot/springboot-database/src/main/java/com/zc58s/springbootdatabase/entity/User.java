@@ -1,4 +1,4 @@
-package com.zc58s.springbootdatabase.pojo;
+package com.zc58s.springbootdatabase.entity;
 
 import com.zc58s.springbootdatabase.converter.SexConverter;
 import com.zc58s.springbootdatabase.enumeration.SexEnum;

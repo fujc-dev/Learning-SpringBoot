@@ -1,7 +1,7 @@
 package com.zc58s.springbootdatabase.controller;
 
 import com.zc58s.springbootdatabase.dao.UserRepository;
-import com.zc58s.springbootdatabase.pojo.User;
+import com.zc58s.springbootdatabase.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
