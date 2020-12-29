@@ -5,9 +5,16 @@ import org.springframework.context.annotation.Configuration;
 
 
 /**
- * 创建AOP
+ * 切面定义
  * <p>
- *     修改记录：
+ * 在{@link MyAspect}切面类中，定义了before、after、afterReturning、afterThrowing这四个方法，并且在方法上面，定义了切点。
+ * </p>
+ * <p>
+ * <i>execution(* com.zc58s.springaopdemo.service.impl.UserServiceImpl.printUser(..))</i>
+ * </p>
+ * <p>
+ * 修改记录：
+ *
  * </p>
  */
 @Aspect
@@ -16,6 +23,7 @@ public class MyAspect {
     /**
      * Spring以 @{@link Aspect}作为切面声明，当以@{@link Aspect}作为注解时，Spring就知道这是一个切面，然后我们就可以通过各类注解来定义各类通知。
      * <p>
+     *
      * @ {@link Before} 前置通知
      * </p>
      * <p>
