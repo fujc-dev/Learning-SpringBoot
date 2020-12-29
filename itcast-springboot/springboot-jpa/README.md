@@ -100,7 +100,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 ```
 
 
-### JPA多表查询语法
+### JPA多表查询语法  
+```text
+参考：https://www.jianshu.com/p/edfd384719fc
+```
 ```sql
 DROP TABLE IF EXISTS `bz_package_index`;
 CREATE TABLE `bz_package_index` (
@@ -126,6 +129,9 @@ CREATE TABLE `bz_payeelist_bankexecut` (
 
 
 ### 另一种 Spring Data JPA实现多表的关联查询
+```text
+参考：https://blog.csdn.net/pan_junbiao/article/details/105322713
+```
 
 #### Spring Data JPA 一对一 多表关联查询，先建表
 ```sql
