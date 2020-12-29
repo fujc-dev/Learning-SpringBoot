@@ -1,5 +1,9 @@
 package com.zc58s.springaopdemo.aspect;
 
+import com.zc58s.springaopdemo.service.UserValidator;
+import com.zc58s.springaopdemo.service.impl.UserServiceImpl;
+import com.zc58s.springaopdemo.service.impl.UserValidatorImpl;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,8 +18,9 @@ import org.springframework.context.annotation.Configuration;
  * </p>
  * <p>
  * 修改记录：
- * 1、在代码中所有的方法都包含相同的正则式，这显然比较冗余，新增pointCut方法作为切点，并在方法上标记切点；
  * </p>
+ * <p>1、在代码中所有的方法都包含相同的正则式，这显然比较冗余，新增pointCut方法作为切点，并在方法上标记切点； </p>
+ * <p>2、在老的接口不能变的情况下，我么通过Aop实现对新接口的引入，{@link com.zc58s.springaopdemo.service.UserValidator}; </p>
  */
 @Aspect
 public class MyAspect {
@@ -39,6 +44,16 @@ public class MyAspect {
     public MyAspect() {
 
     }
+
+
+    /**
+     * {@link DeclareParents}引入增强接口，在老接口不变的情况下，我们可以通过引入新的接口来增强功能。
+     * <p>value：指向要增强的功能的目标对象，这里要增强的是{@link UserServiceImpl}，后面这个"+"，暂时就理解为强制必加的。</p>
+     * <p>defaultImpl：引入增强功能的类，这里配置的是{@link UserValidatorImpl},用来提交校验用户是否为空</p>
+     */
+    @DeclareParents(value = "com.zc58s.springaopdemo.service.impl.UserServiceImpl", defaultImpl = UserValidatorImpl.class)
+    public UserValidator validator;
+
 
     /**
      * 定义一个公共的切点，减少代码冗余
@@ -81,5 +96,18 @@ public class MyAspect {
     @AfterThrowing("pointCut()")
     public void afterThrowing() {
         System.out.println("afterThrowing...");
+    }
+
+    /**
+     * 环绕通知
+     *
+     * @param jp
+     * @throws Throwable
+     */
+    @Around("pointCut()")
+    public void around(ProceedingJoinPoint jp) throws Throwable {
+        System.out.println("around before...");
+        jp.proceed();
+        System.out.println("around after...");
     }
 }
