@@ -2,6 +2,7 @@ package com.zc58s.springbootdatabase.dao;
 
 import com.zc58s.springbootdatabase.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ import java.util.List;
  * @author : fjc.dane@gmail.com
  * @create time : 2020/12/29 13:14
  */
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * 不需要写脚本，按用户名模糊查询

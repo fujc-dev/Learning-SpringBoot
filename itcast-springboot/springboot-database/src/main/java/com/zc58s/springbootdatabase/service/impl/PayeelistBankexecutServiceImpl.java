@@ -15,10 +15,14 @@ import java.util.List;
  * com.zc58s.springbootdatabase.service.impl
  */
 @Service
-public class PayeelistBankexecutServiceImpl  implements PayeelistBankexecutService {
+public class PayeelistBankexecutServiceImpl implements PayeelistBankexecutService {
+
+    private final PayeelistBankexecutRepository payeelistBankexecutRepository;
 
     @Autowired
-    private PayeelistBankexecutRepository payeelistBankexecutRepository;
+    public PayeelistBankexecutServiceImpl(PayeelistBankexecutRepository payeelistBankexecutRepository) {
+        this.payeelistBankexecutRepository = payeelistBankexecutRepository;
+    }
 
     @Override
     public List<IPackageIndexAndExecuteList> findPackageIndexAndExecuteList() {
