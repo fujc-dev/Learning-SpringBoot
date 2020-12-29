@@ -1,8 +1,6 @@
 package com.zc58s.springbootdatabase.service;
 
-import com.zc58s.springbootdatabase.vo.IPackageIndexAndExecuteList;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.zc58s.springbootdatabase.vo.PackageIndexAndExecuteList;
 
 import java.util.List;
 
@@ -15,5 +13,5 @@ import java.util.List;
  */
 public interface PayeelistBankexecutService {
     //获得文章列表
-    List<IPackageIndexAndExecuteList> findPackageIndexAndExecuteList();
+    List<PackageIndexAndExecuteList> findPackageIndexAndExecuteList();
 }

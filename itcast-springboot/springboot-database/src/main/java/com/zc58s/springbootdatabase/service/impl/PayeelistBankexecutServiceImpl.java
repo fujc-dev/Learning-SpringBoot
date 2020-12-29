@@ -2,7 +2,7 @@ package com.zc58s.springbootdatabase.service.impl;
 
 import com.zc58s.springbootdatabase.dao.PayeelistBankexecutRepository;
 import com.zc58s.springbootdatabase.service.PayeelistBankexecutService;
-import com.zc58s.springbootdatabase.vo.IPackageIndexAndExecuteList;
+import com.zc58s.springbootdatabase.vo.PackageIndexAndExecuteList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class PayeelistBankexecutServiceImpl implements PayeelistBankexecutServic
     }
 
     @Override
-    public List<IPackageIndexAndExecuteList> findPackageIndexAndExecuteList() {
+    public List<PackageIndexAndExecuteList> findPackageIndexAndExecuteList() {
         return payeelistBankexecutRepository.findPackageIndexAndExecuteList();
     }
 }

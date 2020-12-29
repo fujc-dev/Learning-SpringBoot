@@ -1,7 +1,7 @@
 package com.zc58s.springbootdatabase.dao;
 
 import com.zc58s.springbootdatabase.entity.BzPayeelistBankexecutEntity;
-import com.zc58s.springbootdatabase.vo.IPackageIndexAndExecuteList;
+import com.zc58s.springbootdatabase.vo.PackageIndexAndExecuteList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,5 +22,5 @@ public interface PayeelistBankexecutRepository extends JpaRepository<BzPayeelist
 
     @Query(nativeQuery = true, value = "SELECT money_sum as moneySum,total_ity as totalIty,idx.payer_account as payerAccount,package_id as packageId,money FROM `bz_payeelist_bankexecut` list, bz_package_index idx WHERE idx.id = list.package_id  limit 5")
     // 原生SQL方法
-    List<IPackageIndexAndExecuteList> findPackageIndexAndExecuteList();
+    List<PackageIndexAndExecuteList> findPackageIndexAndExecuteList();
 }

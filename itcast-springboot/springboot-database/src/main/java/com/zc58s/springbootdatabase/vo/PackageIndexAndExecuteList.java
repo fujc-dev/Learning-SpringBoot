@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * springboot-database
  * com.zc58s.springbootdatabase.vo
  */
-public interface IPackageIndexAndExecuteList {
+public interface PackageIndexAndExecuteList {
     //以下3个get方法存储主表对应数据
     BigDecimal getMoneySum();
 

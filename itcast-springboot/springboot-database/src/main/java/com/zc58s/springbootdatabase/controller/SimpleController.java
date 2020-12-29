@@ -1,7 +1,7 @@
 package com.zc58s.springbootdatabase.controller;
 
 import com.zc58s.springbootdatabase.service.PayeelistBankexecutService;
-import com.zc58s.springbootdatabase.vo.IPackageIndexAndExecuteList;
+import com.zc58s.springbootdatabase.vo.PackageIndexAndExecuteList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,9 +24,9 @@ public class SimpleController {
     PayeelistBankexecutService payeelistBankexecutService;
     @RequestMapping(value = "/findPackageIndexAndExecuteList", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<IPackageIndexAndExecuteList> findPackageIndexAndExecuteList(String state) {
+    public List<PackageIndexAndExecuteList> findPackageIndexAndExecuteList(String state) {
 
-        List<IPackageIndexAndExecuteList> packageIndexAndExecuteList = payeelistBankexecutService.findPackageIndexAndExecuteList();
+        List<PackageIndexAndExecuteList> packageIndexAndExecuteList = payeelistBankexecutService.findPackageIndexAndExecuteList();
         return packageIndexAndExecuteList;
     }
 }
