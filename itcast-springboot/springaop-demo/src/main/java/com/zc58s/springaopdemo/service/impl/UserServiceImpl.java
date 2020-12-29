@@ -19,8 +19,6 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new RuntimeException("检测用户参数是否为空");
         }
-        System.out.print("id=" + user.getId());
-        System.out.print("\tusername=" + user.getUsername());
-        System.out.println("\tnode=" + user.getNode());
+        System.out.println(user.toString());
     }
 }

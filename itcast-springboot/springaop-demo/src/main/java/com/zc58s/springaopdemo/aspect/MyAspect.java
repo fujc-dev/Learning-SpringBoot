@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * </p>
  * <p>
  * 修改记录：
- * 1、
+ * 1、在代码中所有的方法都包含相同的正则式，这显然比较冗余，新增pointCut方法作为切点，并在方法上标记切点；
  * </p>
  */
 @Aspect
@@ -41,11 +41,19 @@ public class MyAspect {
     }
 
     /**
+     * 定义一个公共的切点，减少代码冗余
+     */
+    @Pointcut("execution(* com.zc58s.springaopdemo.service.impl.UserServiceImpl.printUser(..))")
+    public void pointCut() {
+
+    }
+
+    /**
      * 事前方法
      *
      * @return
      */
-    @Before(value = "execution(* com.zc58s.springaopdemo.service.impl.UserServiceImpl.printUser(..))")
+    @Before("pointCut()")
     public void before() {
         System.out.println("before...");
     }
@@ -53,7 +61,7 @@ public class MyAspect {
     /**
      * 事后方法
      */
-    @After(value = "execution(* com.zc58s.springaopdemo.service.impl.UserServiceImpl.printUser(..))")
+    @After("pointCut()")
     public void after() {
         System.out.println("after...");
     }
@@ -62,7 +70,7 @@ public class MyAspect {
     /**
      * 是否返回方法，事件没有发生异常执行
      */
-    @AfterReturning(value = "execution(* com.zc58s.springaopdemo.service.impl.UserServiceImpl.printUser(..))")
+    @AfterReturning("pointCut()")
     public void afterReturning() {
         System.out.println("afterReturning...");
     }
@@ -70,7 +78,7 @@ public class MyAspect {
     /**
      * 事后异常方法，当事件发生异常后执行
      */
-    @AfterThrowing(value = "execution(* com.zc58s.springaopdemo.service.impl.UserServiceImpl.printUser(..))")
+    @AfterThrowing("pointCut()")
     public void afterThrowing() {
         System.out.println("afterThrowing...");
     }
