@@ -16,7 +16,14 @@ public class User {
     private String username;
     private String node;
 
+    public User() {
+    }
 
+    public User(long id, String username, String node) {
+        this.id = id;
+        this.username = username;
+        this.node = node;
+    }
 
     public long getId() {
         return id;

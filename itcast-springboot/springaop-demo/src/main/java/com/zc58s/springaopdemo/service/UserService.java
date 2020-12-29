@@ -10,6 +10,11 @@ import com.zc58s.springaopdemo.pojo.User;
  * @create time : 2020/12/28 17:50
  */
 public interface UserService {
+
+    /**
+     * 用于测试AOP的方法printUser
+     * @param user
+     */
     void printUser(User user);
 
 }
