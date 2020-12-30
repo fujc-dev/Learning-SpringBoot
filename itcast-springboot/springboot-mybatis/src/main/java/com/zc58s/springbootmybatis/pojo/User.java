@@ -1,17 +1,20 @@
-package com.zc58s.springbootmybatis.entity;
+package com.zc58s.springbootmybatis.pojo;
 
 
 
 /*
- * springboot-database
- * com.zc58s.springbootdatabase.pojo
+ * springboot-mybatis
+ * com.zc58s.springbootmybatis.pojo
  *
  * @author      : fjc.dane@gmail.com
  * @create time : 2020/12/29 12:46
  */
 
 import com.zc58s.springbootmybatis.enumeration.SexEnum;
+import org.apache.ibatis.type.Alias;
 
+
+@Alias(value = "t_user")
 public class User {
 
     private Long id = null;

@@ -1,8 +1,8 @@
 package com.zc58s.springbootmybatis.enumeration;
 
 /*
- * springboot-database
- * com.zc58s.springbootdatabase.enumeration
+ * springboot-mybatis
+ * com.zc58s.springbootmybatis.enumeration
  *
  * @author      : fjc.dane@gmail.com
  * @create time : 2020/12/29 12:46
