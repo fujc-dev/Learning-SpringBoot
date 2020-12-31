@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zc58s.springbootmybatis.dao.UserRepository">
+<mapper namespace="com.zc58s.springbootredis.dao.UserRepository">
     <!-- select 表示是一个查询语句 -->
     <!-- id 与接口的方法名称一一对应 -->
     <!-- parameterType 这个查询语句的入参的类型，该查询是按照id查询，数据库中id的类型为64位的int，所以为ong-->

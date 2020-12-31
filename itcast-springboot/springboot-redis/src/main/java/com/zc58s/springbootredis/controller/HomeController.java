@@ -66,14 +66,18 @@ public class HomeController {
             public Object execute(RedisOperations operations) throws DataAccessException {
                 operations.watch("key1");
                 operations.multi();
+                operations.opsForValue().increment("key1",1); //
+
                 operations.opsForValue().set("key2", UUID.randomUUID().toString().toUpperCase());
                 Object value2 = operations.opsForValue().get("key2");
                 System.out.println("命令在队列，所以value值未null【" + value2 + "】");
+
                 operations.opsForValue().set("key3", UUID.randomUUID().toString().toUpperCase());
                 Object value3 = operations.opsForValue().get("key3");
                 System.out.println("命令在队列，所以value值未null【" + value3 + "】");
                 //执行exec命令
                 //在提交事务的时候，如果被监听的key1被修改，则不执行事务，否则执行事务
+                //另外，如本例中，有3出新增与修改，某一处出现错误，不会影响其他两处，所以在使用redis事务时，一定要在业务中先进行判断其对错。
                 return operations.exec();
             }
         });
