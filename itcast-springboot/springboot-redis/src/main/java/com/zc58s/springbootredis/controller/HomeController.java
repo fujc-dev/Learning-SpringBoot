@@ -1,5 +1,6 @@
 package com.zc58s.springbootredis.controller;
 
+import com.alibaba.druid.support.spring.stat.annotation.Stat;
 import com.zc58s.springbootredis.enumeration.SexEnum;
 import com.zc58s.springbootredis.pojo.User;
 import com.zc58s.springbootredis.service.UserService;
@@ -55,7 +56,6 @@ public class HomeController {
         return result;
     }
 
-
     @RequestMapping("/multi")
     @ResponseBody
     public Map<String, Object> multi() {
@@ -66,7 +66,7 @@ public class HomeController {
             public Object execute(RedisOperations operations) throws DataAccessException {
                 operations.watch("key1");
                 operations.multi();
-                operations.opsForValue().increment("key1",1); //
+                operations.opsForValue().increment("key1", 1); //
 
                 operations.opsForValue().set("key2", UUID.randomUUID().toString().toUpperCase());
                 Object value2 = operations.opsForValue().get("key2");
@@ -87,6 +87,55 @@ public class HomeController {
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);
         result.put("data", list);
+        return result;
+    }
+
+    @RequestMapping("/pipeline")
+    @ResponseBody
+    public Map<String, Object> pipeline() {
+        Long start = System.currentTimeMillis();
+        final int count = 100000;
+        List list = this.redisTemplate.executePipelined(new SessionCallback() {
+            @Override
+            public Object execute(RedisOperations operations) throws DataAccessException {
+                for (int i = 0; i < count; i++) {
+                    String key = "pipeline_" + i;
+                    operations.opsForValue().set(key, "value_" + i);
+                    String value = (String) operations.opsForValue().get(key);
+                    if (i == count-1) {
+                        System.out.println("命令只是进入队列，所以值为空【" + value + "】");
+                    }
+                }
+                return null;
+            }
+        });
+        Long end = System.currentTimeMillis();
+        System.out.println("耗时：" +(end- start)+ "毫秒");
+        Map<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        result.put("data",list);
+        return result;
+    }
+
+
+    @RequestMapping("/initialize")
+    @ResponseBody
+    public Map<String, Object> initialize() {
+        Long start = System.currentTimeMillis();
+        final int count = 100000;
+        for (int i = 0; i < count; i++) {
+            String key = "pipeline_" + i;
+            this.redisTemplate.opsForValue().set(key, "value_" + i);
+            String value = (String) this.redisTemplate.opsForValue().get(key);
+            if (i == count) {
+                System.out.println("命令只是进入队列，所以值为空【" + value + "】");
+            }
+        }
+        Long end = System.currentTimeMillis();
+        System.out.println("耗时：" +(end- start)+ "毫秒");
+        Map<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        result.put("data",(end- start));
         return result;
     }
 }

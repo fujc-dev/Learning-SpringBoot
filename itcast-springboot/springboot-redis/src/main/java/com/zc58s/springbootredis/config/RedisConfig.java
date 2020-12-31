@@ -32,7 +32,7 @@ public class RedisConfig {
      *
      * @return
      */
-    @Bean
+    //Bean
     public RedisConnectionFactory initRedisConnectionFactory() {
         if (this.connectionFactory != null) {
             System.out.println("redis已完成初始化。。。");
@@ -55,7 +55,7 @@ public class RedisConfig {
      *
      * @return
      */
-    @Bean
+    //@Bean
     public RedisTemplate<Object, Object> initRedisTemplate() {
         System.out.println("RedisSerializer serializer");
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();

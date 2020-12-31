@@ -13,9 +13,11 @@ package com.zc58s.springbootredis.pojo;
 import com.zc58s.springbootredis.enumeration.SexEnum;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
+
 
 @Alias(value = "t_user")
-public class User {
+public class User implements Serializable {
 
     private Long id = null;
 

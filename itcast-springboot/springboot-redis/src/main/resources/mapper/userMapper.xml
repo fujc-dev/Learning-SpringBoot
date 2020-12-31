@@ -8,12 +8,34 @@
     <!-- 别名使用需要在application.properties里面配置mybatis.type-aliases-package= -->
     <!-- -->
     <!-- -->
-    <select id="getUser" parameterType="long" resultType="t_user">
+    <select id="get" parameterType="long" resultType="t_user">
         SELECT id,user_name as username ,sex,note FROM t_user WHERE id  = #{id}
     </select>
 
-    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO t_user(user_name,sex,note) VALUES(#{username},#{sex},#{note})
     </insert>
+
+    <update id="update">
+        update t_user
+        <set>
+            <if test="username != null">user_name =#{username},</if>
+            <if test="sex == 1 || sex == 2">sex =#{sex}</if>
+            <if test="note != null">note =#{note}</if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <select id="find" resultType="t_user">
+        SELECT id,user_name as username ,sex,note FROM t_user
+        <where>
+            <if test="username ！=null ">and user_name = #{username}</if>
+            <if test="note != null">and note = #{note}</if>
+        </where>
+    </select>
+
+    <delete id="delete" parameterType="long">
+        delete from t_user  where id = #{id}
+    </delete>
 
 </mapper>
