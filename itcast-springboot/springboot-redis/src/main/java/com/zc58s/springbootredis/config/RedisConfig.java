@@ -6,6 +6,8 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
@@ -43,7 +45,7 @@ public class RedisConfig {
         RedisStandaloneConfiguration standaloneConfiguration = factory.getStandaloneConfiguration();
         standaloneConfiguration.setHostName("127.0.0.1"); //49.233.163.243
         standaloneConfiguration.setPort(6379);
-        standaloneConfiguration.setPassword("123456");
+        //standaloneConfiguration.setPassword("123456");
         return this.connectionFactory = factory;
     }
 
@@ -55,7 +57,13 @@ public class RedisConfig {
     @Bean
     public RedisTemplate<Object, Object> initRedisTemplate() {
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
+        RedisSerializer serializer = new StringRedisSerializer();
+        redisTemplate.setDefaultSerializer(serializer);
+        redisTemplate.setKeySerializer(serializer);
+        redisTemplate.setHashKeySerializer(serializer);
+        redisTemplate.setValueSerializer(serializer);
         redisTemplate.setConnectionFactory(this.connectionFactory);
+        //redisTemplate.setEnableTransactionSupport(true); //打开事务支持
         return redisTemplate;
     }
 

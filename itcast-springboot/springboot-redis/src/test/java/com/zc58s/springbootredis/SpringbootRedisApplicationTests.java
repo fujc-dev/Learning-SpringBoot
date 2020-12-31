@@ -20,8 +20,21 @@ class SpringbootRedisApplicationTests {
         RedisTemplate redisTemplate = ctx.getBean(RedisTemplate.class);
         redisTemplate.opsForValue().set("key1", "value1");
         redisTemplate.opsForHash().put("hash", "field", "value");
-        System.out.println(redisTemplate.opsForValue().get("key1"));
 
+        System.out.println(redisTemplate.opsForValue().get("key1"));
+        //
+
+
+
+    }
+    @Test
+    void  clearRedis(){
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(RedisConfig.class);
+        RedisTemplate redisTemplate = ctx.getBean(RedisTemplate.class);
+        redisTemplate.delete("key1");
+        redisTemplate.delete("key2");
+        redisTemplate.delete("key3");
+        redisTemplate.delete("hash");
     }
 
 }
