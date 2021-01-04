@@ -1,6 +1,8 @@
 package com.zc58s.springbootredis;
 
 import com.zc58s.springbootredis.config.RedisConfig;
+import com.zc58s.springbootredis.redis.SeckillBusinessService;
+import com.zc58s.springbootredis.redis.Service;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
@@ -27,6 +29,8 @@ class SpringbootRedisApplicationTests {
 
 
     }
+
+
     @Test
     void  clearRedis(){
         ApplicationContext ctx = new AnnotationConfigApplicationContext(RedisConfig.class);
@@ -36,5 +40,7 @@ class SpringbootRedisApplicationTests {
         redisTemplate.delete("key3");
         redisTemplate.delete("hash");
     }
+
+
 
 }
