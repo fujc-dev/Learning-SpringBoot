@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zc58s.springmvcdemo.dao.UserRepository">
+    <!-- select 表示是一个查询语句 -->
+    <!-- id 与接口的方法名称一一对应 -->
+    <!-- parameterType 这个查询语句的入参的类型，该查询是按照id查询，数据库中id的类型为64位的int，所以为ong-->
+    <!-- resultType 这个查询语句的返回参数类型，直接返回的是我们定义的对象模型，这个参数值可以传递我们定义好的别名 t_user，也可以使用全限定名称 com.zc58s.springbootmybatis.pojo.User-->
+    <!-- 别名使用需要在application.properties里面配置mybatis.type-aliases-package= -->
+    <!-- -->
+    <!-- -->
+    <select id="getUser" parameterType="long" resultType="t_user">
+        SELECT id,user_name as username ,sex,note FROM t_user WHERE id  = #{id}
+    </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_user(user_name,sex,note) VALUES(#{username},#{sex},#{note})
+    </insert>
+
+</mapper>

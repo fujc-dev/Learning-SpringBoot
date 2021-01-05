@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc58s.springmvcdemo.dao.TreeMenuRepository">
+
+    <resultMap type="com.zc58s.springmvcdemo.entity.TreeMenu" id="TreeMenuMap">
+        <result property="menuId" column="menu_id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="parentMenuId" column="parent_menu_id" jdbcType="INTEGER"/>
+        <result property="meunLevel" column="meun_level" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TreeMenuMap">
+        select
+          menu_id, name, parent_menu_id, meun_level, sort
+        from springboot.tree_menu
+        where menu_id = #{menuId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TreeMenuMap">
+        select
+          menu_id, name, parent_menu_id, meun_level, sort
+        from springboot.tree_menu
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TreeMenuMap">
+        select
+        menu_id, name, parent_menu_id, meun_level, sort
+        from springboot.tree_menu
+        <where>
+            <if test="menuId != null">
+                and menu_id = #{menuId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="parentMenuId != null">
+                and parent_menu_id = #{parentMenuId}
+            </if>
+            <if test="meunLevel != null">
+                and meun_level = #{meunLevel}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="menuId" useGeneratedKeys="true">
+        insert into springboot.tree_menu(name, parent_menu_id, meun_level, sort)
+        values (#{name}, #{parentMenuId}, #{meunLevel}, #{sort})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="menuId" useGeneratedKeys="true">
+        insert into springboot.tree_menu(name, parent_menu_id, meun_level, sort)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.parentMenuId}, #{entity.meunLevel}, #{entity.sort})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="menuId" useGeneratedKeys="true">
+        insert into springboot.tree_menu(name, parent_menu_id, meun_level, sort)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.parentMenuId}, #{entity.meunLevel}, #{entity.sort})
+        </foreach>
+        on duplicate key update
+        name = values(name) , parent_menu_id = values(parent_menu_id) , meun_level = values(meun_level) , sort =
+        values(sort)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot.tree_menu
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="parentMenuId != null">
+                parent_menu_id = #{parentMenuId},
+            </if>
+            <if test="meunLevel != null">
+                meun_level = #{meunLevel},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+        </set>
+        where menu_id = #{menuId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot.tree_menu where menu_id = #{menuId}
+    </delete>
+
+</mapper>
