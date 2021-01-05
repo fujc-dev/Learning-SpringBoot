@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
+    <title>SpringMVC + JSP + Amaze UI</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,12 +55,12 @@
 
             <form class="am-form tpl-form-line-form">
                 <div class="am-form-group">
-                    <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号">
+                    <input type="text" class="tpl-form-input" placeholder="请输入账号">
 
                 </div>
 
                 <div class="am-form-group">
-                    <input type="password" class="tpl-form-input" id="user-name" placeholder="请输入密码">
+                    <input type="password" class="tpl-form-input" placeholder="请输入密码">
 
                 </div>
                 <div class="am-form-group tpl-login-remember-me">

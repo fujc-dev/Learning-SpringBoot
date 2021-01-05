@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>SpringMVC + JSP + Amaze UI</title>
 </head>
 <body>
 <!-- 牛逼，直接都能找到user -->

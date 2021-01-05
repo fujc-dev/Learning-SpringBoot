@@ -13,3 +13,8 @@
         spring.mvc.view.suffix=.jsp
 
 ```
+
+
+```text
+ SpringMVC + JSP + Amaze UI
+```

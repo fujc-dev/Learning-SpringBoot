@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
+    <title>SpringMVC + JSP + Amaze UI</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -310,7 +310,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
                             <div class="am-scrollable-horizontal ">
-                                <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " id="example-r">
+                                <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " >
                                     <thead>
                                     <tr>
                                         <th>文章标题</th>
@@ -433,7 +433,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
 
-                            <table width="100%" class="am-table am-table-compact tpl-table-black " id="example-r">
+                            <table width="100%" class="am-table am-table-compact tpl-table-black " >
                                 <thead>
                                 <tr>
                                     <th>文章标题</th>
@@ -555,7 +555,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
 
-                            <table width="100%" class="am-table am-table-compact am-table-bordered tpl-table-black " id="example-r">
+                            <table width="100%" class="am-table am-table-compact am-table-bordered tpl-table-black " >
                                 <thead>
                                 <tr>
                                     <th>文章标题</th>
@@ -676,7 +676,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
 
-                            <table width="100%" class="am-table am-table-compact am-table-bordered am-table-radius am-table-striped tpl-table-black " id="example-r">
+                            <table width="100%" class="am-table am-table-compact am-table-bordered am-table-radius am-table-striped tpl-table-black " >
                                 <thead>
                                 <tr>
                                     <th>文章标题</th>
@@ -800,7 +800,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
 
-                            <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                            <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " >
                                 <thead>
                                 <tr>
                                     <th>文章标题</th>
