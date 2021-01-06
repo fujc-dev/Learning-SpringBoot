@@ -177,16 +177,18 @@ public class ContainersController {
     }
 
     /**
+     * 自定义的一对一的格式转换
+     * <p>http://localhost:8090/containers/converter?userRequest=1-zhangsan-是一个假的程序员</p>
      *
-     * @param request
+     * @param userRequest
      * @return
      */
     @RequestMapping("/converter")
     @ResponseBody
-    public Map<String, Object> getUserRequestByConverter(UserRequest request) {
+    public Map<String, Object> converter(UserRequest userRequest) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
-        map.put("date", request);
+        map.put("date", userRequest);
         return map;
     }
 }
