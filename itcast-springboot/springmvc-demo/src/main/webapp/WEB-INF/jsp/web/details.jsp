@@ -8,14 +8,47 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>SpringMVC + JSP + Amaze UI</title>
+    <title>演示JSON作为参数传递到控制器</title>
 </head>
 <body>
-<!-- 牛逼，直接都能找到user -->
-<!-- ModelAndView.addObject 可以自定义key -->
-<h1>${user.id}</h1>
-<h1>${user.username}</h1>
-<h1>${user.note}</h1>
-<h1>${user.sex}</h1>
+<form id="insertForm">
+    <table>
+        <tr>
+            <td>用户名：</td>
+            <td><input type="text" id="username" name="username" value="123456"/></td>
+        </tr>
+        <tr>
+            <td>备注</td>
+            <td><input type="text" id="note" name="note" value="123456"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input id="submit" type="button" value="提交"/></td>
+        </tr>
+    </table>
+
+</form>
 </body>
 </html>
+<script src="./assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            let username = $("#username").val();
+            let note = $("#note").val();
+            let param = {username: username, note: note}
+            $.ajax({
+                type: "POST",
+                url: "containers/requestJson",
+                contentType: "application/json",
+                data: JSON.stringify(param),
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
