@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -179,16 +180,35 @@ public class ContainersController {
     /**
      * 自定义的一对一的格式转换
      * <p>http://localhost:8090/containers/converter?userRequest=1-zhangsan-是一个假的程序员</p>
+     * <p>自定义参数转转时，这个参数的命名好像有要求，就目前来看，这个{@link UserRequest}的命名必须为userRequest，不然converter不会被触发；</p>
+     * <p>另外：可以使用@RequestParam("request") 来改变对外暴露参数名称</p>
      *
      * @param userRequest
      * @return
      */
     @RequestMapping("/converter")
     @ResponseBody
-    public Map<String, Object> converter(UserRequest userRequest) {
+    public Map<String, Object> converter(@RequestParam("request") UserRequest userRequest) {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("date", userRequest);
+        return map;
+    }
+
+    /**
+     * 自定义转换格式URL传递集合或者数组
+     * <p>http://localhost:8090/containers/converterList?request=1-zhangsan-是一个假的程序员,2-lisi-是一个假的程序员</p>
+     * <p>另外：可以使用@RequestParam("request") 来改变对外暴露参数名称</p>
+     *
+     * @param userRequestList
+     * @return
+     */
+    @RequestMapping("/converterList")
+    @ResponseBody
+    public Map<String, Object> converterList(@RequestParam("request") List<UserRequest> userRequestList) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        map.put("date", userRequestList);
         return map;
     }
 }
