@@ -1,21 +1,31 @@
 # Getting Started
 
 ### Reference Documentation
-For further reference, please consider the following sections:
+```sql
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.1/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.4.1/maven-plugin/reference/html/#build-image)
-* [Spring Security](https://docs.spring.io/spring-boot/docs/2.4.1/reference/htmlsingle/#boot-features-security)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.4.1/reference/htmlsingle/#boot-features-developing-web-applications)
+create table t_role(
+	id			int(12) not null auto_increment,
+	role_name 	varchar(60) not null,
+	note 		varchar(256),
+	primary key(id)
+);
 
-### Guides
-The following guides illustrate how to use some features concretely:
+create table t_user(
+	id			int(12) not null auto_increment,
+	user_name 	varchar(60) not null,
+	pwd			varchar(100) not null,
+	available	int(1) DEFAULT 1 CHECK(available IN (0,1)),
+	note 		varchar(256),
+	primary key(id),
+	unique(user_name)
+);
 
-* [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
-* [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
-* [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+create table t_user_role(
+	id			int(12) not null auto_increment,
+	role_id		int(12) not null,
+	user_id 	int(12) not null,
+	primary key(id),
+	unique(role_id,user_id)
+);
 
+```

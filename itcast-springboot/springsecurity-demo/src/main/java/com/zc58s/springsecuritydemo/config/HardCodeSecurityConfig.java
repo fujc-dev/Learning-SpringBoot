@@ -16,7 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * springsecurity-demo
  * com.zc58s.springsecuritydemo.config
  */
-
+//@Configuration
+//@EnableWebSecurity
 public class HardCodeSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
