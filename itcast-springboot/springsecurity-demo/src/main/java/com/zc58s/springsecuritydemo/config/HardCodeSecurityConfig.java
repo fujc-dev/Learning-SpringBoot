@@ -1,13 +1,12 @@
 package com.zc58s.springsecuritydemo.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.security.auth.login.Configuration;
 
 /**
  * 硬编码的方法构建认证
@@ -17,7 +16,7 @@ import javax.security.auth.login.Configuration;
  * springsecurity-demo
  * com.zc58s.springsecuritydemo.config
  */
-@EnableWebSecurity
+
 public class HardCodeSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
@@ -31,7 +30,7 @@ public class HardCodeSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //密码编码器
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String p1 = encoder.encode("bac");
+        String p1 = encoder.encode("abc");
         String p2 = encoder.encode("123456");
         auth.inMemoryAuthentication()
                 .passwordEncoder(encoder)
@@ -39,7 +38,7 @@ public class HardCodeSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("user").password(p2).roles("USER");
 
-        super.configure(auth);
+        //super.configure(auth); 最后要把这个父类方法屏蔽或者删除了
     }
 
     /**
