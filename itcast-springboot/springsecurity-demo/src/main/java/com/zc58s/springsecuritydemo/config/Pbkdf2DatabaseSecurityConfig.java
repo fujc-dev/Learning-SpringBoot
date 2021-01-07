@@ -53,7 +53,7 @@ public class Pbkdf2DatabaseSecurityConfig extends WebSecurityConfigurerAdapter {
         //
         System.out.println(" ------> " + encoder.matches("123456", "7cf6a3ddba50a6d0341270933922f8ef49a8ae459cea6a8ae715d211e2664ad1d007bdfdadc7830b"));
         //System.out.println(" ------> " + new Pbkdf2PasswordEncoder().encode("123456"));
-        //切换到数据库就授权失败，找不到原因，不知道为啥子。
+        //切换到数据库就授权失败，找不到原因，不知道为啥子。 ----- 他妈的，原来是数据的角色搞错了，让我在网上搞了大半天
         //auth.inMemoryAuthentication()
         //      .passwordEncoder(encoder)
         //      .withUser("test")
