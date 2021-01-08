@@ -20,7 +20,6 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/welcome")
-
     public String home() {
         return "views/welcome";
     }
