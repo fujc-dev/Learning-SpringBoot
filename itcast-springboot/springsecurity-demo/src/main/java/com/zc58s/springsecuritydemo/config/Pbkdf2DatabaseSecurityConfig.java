@@ -18,8 +18,8 @@ import javax.sql.DataSource;
  * springsecurity-demo
  * com.zc58s.springsecuritydemo.config
  */
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class Pbkdf2DatabaseSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**

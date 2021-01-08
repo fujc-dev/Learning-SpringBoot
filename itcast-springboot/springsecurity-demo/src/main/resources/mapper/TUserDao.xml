@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc58s.springsecuritydemo.dao.TUserDao">
+
+    <resultMap type="com.zc58s.springsecuritydemo.entity.TUser" id="TUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+        <result property="available" column="available" jdbcType="INTEGER"/>
+        <result property="note" column="note" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="TUserWithRolesMap" type="com.zc58s.springsecuritydemo.entity.TUser">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+        <collection property="roles" ofType="com.zc58s.springsecuritydemo.entity.TRole">
+            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+
+
+    <!-- 通过用户名查询角色信息 -->
+    <select id="findByUsername" parameterType="string" resultMap="TUserWithRolesMap">
+        select u.id, u.user_name,u.pwd,r.role_name
+        from t_user u
+        left join t_user_role ur on ur.user_id = u.id
+        left join t_role r on r.id = ur.role_id
+        where 1=1 and u.id = ur.user_id and r.id = ur.role_id and u.user_name = #{username}
+    </select>
+
+</mapper>
