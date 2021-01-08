@@ -45,15 +45,15 @@ public class Pbkdf2MyBatisSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //web.ignoring().antMatchers("/static/js/**", "/static/css/**", "/static/images/**");
-        web.ignoring().antMatchers("/static/assets/js/**", "/static/assets/css/**", "/static/assets/img/**", "/static/assets/fonts/**");
+        web.ignoring().antMatchers("/assets/js/**", "/assets/css/**", "/assets/img/**", "/assets/fonts/**");
         // super.configure(web);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/assets/js/**", "/assets/css/**", "/assets/img/**", "/assets/fonts/**")
-                .permitAll()
+                //这里添加的过滤匹配与configure(WebSecurity web) 中添加，意义的一样的。
+                //.antMatchers("/assets/js/**", "/assets/css/**", "/assets/img/**", "/assets/fonts/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
