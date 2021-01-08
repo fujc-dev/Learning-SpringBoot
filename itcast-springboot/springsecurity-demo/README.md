@@ -1,6 +1,4 @@
-# Getting Started
-
-### Reference Documentation
+### 授权所涉及到的相关表
 ```sql
 
 create table t_role(
