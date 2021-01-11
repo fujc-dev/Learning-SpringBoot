@@ -15,3 +15,14 @@
 ```
 
 ### SpringBoot中resources资源
+
+
+### pom文件概述
+```text
+    
+        spring-boot-starter-parent：是一个特殊的starter，用来提供相关的Maven的默认依赖，
+    使用它之后，常用的包依赖可以省去version标签；
+        spring-boot-maven-plugin：这个是一个Maven插件，能够以Maven的方式为应用程序提供SpringBoot支持，
+    即为SpringBoot应用提供执行Maven操作的可能，能够将SpringBoot应用打包为jar或war。
+```
+其他参见：[Spring Boot Starter依赖包及作用 ](http://note.youdao.com/noteshare?id=7fcd1efd9d83eb271748b7e0d7fc3051&sub=73D9C40C38E249939BE802FD11B252EB) 
