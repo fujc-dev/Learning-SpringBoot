@@ -76,4 +76,16 @@ public class IndexController {
         return map;
     }
 
+    @RequestMapping("/update")
+    @ResponseBody
+    public Map<String, Object> update() {
+        User user = this.userService.findUserById("1");
+        user.setUsername("fujc");
+        User data = this.userService.updateUser(user);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        map.put("data", data);
+        return map;
+    }
+
 }

@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * springboot-base
@@ -27,6 +29,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(String id) {
         return repository.findById(id).get();
+    }
+
+    @Transactional
+    @Override
+    public User updateUser(User user) {
+        User u = repository.save(user);
+        //出现异常之后，自动回滚事务
+        String error = null;
+        error.split("/");
+        return u;
+    }
+
+    @Override
+    public List<User> findAll() {
+        return repository.findAll();
     }
 
     @Override
