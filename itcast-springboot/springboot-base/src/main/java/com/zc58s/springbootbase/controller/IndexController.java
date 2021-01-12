@@ -4,6 +4,7 @@ import com.zc58s.springbootbase.entity.User;
 import com.zc58s.springbootbase.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,6 +62,17 @@ public class IndexController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("success", true);
         map.put("data", u);
+        return map;
+    }
+
+
+    @RequestMapping("/getData")
+    @ResponseBody
+    public Map<String, Object> getData() {
+        Page<User> pages = this.userService.findUsersByUsername("zhangsan", 1, 10);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        map.put("data", pages);
         return map;
     }
 
