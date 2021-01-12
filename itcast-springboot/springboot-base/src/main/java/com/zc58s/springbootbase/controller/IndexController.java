@@ -1,5 +1,8 @@
 package com.zc58s.springbootbase.controller;
 
+import com.zc58s.springbootbase.entity.User;
+import com.zc58s.springbootbase.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,14 @@ public class IndexController {
     private String password;
 
 
+    private final UserService userService;
+
+    @Autowired
+    public IndexController(UserService userService) {
+        this.userService = userService;
+    }
+
+
     @RequestMapping("/get")
     @ResponseBody
     public Map<String, Object> get() {
@@ -40,6 +51,16 @@ public class IndexController {
         map.put("name", name);
         map.put("username", username);
         map.put("password", password);
+        return map;
+    }
+
+    @RequestMapping("/getUser")
+    @ResponseBody
+    public Map<String, Object> getUser() {
+        User u = this.userService.findUserById("1");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        map.put("data", u);
         return map;
     }
 
