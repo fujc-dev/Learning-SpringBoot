@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> findUsersByUsername(String username, int pageIndex, int pageSize) {
-        //Sort sort = Sort.by(Sort.Direction.DESC, "createTime"); //创建时间降序排序
+        //Sort sort = Sort.by(Sort.Direction.DESC, "id"); //创建Id排序
         Pageable pageable = PageRequest.of(0, 20);
         return repository.findAllByUsername(username, pageable);
     }
