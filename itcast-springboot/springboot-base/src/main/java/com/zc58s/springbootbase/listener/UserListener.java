@@ -39,14 +39,14 @@ public class UserListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
-        //查询数据库中所有的用户
         //Servlet刚刚初始化的时候，以来的依赖都没有被加载，不知道书上的案例是怎么加载成功的？
+        //当时我就是不想看这本书了《一步一步学SpringBoot2微服务项目实战》
+        //查询数据库中所有的用户
         //List<User> userList = userService.findAll();
         //redisTemplate.delete(USERS_KEY);
         //redisTemplate.opsForList().leftPushAll(USERS_KEY, userList);
-        List<User> query = redisTemplate.opsForList().range(USERS_KEY, 0, -1);
-        System.out.println("缓存中目前的用户数有：" + query.size() + " 人。");
+        //List<User> query = redisTemplate.opsForList().range(USERS_KEY, 0, -1);
+        //System.out.println("缓存中目前的用户数有：" + query.size() + " 人。");
 
 
         System.out.println(" ------------------> ServletContext上下文初始化 ");
