@@ -1,9 +1,16 @@
 package com.zc58s.springbootbase.listener;
 
+import com.zc58s.springbootbase.entity.User;
+import com.zc58s.springbootbase.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+
+import javax.annotation.Resource;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionListener;
+import java.util.List;
 
 
 /**
@@ -22,9 +29,26 @@ import javax.servlet.http.HttpSessionListener;
  */
 @WebListener
 public class UserListener implements ServletContextListener {
+    @Resource
+    private RedisTemplate redisTemplate;
+
+    @Resource
+    private UserService userService;
+
+    private static final String USERS_KEY = "ALL_USER_LIST";
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+
+        //查询数据库中所有的用户
+        //Servlet刚刚初始化的时候，以来的依赖都没有被加载，不知道书上的案例是怎么加载成功的？
+        //List<User> userList = userService.findAll();
+        //redisTemplate.delete(USERS_KEY);
+        //redisTemplate.opsForList().leftPushAll(USERS_KEY, userList);
+        List<User> query = redisTemplate.opsForList().range(USERS_KEY, 0, -1);
+        System.out.println("缓存中目前的用户数有：" + query.size() + " 人。");
+
+
         System.out.println(" ------------------> ServletContext上下文初始化 ");
     }
 
