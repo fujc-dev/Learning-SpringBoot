@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @SpringBootApplication
-@ServletComponentScan
+@ServletComponentScan  //使用该注解后，@WebServlet @WebFilter @WebListener注解自动注册，无需其他代码。
 public class SpringbootBaseApplication {
 
 
