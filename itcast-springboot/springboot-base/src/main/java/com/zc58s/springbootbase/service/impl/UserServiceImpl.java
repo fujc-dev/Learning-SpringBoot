@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         return repository.findById(id).get();
     }
 
-    @Transactional
+    @Transactional  //声明式事务，
     @Override
     public User updateUser(User user) {
         User u = repository.save(user);
