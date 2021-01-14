@@ -1,12 +1,13 @@
 package com.zc58s.springbootredislock.controller;
 
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -20,9 +21,12 @@ public class StockController {
 
     private final StringRedisTemplate redisTemplate;
 
+    private final Redisson redisson;
+
     @Autowired
-    public StockController(StringRedisTemplate redisTemplate) {
+    public StockController(StringRedisTemplate redisTemplate, Redisson redisson) {
         this.redisTemplate = redisTemplate;
+        this.redisson = redisson;
     }
 
 
@@ -82,7 +86,7 @@ public class StockController {
                     int realStock = stock - 1;
                     //更新库存
                     redisTemplate.opsForValue().set("stock", realStock + "");
-                    System.out.println( realStock);
+                    System.out.println(realStock);
                 } else {
                     System.out.println("扣减失败，库存不足");
                 }
@@ -96,6 +100,37 @@ public class StockController {
             if (lockValue.equals(redisTemplate.opsForValue().get(lockKey))) {
                 redisTemplate.delete(lockKey);
             }
+        }
+        return "success";
+    }
+
+    /**
+     * 基于Redisson实现的分布式锁
+     *
+     * @return
+     */
+    @RequestMapping("/deductStockByRedisson")
+    @ResponseBody
+    public String defaultDeductStockByRedisson() {
+        String lockKey = "redis-lock";
+        RLock redissonLock = redisson.getLock(lockKey);//（1）拿一个Redisson的锁对象
+        try {
+            redissonLock.lock();//（2）加锁，底层默认设置超时时间为30s
+            //模拟获取库存业务，获取库存，我们默认在redis 服务器里面放置了1000的库存
+            int stock = Integer.parseInt(redisTemplate.opsForValue().get("stock"));
+            //我在查询库存之后，正好做了一些操作，使得我设置的锁的超时时间过期了。
+            //当商品还有库存时，我们执行-1，认为商品已经卖出了
+            if (stock > 0) {
+                int realStock = stock - 1;
+                //更新库存
+                redisTemplate.opsForValue().set("stock", realStock + "");
+                System.out.println(realStock);
+            } else {
+                System.out.println("扣减失败，库存不足");
+            }
+        } finally {
+            //执行完毕之后，我们要删除锁，为了保证锁的正常删除，我们可以将锁删除，放置在finally中
+            redissonLock.unlock();//（4）释放锁
         }
         return "success";
     }
