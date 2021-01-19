@@ -47,6 +47,4 @@ public class TestLockController {
         System.out.println(" ----> 数据库加锁：" + state + "，解锁：" + unState + "");
         return map;
     }
-
-
 }

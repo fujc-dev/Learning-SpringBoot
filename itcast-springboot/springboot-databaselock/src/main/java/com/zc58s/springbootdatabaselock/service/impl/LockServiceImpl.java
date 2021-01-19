@@ -1,8 +1,9 @@
-package com.zc58s.springbootdatabaselock.service;
+package com.zc58s.springbootdatabaselock.service.impl;
 
 import com.zc58s.springbootdatabaselock.dao.DatabaseLockRepository;
 import com.zc58s.springbootdatabaselock.entity.MstLock;
 import com.zc58s.springbootdatabaselock.keys.LockKey;
+import com.zc58s.springbootdatabaselock.service.LockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
