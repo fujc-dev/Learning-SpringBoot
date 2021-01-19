@@ -1,7 +1,7 @@
 package com.zc58s.springbootdatabaselock.controller;
 
 import com.zc58s.springbootdatabaselock.keys.LockKey;
-import com.zc58s.springbootdatabaselock.service.LockService;
+import com.zc58s.springbootdatabaselock.service.DistributedLockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +17,10 @@ import java.util.Map;
 @Controller
 public class TestLockController {
 
-    private final LockService lockService;
+    private final DistributedLockService lockService;
 
     @Autowired
-    public TestLockController(LockService lockService) {
+    public TestLockController(DistributedLockService lockService) {
         this.lockService = lockService;
     }
 
@@ -32,7 +32,7 @@ public class TestLockController {
      */
     @RequestMapping("/databaseLock")
     @ResponseBody
-    public Map<String, Object> databaseLock() {
+    public Map<String, Object> databaseLock() throws InterruptedException {
         Map<String, Object> map = new HashMap<>();
         boolean unState = false;
         LockKey lockKey = new LockKey("updatestock", "updatestock");
@@ -40,9 +40,10 @@ public class TestLockController {
         map.put("lock", state);
         if (state) {
             //执行业务，执行完毕，删除锁
-            unState = lockService.unLock(lockKey);
-            map.put("unLock", unState);
+            //unState = lockService.unLock(lockKey);
+           //map.put("unLock", unState);
         }
+        Thread.sleep(1000000);
         map.put("success", true);
         System.out.println(" ----> 数据库加锁：" + state + "，解锁：" + unState + "");
         return map;

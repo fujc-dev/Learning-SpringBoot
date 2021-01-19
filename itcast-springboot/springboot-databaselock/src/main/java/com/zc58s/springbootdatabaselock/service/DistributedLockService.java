@@ -2,11 +2,13 @@ package com.zc58s.springbootdatabaselock.service;
 
 import com.zc58s.springbootdatabaselock.keys.LockKey;
 
+import java.util.Map;
+
 /**
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/1/18 11:58
  */
-public interface LockService {
+public interface DistributedLockService {
 
     /**
      * 非阻塞尝试获取锁。
@@ -42,4 +44,9 @@ public interface LockService {
      * @return
      */
     boolean unLock(LockKey eLock);
+
+
+
+
+
 }

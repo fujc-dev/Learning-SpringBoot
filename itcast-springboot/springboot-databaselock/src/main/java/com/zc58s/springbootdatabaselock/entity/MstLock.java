@@ -4,7 +4,6 @@ import com.zc58s.springbootdatabaselock.keys.LockKey;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -17,7 +16,6 @@ import java.util.Date;
 @Table(name = "mst_lock")
 public class MstLock implements Serializable {
     private static final long serialVersionUID = -46564120974277618L;
-    private static final String DATE_FORMAT = "yyyyMMddHHmmss";
 
     /**
      * 默认无参构造函数
@@ -26,10 +24,10 @@ public class MstLock implements Serializable {
     }
 
     /**
-     * @param eLock
+     * @param lockKey
      */
-    public MstLock(LockKey eLock) {
-        this(eLock.getType(), eLock.getNode());
+    public MstLock(LockKey lockKey) {
+        this(lockKey.getType(), lockKey.getNode());
     }
 
     /**
@@ -39,7 +37,8 @@ public class MstLock implements Serializable {
     public MstLock(String type, String node) {
         this.id = new LockKey(type, node);
         this.locked = "0";
-        this.createTime = new SimpleDateFormat(DATE_FORMAT).format(new Date());
+        this.createTime = System.currentTimeMillis();
+        this.expireTime = new Date(this.createTime + 10 * 1000).getTime();
     }
 
     @EmbeddedId
@@ -59,11 +58,17 @@ public class MstLock implements Serializable {
      */
     @Column(name = "locked")
     private String locked;
+
+    /**
+     * 过期时间
+     */
+    @Column(name = "expire_time")
+    private long expireTime;
     /**
      * 创建时间(用于释放锁，避免死锁)
      */
     @Column(name = "create_time")
-    private String createTime;
+    private long createTime;
 
 
     public LockKey getId() {
@@ -98,11 +103,19 @@ public class MstLock implements Serializable {
         this.locked = locked;
     }
 
-    public String getCreateTime() {
+    public long getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(long expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 }
