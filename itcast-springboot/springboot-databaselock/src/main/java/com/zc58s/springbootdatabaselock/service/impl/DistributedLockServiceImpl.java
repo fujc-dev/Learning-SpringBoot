@@ -1,5 +1,6 @@
 package com.zc58s.springbootdatabaselock.service.impl;
 
+import com.zc58s.springbootdatabaselock.cache.Cache;
 import com.zc58s.springbootdatabaselock.dao.DatabaseLockRepository;
 import com.zc58s.springbootdatabaselock.entity.MstLock;
 import com.zc58s.springbootdatabaselock.keys.LockKey;
@@ -17,11 +18,6 @@ import java.util.*;
  */
 @Service
 public class DistributedLockServiceImpl implements DistributedLockService, ClearDistributedLockService {
-
-    /**
-     * 维护锁缓存，用于检测当前是否已经
-     */
-    private Map<LockKey, MstLock> containers = new HashMap<>(); //用于维护提交的数据库锁
 
     private DatabaseLockRepository repository;
 
@@ -47,7 +43,7 @@ public class DistributedLockServiceImpl implements DistributedLockService, Clear
             }
             lock = repository.save(lock);
             if (lock != null) {
-                containers.put(lockKey, lock);
+               Cache.put(lockKey, lock);
             }
             return lock != null ? true : false;
         } catch (EntityNotFoundException ex) {
@@ -59,7 +55,7 @@ public class DistributedLockServiceImpl implements DistributedLockService, Clear
     }
 
     @Override
-    public synchronized boolean tryLock(LockKey lockKey, long millisecond) throws InterruptedException {
+    public synchronized boolean tryLock(LockKey lockKey, long millisecond) {
         //声明获取锁结束时间
         long over_time = System.currentTimeMillis() + millisecond;
         boolean state = false;
@@ -74,7 +70,7 @@ public class DistributedLockServiceImpl implements DistributedLockService, Clear
     }
 
     @Override
-    public synchronized boolean lock(LockKey lockKey) throws InterruptedException {
+    public synchronized boolean lock(LockKey lockKey) {
         boolean state = false;
         do {
             state = this.tryLock(lockKey);
@@ -87,7 +83,7 @@ public class DistributedLockServiceImpl implements DistributedLockService, Clear
     public boolean unLock(LockKey lockKey) {
         MstLock lock = repository.getOne(lockKey);
         lock.setLocked("1");
-        containers.remove(lockKey);
+        Cache.remove(lockKey);
         return repository.save(lock) != null ? true : false;
     }
 
@@ -95,7 +91,7 @@ public class DistributedLockServiceImpl implements DistributedLockService, Clear
     public void clear() {
         List<MstLock> lockList = repository.findAll();
         for (MstLock lock : lockList) {
-            MstLock val = this.containers.get(lock.getId());
+            MstLock val = Cache.get(lock.getId());
             if (lock.getExpireTime() <= System.currentTimeMillis() && val == null && lock.getLocked() == "0") {  //检测是否已经过期
                 lock.setLocked("1");
             } else {
