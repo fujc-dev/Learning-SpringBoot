@@ -36,14 +36,14 @@ public class TestLockController {
         Map<String, Object> map = new HashMap<>();
         boolean unState = false;
         LockKey lockKey = new LockKey("updatestock", "updatestock");
-        boolean state = lockService.tryLock(lockKey);
+        boolean state = this.lockService.tryLock(lockKey);
         map.put("lock", state);
         if (state) {
             //执行业务，执行完毕，删除锁
-            //unState = lockService.unLock(lockKey);
-           //map.put("unLock", unState);
+            unState = this.lockService.unLock(lockKey);
+            map.put("unLock", unState);
         }
-        Thread.sleep(1000000);
+        Thread.sleep(10000);
         map.put("success", true);
         System.out.println(" ----> 数据库加锁：" + state + "，解锁：" + unState + "");
         return map;

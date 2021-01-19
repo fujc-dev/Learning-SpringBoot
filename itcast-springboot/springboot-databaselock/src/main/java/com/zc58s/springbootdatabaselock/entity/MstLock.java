@@ -1,5 +1,7 @@
 package com.zc58s.springbootdatabaselock.entity;
 
+import com.zc58s.springbootdatabaselock.converter.LockedConverter;
+import com.zc58s.springbootdatabaselock.enums.Locked;
 import com.zc58s.springbootdatabaselock.keys.LockKey;
 
 import javax.persistence.*;
@@ -36,7 +38,7 @@ public class MstLock implements Serializable {
      */
     public MstLock(String type, String node) {
         this.id = new LockKey(type, node);
-        this.locked = "0";
+        this.locked = Locked.LOCK;
         this.createTime = System.currentTimeMillis();
         this.expireTime = new Date(this.createTime + 10 * 1000).getTime();
     }
@@ -56,8 +58,9 @@ public class MstLock implements Serializable {
     /**
      * 是否上锁（1-有锁，0-无锁）
      */
+    @Convert(converter = LockedConverter.class)
     @Column(name = "locked")
-    private String locked;
+    private Locked locked;
 
     /**
      * 过期时间
@@ -95,11 +98,11 @@ public class MstLock implements Serializable {
         this.mark = mark;
     }
 
-    public String getLocked() {
+    public Locked getLocked() {
         return locked;
     }
 
-    public void setLocked(String locked) {
+    public void setLocked(Locked locked) {
         this.locked = locked;
     }
 

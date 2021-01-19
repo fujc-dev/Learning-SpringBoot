@@ -15,12 +15,14 @@ public class DistributedLockTask {
     private final ClearDistributedLockService eliminateService;
 
     @Autowired
-    public DistributedLockTask(ClearDistributedLockService eliminateService) {
+    public DistributedLockTask(
+            ClearDistributedLockService eliminateService
+    ) {
         this.eliminateService = eliminateService;
     }
 
 
-    @Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次
+    @Scheduled(cron = "0/5 * *  * * ? ")   //每5秒执行一次
     public void clear() {
         this.eliminateService.clear();
     }
