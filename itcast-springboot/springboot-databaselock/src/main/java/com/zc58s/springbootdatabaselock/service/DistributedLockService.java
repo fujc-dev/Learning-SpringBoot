@@ -31,19 +31,19 @@ public interface DistributedLockService {
     /**
      * 阻塞获取锁，直到锁获取成功，这个是不可取
      *
-     * @param eLock
+     * @param lockKey
      * @return
      * @throws InterruptedException
      */
-    boolean lock(LockKey eLock) throws InterruptedException;
+    boolean lock(LockKey lockKey) throws InterruptedException;
 
     /**
      * 释放锁
      *
-     * @param eLock
+     * @param lockKey
      * @return
      */
-    boolean unLock(LockKey eLock);
+    boolean unLock(LockKey lockKey);
 
 
 
