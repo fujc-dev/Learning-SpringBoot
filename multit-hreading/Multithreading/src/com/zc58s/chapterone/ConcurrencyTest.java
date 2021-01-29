@@ -1,18 +1,26 @@
 package com.zc58s.chapterone;
 
 /**
+ * 看一下多线程程序的优势与劣势。
+ * <p>
+ * 随机计算的量增加，多线程的优势逐渐显现出来。
+ * </p>
+ *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/1/28 14:11
  */
 public class ConcurrencyTest {
-    private static final long count = 1000000001;
+    public static long count = 1000000001;
+    public static long count1 = 1000000001;
+    public static long count2 = 1000000001;
+    public static long count3 = 1000000001;
 
     public static void main(String[] args) throws InterruptedException {
         concurrency();
         serial();
 
         /**
-         *  总结：随着count数据量增加，多线程优势iju越明显。
+         *  总结：随着count数据量增加，多线程优势就越明显。
          */
     }
 
