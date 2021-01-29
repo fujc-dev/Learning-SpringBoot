@@ -57,7 +57,7 @@ public class WaitNotify {
                 // 获取lock的锁，然后进行通知，通知时不会释放lock的锁，
                 // 直到当前线程释放了lock后，WaitThread才能从wait方法中返回
                 System.out.println(Thread.currentThread() + " hold lock. notify @ " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
-                //此时，执行lock.notifyAll();
+                //此时，执行lock.notifyAll(); 就是告诉我们的waitThread线程，你的状态变为了阻塞，当我释放锁之后，你就可以去竞争这个lock锁。
                 //通知 waitThread，我执行完毕之后，你就可以执行了，此时还没有释放锁，释放锁之后，等待线程才会继续执行。
                 //但是，不阻塞当前线程，继续执行。
                 lock.notifyAll();
