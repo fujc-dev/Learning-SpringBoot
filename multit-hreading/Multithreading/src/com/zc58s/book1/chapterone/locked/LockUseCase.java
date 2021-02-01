@@ -1,4 +1,4 @@
-package com.zc58s.chapterone.locked;
+package com.zc58s.book1.chapterone.locked;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

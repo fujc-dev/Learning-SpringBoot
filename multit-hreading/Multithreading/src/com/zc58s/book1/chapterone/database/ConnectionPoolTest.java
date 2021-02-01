@@ -1,4 +1,4 @@
-package com.zc58s.chapterone.database;
+package com.zc58s.book1.chapterone.database;
 
 import java.sql.Connection;
 import java.util.concurrent.CountDownLatch;

@@ -1,4 +1,4 @@
-package com.zc58s.chapterone;
+package com.zc58s.book1.chapterone;
 
 /**
  * 看一下多线程程序的优势与劣势。

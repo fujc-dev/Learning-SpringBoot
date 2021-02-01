@@ -1,4 +1,4 @@
-package com.zc58s.chapterone;
+package com.zc58s.book1.chapterone;
 
 /**
  * Daemon线程是一直支持型线程，因为它主要被用作程序中后台调度，以及支持性工作。

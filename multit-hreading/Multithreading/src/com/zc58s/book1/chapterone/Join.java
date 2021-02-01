@@ -1,4 +1,4 @@
-package com.zc58s.chapterone;
+package com.zc58s.book1.chapterone;
 
 /**
  * join，字面意思就是等待，等待其他线程执行完毕，再回来执行当前线程。

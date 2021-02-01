@@ -1,6 +1,5 @@
-package com.zc58s.chapterone.database;
+package com.zc58s.book1.chapterone.database;
 
-import java.security.Policy;
 import java.sql.Connection;
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package com.zc58s.chapterone;
+package com.zc58s.book1.chapterone;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

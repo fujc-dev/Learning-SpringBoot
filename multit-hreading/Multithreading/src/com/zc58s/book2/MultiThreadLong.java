@@ -1,4 +1,4 @@
-package com.zc58s.chapterone;
+package com.zc58s.book2;
 
 /**
  * 按照书上说的，在32位的程序会出现值不一致的情况，但是我在测试过程中好像没有发现，未深入了解
