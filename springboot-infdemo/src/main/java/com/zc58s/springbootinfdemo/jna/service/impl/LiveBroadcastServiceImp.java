@@ -42,7 +42,7 @@ public class LiveBroadcastServiceImp implements ILiveBroadcastService {
     /**
      * 基于FFMPEG将视频流转码，
      */
-    public static class LiveBroadcastRunnable implements Runnable {
+    public class LiveBroadcastRunnable implements Runnable {
 
         @Override
         public void run() {
