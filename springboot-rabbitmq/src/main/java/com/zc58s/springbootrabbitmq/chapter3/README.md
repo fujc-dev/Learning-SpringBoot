@@ -100,9 +100,9 @@ Exchange.DeclareOk exchangeDeclare(String exchange,
    ```text
     路由键与交换器的类型有关系。
     目前比较通过的交换器有：
-    fanout：假如我们绑定了fanout类型的交换，那么
+    fanout：假如我们绑定了fanout类型的交换，那么会将消息到所有与该交换器绑定的队列中。
 
-    topic：
+    topic：交换器主体类型，基于有规则的匹配。利用"#"和"*"做模糊匹配。
 
-    direct：
+    direct：队列与路由键全匹配。
 ```
