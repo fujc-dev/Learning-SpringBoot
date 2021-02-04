@@ -22,6 +22,7 @@ Exchange.DeclareOk exchangeDeclare(String exchange,
     下一个参数internal（内部的）进行理解。
 * internal：设置是否是内置交换器，如果设置为true，则表示是内置交换器，客户端程序无法直接发送消息到这个交换器，只能通过交换器i路由到交换器的方法发送消息。
 * arguments：其他的一些结构化参数，截至目前位置，我暂时还不明白具体的意思。
+    //header参数不是在这里传的，2021-2-4 
     分析：但是，我在看到type=headers参数时，我们将消息里面封装headers参数的，然后在
     声明交换器的时候，将我们的headers参数封装到交换器中，然后发送的消息匹配到相同的headers的时候，将消息分配的指定的队列，
     不知道这个arguments有没有这个作用，只能在后续的篇幅中找答案了。
