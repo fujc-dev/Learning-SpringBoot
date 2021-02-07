@@ -30,7 +30,7 @@ class SpringbootInfdemoApplicationTests {
             InfNetSdk.INSTANCE.INF_NET_Init();
             String version = InfNetSdk.INSTANCE.INF_NET_GetVersion();
             System.out.println("SDK Version: " + version);
-            LoginRequest request = new LoginRequest("", "", "");
+            LoginRequest request = new LoginRequest("10.20.2.165", "admin", "admin");
             LoginResponse response = platformService.Login(request);
             System.out.println(response);
         } catch (Exception ex) {
