@@ -1,5 +1,6 @@
 package com.zc58s.springbootinfdemo.jna.sdk.callback.impl;
 
+import com.sun.jna.Pointer;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.SystemEventCallback;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SystemEventCallbackImp implements SystemEventCallback {
     @Override
-    public void invoke(int nHandle, String szResult) {
+    public void invoke(int nHandle, String szResult, Pointer pUser) {
 
     }
 }

@@ -1,5 +1,6 @@
 package com.zc58s.springbootinfdemo.jna.sdk.callback;
 
+import com.sun.jna.Pointer;
 import com.sun.jna.win32.StdCallLibrary;
 
 import java.io.UnsupportedEncodingException;
@@ -21,5 +22,5 @@ public interface MessageCallback extends StdCallLibrary.StdCallCallback {
      * @param szResult
      * @throws UnsupportedEncodingException
      */
-    void invoke(String szCmdId, int nHandle, String szAction, String szResult) throws UnsupportedEncodingException;
+    void invoke(String szCmdId, int nHandle, String szAction, String szResult, Pointer pUser) throws UnsupportedEncodingException;
 }

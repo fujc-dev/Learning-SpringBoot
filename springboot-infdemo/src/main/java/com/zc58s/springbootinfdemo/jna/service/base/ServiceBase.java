@@ -41,6 +41,10 @@ public class ServiceBase {
      * 摄像机镜头转动给速度
      */
     protected int m_Speed = 5;
+    /**
+     *
+     */
+    protected String error_str = "error:InvalidPara";
 
 
     /**
