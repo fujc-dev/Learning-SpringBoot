@@ -10,7 +10,7 @@ public class RabbitUtils {
     static {
         connectionFactory.setHost("49.233.163.243");
         connectionFactory.setPort(5672);                //5672是RabbitMQ的默认端口号
-        connectionFactory.setUsername("admin");
+        connectionFactory.setUsername("fujc");
         connectionFactory.setPassword("123456");
         connectionFactory.setVirtualHost("/");
     }

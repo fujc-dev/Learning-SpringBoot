@@ -9,6 +9,16 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
+ * “ Work queues”模式
+ *
+ * <p>
+ * 使用默认的交换器
+ * </p>
+ *
+ * <p>
+ * 消费者
+ * </p>
+ *
  * @author 白起老师
  * <p>
  * 发送者

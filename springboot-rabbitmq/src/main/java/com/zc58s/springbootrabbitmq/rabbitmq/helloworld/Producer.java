@@ -9,6 +9,12 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
+ * "Hello World!"模式
+ *
+ * <p>
+ * 使用默认交换器；
+ * </p>
+ *
  * @author 白起老师
  */
 public class Producer {
@@ -27,7 +33,7 @@ public class Producer {
         //第三个参数：是否队列私有化，false则代表所有消费者都可以访问，true代表只有第一次拥有它的消费者才能一直使用，其他消费者不让访问
         //第四个：是否自动删除,false代表连接停掉后不自动删除掉这个队列
         //其他额外的参数, null
-        channel.queueDeclare(RabbitConstant.QUEUE_HELLOWORLD,false, false, false, null);
+        channel.queueDeclare(RabbitConstant.QUEUE_HELLOWORLD, false, false, false, null);
 
         String message = "hello白起666";
         //四个参数
@@ -35,7 +41,7 @@ public class Producer {
         //队列名称
         //额外的设置属性
         //最后一个参数是要传递的消息字节数组
-        channel.basicPublish("", RabbitConstant.QUEUE_HELLOWORLD, null,message.getBytes());
+        channel.basicPublish("", RabbitConstant.QUEUE_HELLOWORLD, null, message.getBytes());
         channel.close();
         conn.close();
         System.out.println("===发送成功===");
