@@ -1,10 +1,9 @@
 package com.zc58s.springbootrabbitmq.rabbitmq.helloworld;
 
-import com.baiqi.rabbitmq.utils.RabbitConstant;
-import com.baiqi.rabbitmq.utils.RabbitUtils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.zc58s.springbootrabbitmq.rabbitmq.utils.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;

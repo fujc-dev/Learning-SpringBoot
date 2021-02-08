@@ -36,7 +36,7 @@ public class WeatherBureau {
         while (itr.hasNext()) {
             Map.Entry<String, String> me = itr.next();
             //第一个参数交换机名字   第二个参数作为 消息的routing key
-            channel.basicPublish(RabbitConstant.EXCHANGE_WEATHER_TOPIC,me.getKey() , null , me.getValue().getBytes());
+            channel.basicPublish(RabbitConstant.EXCHANGE_WEATHER_TOPIC, me.getKey(), null, me.getValue().getBytes());
 
         }
 
