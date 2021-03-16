@@ -12,23 +12,23 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "suntray.security.oauth2")
 public class Oauth2Properties {
 
-  private String jwtSigningKey = "suntray";
+    private String jwtSigningKey = "suntray";
 
-  private Oauth2ClientProperties[] clients = {};
+    private Oauth2ClientProperties[] clients = {};
 
-  public String getJwtSigningKey() {
-    return jwtSigningKey;
-  }
+    public String getJwtSigningKey() {
+        return jwtSigningKey;
+    }
 
-  public void setJwtSigningKey(String jwtSigningKey) {
-    this.jwtSigningKey = jwtSigningKey;
-  }
+    public void setJwtSigningKey(String jwtSigningKey) {
+        this.jwtSigningKey = jwtSigningKey;
+    }
 
-  public Oauth2ClientProperties[] getClients() {
-    return clients;
-  }
+    public Oauth2ClientProperties[] getClients() {
+        return clients;
+    }
 
-  public void setClients(Oauth2ClientProperties[] clients) {
-    this.clients = clients;
-  }
+    public void setClients(Oauth2ClientProperties[] clients) {
+        this.clients = clients;
+    }
 }

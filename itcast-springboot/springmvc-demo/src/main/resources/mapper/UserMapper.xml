@@ -9,7 +9,7 @@
     <!-- -->
     <!-- -->
     <select id="getUser" parameterType="long" resultType="t_user">
-        SELECT id,user_name as username ,sex,note FROM t_user WHERE id  = #{id}
+        SELECT id,user_name as username ,sex,note FROM t_user WHERE id = #{id}
     </select>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">

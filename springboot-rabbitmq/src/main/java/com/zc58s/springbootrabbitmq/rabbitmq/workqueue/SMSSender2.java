@@ -23,7 +23,7 @@ public class SMSSender2 {
         //basicQos,MQ不再对消费者一次发送多个请求，而是消费者处理完一个消息后（确认后），在从队列中获取一个新的
         channel.basicQos(1);//处理完一个取一个
 
-        channel.basicConsume(RabbitConstant.QUEUE_SMS , false , new DefaultConsumer(channel){
+        channel.basicConsume(RabbitConstant.QUEUE_SMS, false, new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String jsonSMS = new String(body);
@@ -35,7 +35,7 @@ public class SMSSender2 {
                     e.printStackTrace();
                 }
 
-                channel.basicAck(envelope.getDeliveryTag() , false);
+                channel.basicAck(envelope.getDeliveryTag(), false);
             }
         });
     }

@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @CacheEvict(value = "redis-cache",key = "'redis_user_'+#id",beforeInvocation = false)
+    @CacheEvict(value = "redis-cache", key = "'redis_user_'+#id", beforeInvocation = false)
     public int deleteUser(Long id) {
         return repository.delete(id);
     }

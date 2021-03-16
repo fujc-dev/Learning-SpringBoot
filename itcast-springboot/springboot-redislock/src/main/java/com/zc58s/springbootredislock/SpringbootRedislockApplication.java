@@ -19,6 +19,7 @@ public class SpringbootRedislockApplication {
 
     @Autowired
     private Environment env;
+
     @Bean
     public Redisson redisson() {
 // 创建配置实例

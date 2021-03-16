@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class ContainerResponse {
     private Date date;
-    private  Double number;
+    private Double number;
 
     public Date getDate() {
         return date;

@@ -17,7 +17,6 @@ public class Product {
     private BigDecimal price;
 
 
-
     private Factory factory;
 
     @Id

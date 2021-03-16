@@ -18,6 +18,7 @@ public interface UserRepository {
 
     /**
      * 根据id获取单个用户
+     *
      * @param id
      * @return
      */
@@ -25,6 +26,7 @@ public interface UserRepository {
 
     /**
      * 保存用户
+     *
      * @param user
      * @return
      */
@@ -32,6 +34,7 @@ public interface UserRepository {
 
     /**
      * 修改用户
+     *
      * @param user
      * @return
      */
@@ -40,8 +43,9 @@ public interface UserRepository {
     /**
      * 查询用户
      * <p>
-     *     制定MyBatis的参数名称
+     * 制定MyBatis的参数名称
      * </p>
+     *
      * @param username
      * @param node
      * @return
@@ -50,6 +54,7 @@ public interface UserRepository {
 
     /**
      * 删除用户
+     *
      * @param id
      * @return
      */

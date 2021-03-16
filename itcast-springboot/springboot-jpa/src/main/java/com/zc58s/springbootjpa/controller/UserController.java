@@ -13,7 +13,7 @@ import java.util.List;
  * springboot-database
  * com.zc58s.springbootdatabase.controller
  *
- * @author      : fjc.dane@gmail.com
+ * @author : fjc.dane@gmail.com
  * @createtime : 2020/12/29 13:15
  */
 @Controller

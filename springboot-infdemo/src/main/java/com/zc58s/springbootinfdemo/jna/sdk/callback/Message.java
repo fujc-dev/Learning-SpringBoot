@@ -21,7 +21,8 @@ public class Message {
      */
     private String szResult;
 
-    public  Message(){}
+    public Message() {
+    }
 
     public Message(Integer szHandle, String szAction, String szResult) {
         this.szHandle = szHandle;

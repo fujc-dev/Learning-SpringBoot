@@ -27,12 +27,11 @@ class SpringbootRedisApplicationTests {
         //
 
 
-
     }
 
 
     @Test
-    void  clearRedis(){
+    void clearRedis() {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(RedisConfig.class);
         RedisTemplate redisTemplate = ctx.getBean(RedisTemplate.class);
         redisTemplate.delete("key1");
@@ -40,7 +39,6 @@ class SpringbootRedisApplicationTests {
         redisTemplate.delete("key3");
         redisTemplate.delete("hash");
     }
-
 
 
 }

@@ -25,15 +25,15 @@ class SpringsecurityDemoApplicationTests {
 
         System.out.println("pbk1: " + pbk1);
         System.out.println("pbk2: " + pbk2);
-        System.out.println("pbk1 password:" + pbkdf2PasswordEncoder.matches("123456",pbk1));
-        System.out.println("pbk2 password:" + pbkdf2PasswordEncoder.matches("123456",pbk2));
+        System.out.println("pbk1 password:" + pbkdf2PasswordEncoder.matches("123456", pbk1));
+        System.out.println("pbk2 password:" + pbkdf2PasswordEncoder.matches("123456", pbk2));
 
         System.out.println("---------------------");
 
         System.out.println("bcr1: " + bcr1);
         System.out.println("bcr2: " + bcr2);
-        System.out.println("bcr1 password:" + bCryptPasswordEncoder.matches("123456",bcr1));
-        System.out.println("bcr2 password:" + bCryptPasswordEncoder.matches("123456",bcr2));
+        System.out.println("bcr1 password:" + bCryptPasswordEncoder.matches("123456", bcr1));
+        System.out.println("bcr2 password:" + bCryptPasswordEncoder.matches("123456", bcr2));
     }
 
 }

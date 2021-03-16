@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class ScopeBean {
     private int id = 1;
 
-    public  ScopeBean(){
+    public ScopeBean() {
         System.out.println("初始化加载");
     }
 }

@@ -13,7 +13,7 @@ class SpringbootRedislockApplicationTests {
 
     }
 
-    public static String getRandom(int min, int max){
+    public static String getRandom(int min, int max) {
         Random random = new Random();
         int s = random.nextInt(max) % (max - min + 1) + min;
         return String.valueOf(s);

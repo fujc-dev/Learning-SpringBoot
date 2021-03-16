@@ -20,7 +20,6 @@
     </resultMap>
 
 
-
     <!-- 通过用户名查询角色信息 -->
     <select id="findByUsername" parameterType="string" resultMap="TUserWithRolesMap">
         select u.id, u.user_name,u.pwd,r.role_name

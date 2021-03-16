@@ -17,7 +17,6 @@ public class User {
     private String node;
 
 
-
     public long getId() {
         return id;
     }

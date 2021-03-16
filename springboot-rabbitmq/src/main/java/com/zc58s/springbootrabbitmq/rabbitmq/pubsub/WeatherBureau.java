@@ -20,7 +20,7 @@ public class WeatherBureau {
         Channel channel = connection.createChannel();
 
         //第一个参数交换机名字   其他参数和之前的一样
-        channel.basicPublish(RabbitConstant.EXCHANGE_WEATHER,"" , null , input.getBytes());
+        channel.basicPublish(RabbitConstant.EXCHANGE_WEATHER, "", null, input.getBytes());
 
         channel.close();
         connection.close();

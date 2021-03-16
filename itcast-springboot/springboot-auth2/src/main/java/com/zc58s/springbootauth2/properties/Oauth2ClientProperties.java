@@ -9,33 +9,33 @@ package com.zc58s.springbootauth2.properties;
  */
 public class Oauth2ClientProperties {
 
-  private String clientId;
+    private String clientId;
 
-  private String clientSecret;
+    private String clientSecret;
 
-  private Integer accessTokenValiditySeconds = 7200;
+    private Integer accessTokenValiditySeconds = 7200;
 
-  public String getClientId() {
-    return clientId;
-  }
+    public String getClientId() {
+        return clientId;
+    }
 
-  public void setClientId(String clientId) {
-    this.clientId = clientId;
-  }
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-  public String getClientSecret() {
-    return clientSecret;
-  }
+    public String getClientSecret() {
+        return clientSecret;
+    }
 
-  public void setClientSecret(String clientSecret) {
-    this.clientSecret = clientSecret;
-  }
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
 
-  public Integer getAccessTokenValiditySeconds() {
-    return accessTokenValiditySeconds;
-  }
+    public Integer getAccessTokenValiditySeconds() {
+        return accessTokenValiditySeconds;
+    }
 
-  public void setAccessTokenValiditySeconds(Integer accessTokenValiditySeconds) {
-    this.accessTokenValiditySeconds = accessTokenValiditySeconds;
-  }
+    public void setAccessTokenValiditySeconds(Integer accessTokenValiditySeconds) {
+        this.accessTokenValiditySeconds = accessTokenValiditySeconds;
+    }
 }

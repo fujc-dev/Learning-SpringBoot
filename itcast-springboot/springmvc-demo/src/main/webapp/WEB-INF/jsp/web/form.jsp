@@ -17,13 +17,13 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <script src="assets/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css"/>
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
 
@@ -82,7 +82,9 @@
                                             <i class="am-icon-circle-o am-text-success"></i>
                                             <span>夕风色</span>
                                         </div>
-                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。 </div>
+                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI
+                                            的成长，则离不开用户的支持。
+                                        </div>
                                         <div class="menu-messages-content-time">2016-09-21 下午 16:40</div>
                                     </div>
                                 </a>
@@ -101,7 +103,7 @@
                                             <i class="am-icon-circle-o am-text-warning"></i>
                                             <span>禁言小张</span>
                                         </div>
-                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </div>
+                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。</div>
                                         <div class="menu-messages-content-time">2016-09-16 上午 09:23</div>
                                     </div>
                                 </a>
@@ -284,11 +286,13 @@
         <div class="container-fluid am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表单 <small>Amaze UI</small></div>
+                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表单
+                        <small>Amaze UI</small></div>
                     <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
                 </div>
                 <div class="am-u-lg-3 tpl-index-settings-button">
-                    <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                    <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置
+                    </button>
                 </div>
             </div>
 
@@ -311,7 +315,8 @@
 
                             <form class="am-form tpl-form-line-form">
                                 <div class="am-form-group">
-                                    <label for="user-name" class="am-u-sm-3 am-form-label">标题 <span class="tpl-form-line-small-title">Title</span></label>
+                                    <label for="user-name" class="am-u-sm-3 am-form-label">标题 <span
+                                            class="tpl-form-line-small-title">Title</span></label>
                                     <div class="am-u-sm-9">
                                         <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入标题文字">
                                         <small>请填写标题文字10-20字左右。</small>
@@ -319,15 +324,18 @@
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-email" class="am-u-sm-3 am-form-label">发布时间 <span class="tpl-form-line-small-title">Time</span></label>
+                                    <label for="user-email" class="am-u-sm-3 am-form-label">发布时间 <span
+                                            class="tpl-form-line-small-title">Time</span></label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" class="am-form-field tpl-form-no-bg" placeholder="发布时间" data-am-datepicker="" readonly="">
+                                        <input type="text" class="am-form-field tpl-form-no-bg" placeholder="发布时间"
+                                               data-am-datepicker="" readonly="">
                                         <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-phone" class="am-u-sm-3 am-form-label">作者 <span class="tpl-form-line-small-title">Author</span></label>
+                                    <label for="user-phone" class="am-u-sm-3 am-form-label">作者 <span
+                                            class="tpl-form-line-small-title">Author</span></label>
                                     <div class="am-u-sm-9">
                                         <select data-am-selected="{searchBox: 1}" style="display: none;">
                                             <option value="a">-The.CC</option>
@@ -339,21 +347,24 @@
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label class="am-u-sm-3 am-form-label">SEO关键字 <span class="tpl-form-line-small-title">SEO</span></label>
+                                    <label class="am-u-sm-3 am-form-label">SEO关键字 <span
+                                            class="tpl-form-line-small-title">SEO</span></label>
                                     <div class="am-u-sm-9">
                                         <input type="text" placeholder="输入SEO关键字">
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">封面图 <span class="tpl-form-line-small-title">Images</span></label>
+                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">封面图 <span
+                                            class="tpl-form-line-small-title">Images</span></label>
                                     <div class="am-u-sm-9">
                                         <div class="am-form-group am-form-file">
                                             <div class="tpl-form-file-img">
                                                 <img src="assets/img/a5.png" alt="">
                                             </div>
                                             <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                <i class="am-icon-cloud-upload"></i> 添加封面图片</button>
+                                                <i class="am-icon-cloud-upload"></i> 添加封面图片
+                                            </button>
                                             <input id="doc-form-file" type="file" multiple="">
                                         </div>
 
@@ -361,7 +372,8 @@
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">添加分类 <span class="tpl-form-line-small-title">Type</span></label>
+                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">添加分类 <span
+                                            class="tpl-form-line-small-title">Type</span></label>
                                     <div class="am-u-sm-9">
                                         <input type="text" id="user-weibo" placeholder="请添加分类用点号隔开">
                                         <div>
@@ -374,7 +386,8 @@
                                     <label for="user-intro" class="am-u-sm-3 am-form-label">隐藏文章</label>
                                     <div class="am-u-sm-9">
                                         <div class="tpl-switch">
-                                            <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" checked="">
+                                            <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn"
+                                                   checked="">
                                             <div class="tpl-switch-btn-view">
                                                 <div>
                                                 </div>
@@ -393,7 +406,9 @@
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">
+                                            提交
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -416,7 +431,8 @@
 
                             <form class="am-form tpl-form-border-form tpl-form-border-br">
                                 <div class="am-form-group">
-                                    <label for="user-name" class="am-u-sm-3 am-form-label">标题 <span class="tpl-form-line-small-title">Title</span></label>
+                                    <label for="user-name" class="am-u-sm-3 am-form-label">标题 <span
+                                            class="tpl-form-line-small-title">Title</span></label>
                                     <div class="am-u-sm-9">
                                         <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入标题文字">
                                         <small>请填写标题文字10-20字左右。</small>
@@ -424,15 +440,18 @@
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-email" class="am-u-sm-3 am-form-label">发布时间 <span class="tpl-form-line-small-title">Time</span></label>
+                                    <label for="user-email" class="am-u-sm-3 am-form-label">发布时间 <span
+                                            class="tpl-form-line-small-title">Time</span></label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" class="am-form-field tpl-form-no-bg" placeholder="发布时间" data-am-datepicker="" readonly="">
+                                        <input type="text" class="am-form-field tpl-form-no-bg" placeholder="发布时间"
+                                               data-am-datepicker="" readonly="">
                                         <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-phone" class="am-u-sm-3 am-form-label">作者 <span class="tpl-form-line-small-title">Author</span></label>
+                                    <label for="user-phone" class="am-u-sm-3 am-form-label">作者 <span
+                                            class="tpl-form-line-small-title">Author</span></label>
                                     <div class="am-u-sm-9">
                                         <select data-am-selected="{searchBox: 1}" style="display: none;">
                                             <option value="a">-The.CC</option>
@@ -444,21 +463,24 @@
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label class="am-u-sm-3 am-form-label">SEO关键字 <span class="tpl-form-line-small-title">SEO</span></label>
+                                    <label class="am-u-sm-3 am-form-label">SEO关键字 <span
+                                            class="tpl-form-line-small-title">SEO</span></label>
                                     <div class="am-u-sm-9">
                                         <input type="text" placeholder="输入SEO关键字">
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">封面图 <span class="tpl-form-line-small-title">Images</span></label>
+                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">封面图 <span
+                                            class="tpl-form-line-small-title">Images</span></label>
                                     <div class="am-u-sm-9">
                                         <div class="am-form-group am-form-file">
                                             <div class="tpl-form-file-img">
                                                 <img src="assets/img/a5.png" alt="">
                                             </div>
                                             <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                <i class="am-icon-cloud-upload"></i> 添加封面图片</button>
+                                                <i class="am-icon-cloud-upload"></i> 添加封面图片
+                                            </button>
                                             <input id="doc-form-file" type="file" multiple="">
                                         </div>
 
@@ -466,7 +488,8 @@
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">添加分类 <span class="tpl-form-line-small-title">Type</span></label>
+                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">添加分类 <span
+                                            class="tpl-form-line-small-title">Type</span></label>
                                     <div class="am-u-sm-9">
                                         <input type="text" id="user-weibo" placeholder="请添加分类用点号隔开">
                                         <div>
@@ -479,7 +502,8 @@
                                     <label for="user-intro" class="am-u-sm-3 am-form-label">隐藏文章</label>
                                     <div class="am-u-sm-9">
                                         <div class="tpl-switch">
-                                            <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" checked="">
+                                            <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn"
+                                                   checked="">
                                             <div class="tpl-switch-btn-view">
                                                 <div>
                                                 </div>
@@ -498,7 +522,9 @@
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">
+                                            提交
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -521,23 +547,28 @@
 
                             <form class="am-form tpl-form-border-form">
                                 <div class="am-form-group">
-                                    <label for="user-name" class="am-u-sm-12 am-form-label am-text-left">标题 <span class="tpl-form-line-small-title">Title</span></label>
+                                    <label for="user-name" class="am-u-sm-12 am-form-label am-text-left">标题 <span
+                                            class="tpl-form-line-small-title">Title</span></label>
                                     <div class="am-u-sm-12">
-                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="user-name" placeholder="请输入标题文字">
+                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="user-name"
+                                               placeholder="请输入标题文字">
                                         <small>请填写标题文字10-20字左右。</small>
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-email" class="am-u-sm-12 am-form-label am-text-left">发布时间 <span class="tpl-form-line-small-title">Time</span></label>
+                                    <label for="user-email" class="am-u-sm-12 am-form-label am-text-left">发布时间 <span
+                                            class="tpl-form-line-small-title">Time</span></label>
                                     <div class="am-u-sm-12">
-                                        <input type="text" class="am-form-field tpl-form-no-bg am-margin-top-xs" placeholder="发布时间" data-am-datepicker="" readonly="">
+                                        <input type="text" class="am-form-field tpl-form-no-bg am-margin-top-xs"
+                                               placeholder="发布时间" data-am-datepicker="" readonly="">
                                         <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-phone" class="am-u-sm-12 am-form-label am-text-left">作者 <span class="tpl-form-line-small-title">Author</span></label>
+                                    <label for="user-phone" class="am-u-sm-12 am-form-label am-text-left">作者 <span
+                                            class="tpl-form-line-small-title">Author</span></label>
                                     <div class="am-u-sm-12  am-margin-top-xs">
                                         <select data-am-selected="{searchBox: 1}" style="display: none;">
                                             <option value="a">-The.CC</option>
@@ -549,21 +580,24 @@
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label class="am-u-sm-12 am-form-label  am-text-left">SEO关键字 <span class="tpl-form-line-small-title">SEO</span></label>
+                                    <label class="am-u-sm-12 am-form-label  am-text-left">SEO关键字 <span
+                                            class="tpl-form-line-small-title">SEO</span></label>
                                     <div class="am-u-sm-12">
                                         <input type="text" class="am-margin-top-xs" placeholder="输入SEO关键字">
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-weibo" class="am-u-sm-12 am-form-label  am-text-left">封面图 <span class="tpl-form-line-small-title">Images</span></label>
+                                    <label for="user-weibo" class="am-u-sm-12 am-form-label  am-text-left">封面图 <span
+                                            class="tpl-form-line-small-title">Images</span></label>
                                     <div class="am-u-sm-12 am-margin-top-xs">
                                         <div class="am-form-group am-form-file">
                                             <div class="tpl-form-file-img">
                                                 <img src="assets/img/a5.png" alt="">
                                             </div>
                                             <button type="button" class="am-btn am-btn-danger am-btn-sm ">
-                                                <i class="am-icon-cloud-upload"></i> 添加封面图片</button>
+                                                <i class="am-icon-cloud-upload"></i> 添加封面图片
+                                            </button>
                                             <input id="doc-form-file" type="file" multiple="">
                                         </div>
 
@@ -571,9 +605,11 @@
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-weibo" class="am-u-sm-12 am-form-label  am-text-left">添加分类 <span class="tpl-form-line-small-title">Type</span></label>
+                                    <label for="user-weibo" class="am-u-sm-12 am-form-label  am-text-left">添加分类 <span
+                                            class="tpl-form-line-small-title">Type</span></label>
                                     <div class="am-u-sm-12">
-                                        <input type="text" id="user-weibo" class="am-margin-top-xs" placeholder="请添加分类用点号隔开">
+                                        <input type="text" id="user-weibo" class="am-margin-top-xs"
+                                               placeholder="请添加分类用点号隔开">
                                         <div>
 
                                         </div>
@@ -584,7 +620,9 @@
                                     <label for="user-intro" class="am-u-sm-12 am-form-label  am-text-left">隐藏文章</label>
                                     <div class="am-u-sm-12">
                                         <div class="tpl-switch">
-                                            <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn am-margin-top-xs" checked="">
+                                            <input type="checkbox"
+                                                   class="ios-switch bigswitch tpl-switch-btn am-margin-top-xs"
+                                                   checked="">
                                             <div class="tpl-switch-btn-view">
                                                 <div>
                                                 </div>
@@ -603,7 +641,9 @@
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-12 am-u-sm-push-12">
-                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">
+                                            提交
+                                        </button>
                                     </div>
                                 </div>
                             </form>

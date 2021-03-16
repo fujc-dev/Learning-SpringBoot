@@ -10,5 +10,6 @@ import com.zc58s.springmvcdemo.entity.User;
  */
 public interface UserService {
     User getUser(Long id);
+
     int insertUser(User user);
 }

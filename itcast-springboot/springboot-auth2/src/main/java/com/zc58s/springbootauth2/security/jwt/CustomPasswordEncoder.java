@@ -19,7 +19,8 @@ public class CustomPasswordEncoder implements PasswordEncoder {
     }
 
     /**
-     *  默认不做密码检查。
+     * 默认不做密码检查。
+     *
      * @param rawPassword
      * @param encodedPassword
      * @return

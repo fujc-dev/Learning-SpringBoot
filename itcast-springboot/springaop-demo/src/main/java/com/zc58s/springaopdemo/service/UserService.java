@@ -13,6 +13,7 @@ public interface UserService {
 
     /**
      * 用于测试AOP的方法printUser
+     *
      * @param user
      */
     void printUser(User user);

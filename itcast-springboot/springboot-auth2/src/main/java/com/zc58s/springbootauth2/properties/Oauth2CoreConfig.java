@@ -12,4 +12,5 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties(Oauth2Properties.class)
-public class Oauth2CoreConfig {}
+public class Oauth2CoreConfig {
+}

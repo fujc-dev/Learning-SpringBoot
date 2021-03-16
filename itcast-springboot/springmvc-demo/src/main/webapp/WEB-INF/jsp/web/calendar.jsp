@@ -17,13 +17,13 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/fullcalendar.min.css" />
-    <link rel="stylesheet" href="assets/css/fullcalendar.print.css" media='print' />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="assets/css/fullcalendar.print.css" media='print'/>
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
 
@@ -82,7 +82,9 @@
                                             <i class="am-icon-circle-o am-text-success"></i>
                                             <span>夕风色</span>
                                         </div>
-                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。 </div>
+                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI
+                                            的成长，则离不开用户的支持。
+                                        </div>
                                         <div class="menu-messages-content-time">2016-09-21 下午 16:40</div>
                                     </div>
                                 </a>
@@ -101,7 +103,7 @@
                                             <i class="am-icon-circle-o am-text-warning"></i>
                                             <span>禁言小张</span>
                                         </div>
-                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </div>
+                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。</div>
                                         <div class="menu-messages-content-time">2016-09-16 上午 09:23</div>
                                     </div>
                                 </a>
@@ -279,20 +281,14 @@
     </div>
 
 
-
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-
 
 
         <div class="row-content am-cf">
             <div class="tpl-calendar-box">
                 <div id="calendar"></div>
             </div>
-
-
-
-
 
 
         </div>
@@ -312,16 +308,13 @@
 
             <form class="am-form tpl-form-border-form">
                 <div class="am-form-group am-u-sm-12">
-                    <label for="user-name" class="am-u-sm-12 am-form-label am-text-left">标题 <span class="tpl-form-line-small-title">Title</span></label>
+                    <label for="user-name" class="am-u-sm-12 am-form-label am-text-left">标题 <span
+                            class="tpl-form-line-small-title">Title</span></label>
                     <div class="am-u-sm-12">
-                        <input type="text" class="tpl-form-input am-margin-top-xs calendar-edit-box-title" id="user-name" placeholder="" disabled>
+                        <input type="text" class="tpl-form-input am-margin-top-xs calendar-edit-box-title"
+                               id="user-name" placeholder="" disabled>
                     </div>
                 </div>
-
-
-
-
-
 
 
             </form>
@@ -334,10 +327,10 @@
 <script src="assets/js/fullcalendar.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         var editBox = $('#calendar-edit-box');
 
-        $('.edit-box-close').on('click', function() {
+        $('.edit-box-close').on('click', function () {
             $('#calendar').fullCalendar('unselect');
         })
         $('#calendar').fullCalendar({
@@ -367,7 +360,7 @@
             navLinks: true, // can click day/week names to navigate views
             selectable: true,
             selectHelper: true,
-            select: function(start, end) {
+            select: function (start, end) {
                 var title = prompt('填写你的记录的:');
                 var eventData;
                 if (title) {
@@ -381,11 +374,10 @@
                 $('#calendar').fullCalendar('unselect');
 
 
-
             },
             editable: true,
             eventLimit: true, // allow "more" link when too many events
-            eventClick: function(event, jsEvent, view) {
+            eventClick: function (event, jsEvent, view) {
 
                 // event.source.events[0].title = '222223333'
                 // 修改数据
@@ -393,12 +385,8 @@
                 $('.calendar-edit-box-title').val(event.title)
 
 
-
                 //  弹出框
                 editBox.modal();
-
-
-
 
 
             },

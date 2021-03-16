@@ -9,8 +9,6 @@ package com.zc58s.springaopdemo.pojo;
  */
 
 
-
-
 public class User {
     private long id;
     private String username;

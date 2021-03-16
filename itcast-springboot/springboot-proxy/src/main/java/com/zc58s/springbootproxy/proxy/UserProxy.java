@@ -15,6 +15,7 @@ import com.zc58s.springbootproxy.service.impl.User;
 public class UserProxy implements UserInterface {
     // 持有真实角色对象
     private User user = new User();
+
     @Override
     public void sayHello() {
         System.out.println("invoking start....");

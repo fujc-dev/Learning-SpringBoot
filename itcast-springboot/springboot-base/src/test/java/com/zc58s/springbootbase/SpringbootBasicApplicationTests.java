@@ -55,9 +55,9 @@ class SpringbootBasicApplicationTests {
         //删除
         stringRedisTemplate.delete("name");
         //更新（覆盖），此时也算是新增
-        stringRedisTemplate.opsForValue().set("name","fjc");
+        stringRedisTemplate.opsForValue().set("name", "fjc");
         //查询
-         value = (String) stringRedisTemplate.opsForValue().get("name");
+        value = (String) stringRedisTemplate.opsForValue().get("name");
         System.out.println(value);
     }
 

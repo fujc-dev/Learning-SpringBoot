@@ -13,7 +13,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="TreeMenuMap">
         select
-          menu_id, name, parent_menu_id, meun_level, sort
+        menu_id, name, parent_menu_id, meun_level, sort
         from springboot.tree_menu
         where menu_id = #{menuId}
     </select>
@@ -21,7 +21,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TreeMenuMap">
         select
-          menu_id, name, parent_menu_id, meun_level, sort
+        menu_id, name, parent_menu_id, meun_level, sort
         from springboot.tree_menu
         limit #{offset}, #{limit}
     </select>

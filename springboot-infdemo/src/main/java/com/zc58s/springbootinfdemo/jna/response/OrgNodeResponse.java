@@ -30,5 +30,4 @@ public class OrgNodeResponse {
     private String parentId;
 
 
-
 }

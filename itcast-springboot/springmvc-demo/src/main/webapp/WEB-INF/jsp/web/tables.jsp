@@ -17,13 +17,13 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <script src="assets/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css"/>
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
 
@@ -82,7 +82,9 @@
                                             <i class="am-icon-circle-o am-text-success"></i>
                                             <span>夕风色</span>
                                         </div>
-                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。 </div>
+                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI
+                                            的成长，则离不开用户的支持。
+                                        </div>
                                         <div class="menu-messages-content-time">2016-09-21 下午 16:40</div>
                                     </div>
                                 </a>
@@ -101,7 +103,7 @@
                                             <i class="am-icon-circle-o am-text-warning"></i>
                                             <span>禁言小张</span>
                                         </div>
-                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </div>
+                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。</div>
                                         <div class="menu-messages-content-time">2016-09-16 上午 09:23</div>
                                     </div>
                                 </a>
@@ -279,18 +281,19 @@
     </div>
 
 
-
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
 
         <div class="container-fluid am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表格 <small>Amaze UI</small></div>
+                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表格
+                        <small>Amaze UI</small></div>
                     <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
                 </div>
                 <div class="am-u-lg-3 tpl-index-settings-button">
-                    <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置</button>
+                    <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置
+                    </button>
                 </div>
             </div>
 
@@ -310,7 +313,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
                             <div class="am-scrollable-horizontal ">
-                                <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black " >
+                                <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black ">
                                     <thead>
                                     <tr>
                                         <th>文章标题</th>
@@ -421,8 +424,6 @@
                 </div>
 
 
-
-
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
@@ -433,7 +434,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
 
-                            <table width="100%" class="am-table am-table-compact tpl-table-black " >
+                            <table width="100%" class="am-table am-table-compact tpl-table-black ">
                                 <thead>
                                 <tr>
                                     <th>文章标题</th>
@@ -555,7 +556,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
 
-                            <table width="100%" class="am-table am-table-compact am-table-bordered tpl-table-black " >
+                            <table width="100%" class="am-table am-table-compact am-table-bordered tpl-table-black ">
                                 <thead>
                                 <tr>
                                     <th>文章标题</th>
@@ -665,7 +666,6 @@
                 </div>
 
 
-
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
@@ -676,7 +676,8 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
 
-                            <table width="100%" class="am-table am-table-compact am-table-bordered am-table-radius am-table-striped tpl-table-black " >
+                            <table width="100%"
+                                   class="am-table am-table-compact am-table-bordered am-table-radius am-table-striped tpl-table-black ">
                                 <thead>
                                 <tr>
                                     <th>文章标题</th>
@@ -787,7 +788,6 @@
             </div>
 
 
-
             <div class="row">
 
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
@@ -800,7 +800,7 @@
                         </div>
                         <div class="widget-body  widget-body-lg am-fr">
 
-                            <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " >
+                            <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
                                 <thead>
                                 <tr>
                                     <th>文章标题</th>
@@ -908,8 +908,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
 
             </div>

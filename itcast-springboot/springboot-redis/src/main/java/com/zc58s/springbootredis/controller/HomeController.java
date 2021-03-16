@@ -102,7 +102,7 @@ public class HomeController {
                     String key = "pipeline_" + i;
                     operations.opsForValue().set(key, "value_" + i);
                     String value = (String) operations.opsForValue().get(key);
-                    if (i == count-1) {
+                    if (i == count - 1) {
                         System.out.println("命令只是进入队列，所以值为空【" + value + "】");
                     }
                 }
@@ -110,10 +110,10 @@ public class HomeController {
             }
         });
         Long end = System.currentTimeMillis();
-        System.out.println("耗时：" +(end- start)+ "毫秒");
+        System.out.println("耗时：" + (end - start) + "毫秒");
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);
-        result.put("data",list);
+        result.put("data", list);
         return result;
     }
 
@@ -132,10 +132,10 @@ public class HomeController {
             }
         }
         Long end = System.currentTimeMillis();
-        System.out.println("耗时：" +(end- start)+ "毫秒");
+        System.out.println("耗时：" + (end - start) + "毫秒");
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);
-        result.put("data",(end- start));
+        result.put("data", (end - start));
         return result;
     }
 }

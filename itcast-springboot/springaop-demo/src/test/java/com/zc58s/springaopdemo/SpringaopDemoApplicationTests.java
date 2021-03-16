@@ -13,9 +13,9 @@ class SpringaopDemoApplicationTests {
     @Test
     void contextLoads() {
         HelloService helloService = new HelloServiceImpl();
-        HelloService proxy = (HelloService) ProxyBean.getProxyBean(helloService,new MyInterceptor());
+        HelloService proxy = (HelloService) ProxyBean.getProxyBean(helloService, new MyInterceptor());
 
-        HelloService proxy1 = (HelloService) ProxyBean.getProxyBean(helloService,new MyInterceptor());
+        HelloService proxy1 = (HelloService) ProxyBean.getProxyBean(helloService, new MyInterceptor());
         proxy.sayHello("傅均承");
 
     }

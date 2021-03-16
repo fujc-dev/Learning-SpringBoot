@@ -17,12 +17,12 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css"/>
     <link rel="stylesheet" href="assets/css/app.css">
     <script src="assets/js/jquery.min.js"></script>
 
@@ -81,7 +81,9 @@
                                             <i class="am-icon-circle-o am-text-success"></i>
                                             <span>夕风色</span>
                                         </div>
-                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。 </div>
+                                        <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI
+                                            的成长，则离不开用户的支持。
+                                        </div>
                                         <div class="menu-messages-content-time">2016-09-21 下午 16:40</div>
                                     </div>
                                 </a>
@@ -100,7 +102,7 @@
                                             <i class="am-icon-circle-o am-text-warning"></i>
                                             <span>禁言小张</span>
                                         </div>
-                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </div>
+                                        <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。</div>
                                         <div class="menu-messages-content-time">2016-09-16 上午 09:23</div>
                                     </div>
                                 </a>
@@ -278,7 +280,6 @@
     </div>
 
 
-
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
         <div class="row-content am-cf">
@@ -296,10 +297,18 @@
                                 <div class="am-form-group">
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                            <button type="button" class="am-btn am-btn-default am-btn-success"><span
+                                                    class="am-icon-plus"></span> 新增
+                                            </button>
+                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span
+                                                    class="am-icon-save"></span> 保存
+                                            </button>
+                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span
+                                                    class="am-icon-archive"></span> 审核
+                                            </button>
+                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span
+                                                    class="am-icon-trash-o"></span> 删除
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -321,7 +330,8 @@
                                 <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
                                     <input type="text" class="am-form-field ">
                                     <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+                    type="button"></button>
           </span>
                                 </div>
                             </div>
