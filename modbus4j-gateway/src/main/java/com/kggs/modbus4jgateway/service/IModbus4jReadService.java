@@ -18,7 +18,7 @@ import java.util.List;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/3/10 15:01
  */
-public interface IModbusSlaveService {
+public interface IModbus4jReadService {
 
     /**
      * 初始化，调用该方法重置循环获取
@@ -39,28 +39,4 @@ public interface IModbusSlaveService {
      * @param millis
      */
     void Start(List<Slave> slaves, long millis);
-
-    /**
-     * 写入开关量数据
-     *
-     * @param slave
-     * @param flag
-     */
-    void Write(Slave slave, boolean flag);
-
-    /**
-     * 写入Int类数据，开关量、模拟量
-     *
-     * @param slave
-     * @param register
-     */
-    void Write(Slave slave, int register);
-
-    /**
-     * 写入Float类型数据，模拟量
-     *
-     * @param slave
-     * @param register
-     */
-    void Write(Slave slave, float register);
 }

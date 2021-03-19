@@ -73,7 +73,7 @@ class ModbusGatewayApplicationTests {
             System.out.println("v032:" + v032);
 
             modbus4jWriteUtils.writeHoldingRegister(1,2,100,DataType.TWO_BYTE_INT_SIGNED);
-
+            modbus4jWriteUtils.writeCoil(1,0,true);
             // 04测试
             //Number v041 =modbus4jUtils. readInputRegisters(1, 0, DataType.FOUR_BYTE_FLOAT);//
             //Number v042 = modbus4jUtils.readInputRegisters(1, 2, DataType.FOUR_BYTE_FLOAT);//

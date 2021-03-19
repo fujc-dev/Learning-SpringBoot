@@ -18,22 +18,24 @@ public class SlavePoint {
      */
     private int offset = 0;
     /**
-     * 数据类型，从Modbus过来的数据的类型，默认是有符号的整型
+     * 数据类型，从Modbus过来的数据的类型，默认是有符号的整型，读模拟量时有效
      */
-    private Integer dataType ;
+    private Integer dataType;
 
     /**
      * 构建Modbus Slave点位数据，包含短Int类型的Modbus数据类型，
+     *
      * @param offset
      */
     public SlavePoint(int offset) {
         this.offset = offset;
-        this.dataType = DataType.TWO_BYTE_INT_SIGNED;
+        this.dataType = DataType.TWO_BYTE_INT_SIGNED; //默认读的是2位的Int值
     }
 
     /**
      * 构建Modbus Slave点位数据
-     * @param offset  访问寄存器的起始地址，起始地址，起始地址
+     *
+     * @param offset   访问寄存器的起始地址，起始地址，起始地址
      * @param dataType 数据类型，返回的数据类型
      */
     public SlavePoint(int offset, Integer dataType) {

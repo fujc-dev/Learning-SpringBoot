@@ -1,8 +1,10 @@
 package com.kggs.modbus4jgateway.service.impl;
 
 import com.kggs.modbus4jgateway.bean.Slave;
-import com.kggs.modbus4jgateway.service.IModbusSlaveService;
+import com.kggs.modbus4jgateway.service.IModbus4jReadService;
 import com.kggs.modbus4jgateway.strategy.Context;
+import com.serotonin.modbus4j.ModbusMaster;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -15,9 +17,14 @@ import java.util.List;
  * @createtime : 2021/3/18 14:09
  */
 @Service
-public class Modbus4jServiceImp implements IModbusSlaveService {
-
+public class Modbus4jServiceImp implements IModbus4jReadService {
     private PullModbusSlaveThread slaveThread = null;
+    private ModbusMaster master = null;
+
+    @Autowired
+    public Modbus4jServiceImp(ModbusMaster master) {
+        this.master = master;
+    }
 
     @Override
     public void Reset() {
@@ -36,21 +43,6 @@ public class Modbus4jServiceImp implements IModbusSlaveService {
     public void Start(List<Slave> slaves, long millis) {
         this.slaveThread = new PullModbusSlaveThread(slaves, millis);
         this.slaveThread.run();
-    }
-
-    @Override
-    public void Write(Slave slave, boolean flag) {
-
-    }
-
-    @Override
-    public void Write(Slave slave, int register) {
-
-    }
-
-    @Override
-    public void Write(Slave slave, float register) {
-
     }
 
     /**
