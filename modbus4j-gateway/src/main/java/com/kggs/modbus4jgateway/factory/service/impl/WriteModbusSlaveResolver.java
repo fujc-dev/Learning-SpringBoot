@@ -8,7 +8,6 @@ import com.serotonin.modbus4j.exception.ModbusTransportException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 
 /**
  * @author : fjc.dane@gmail.com
