@@ -25,9 +25,9 @@ public class ReadInputRegisterStrategy extends StrategyBase {
             if (!this.master.isConnected()) {
                 this.master.connect();
             }
-            int[] registerValues = this.master.readInputRegisters(slaveId, offset, quantity);
-            for (int var : registerValues) {
-                System.out.println("Address: " + offset + ", Value: " + var);
+            float[] registerValues = Int16toFloat(this.master.readInputRegisters(slaveId, offset, quantity));
+            for (float var : registerValues) {
+                System.out.println("Address: " + (offset++) + ", Value: " + var);
             }
         }
     }

@@ -26,7 +26,7 @@ import java.util.List;
  * @createtime : 2021/3/10 15:25
  */
 @Service
-public class ModbusSlaveServiceImp implements IModbusSlaveService {
+public class JlibmodbusServiceImp implements IModbusSlaveService {
 
     protected ModbusMaster master = null;
 
@@ -34,13 +34,13 @@ public class ModbusSlaveServiceImp implements IModbusSlaveService {
     private PullModbusSlaveThread slaveThread = null;
 
     @Autowired
-    public ModbusSlaveServiceImp(ModbusMaster master) {
+    public JlibmodbusServiceImp(ModbusMaster master) {
 
         this.master = master;
     }
 
     @Override
-    public void Initialization() {
+    public void Reset() {
         if (this.slaveThread != null) {
             this.slaveThread.interrupt();
         }

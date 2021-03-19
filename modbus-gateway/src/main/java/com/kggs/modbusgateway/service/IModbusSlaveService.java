@@ -26,9 +26,9 @@ import java.util.List;
 public interface IModbusSlaveService {
 
     /**
-     * 初始化，这一步，用于连接Modbus Slave
+     * 初始化，调用该方法重置循环获取
      */
-    void Initialization();
+    void Reset();
 
     /**
      * 我们通过传入批量的从机地址

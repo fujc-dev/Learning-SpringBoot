@@ -31,4 +31,17 @@ public abstract class StrategyBase implements Strategy {
     protected void Send() {
 
     }
+
+    protected float[] Int16toFloat(int a[]) {
+        if(0 != a.length%2 || a.length <= 0) {
+            return null;
+        }
+        int len = a.length/2;
+        float[] c = new float[len];
+        for(int i = 0;i < len;++i) {
+            int b = ((a[2*i]<<16)&0xFFFFFFFF) | ((a[2*i+1])&0xFFFF);
+            c[i] = Float.intBitsToFloat(b);
+        }
+        return c;
+    }
 }
