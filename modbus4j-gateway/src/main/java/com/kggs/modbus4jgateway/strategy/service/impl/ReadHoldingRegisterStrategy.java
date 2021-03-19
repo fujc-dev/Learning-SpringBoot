@@ -15,6 +15,10 @@ import java.util.List;
 @Service("0x03")
 public class ReadHoldingRegisterStrategy extends StrategyBase {
 
+    public ReadHoldingRegisterStrategy(ModbusMaster master) {
+        super(master);
+    }
+
     @Override
     public void Read(int slaveId, List<SlavePoint> points) {
         if (points != null) {

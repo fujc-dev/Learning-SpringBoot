@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 
 public abstract class StrategyBase implements Strategy {
-    @Autowired
-    private final ModbusMaster master;
 
-    protected StrategyBase() {
-        master = null;
+    private ModbusMaster master;
+
+
+    @Autowired
+    public StrategyBase(ModbusMaster master) {
+        this.master = master;
     }
 
 
@@ -81,9 +83,6 @@ public abstract class StrategyBase implements Strategy {
      * @param offset   位置
      * @param dataType 数据类型,来自com.serotonin.modbus4j.code.DataType
      * @return
-     * @throws ModbusTransportException 异常
-     * @throws ErrorResponseException   异常
-     * @throws ModbusInitException      异常
      */
     public Number readHoldingRegister(int slaveId, int offset, int dataType) {
         try {
@@ -109,9 +108,6 @@ public abstract class StrategyBase implements Strategy {
      * @param offset   位置
      * @param dataType 数据类型,来自com.serotonin.modbus4j.code.DataType
      * @return 返回结果
-     * @throws ModbusTransportException 异常
-     * @throws ErrorResponseException   异常
-     * @throws ModbusInitException      异常
      */
     public Number readInputRegisters(int slaveId, int offset, int dataType) {
         try {
@@ -121,7 +117,7 @@ public abstract class StrategyBase implements Strategy {
                 Number value = this.master.getValue(loc);
                 return value;
             }
-        }  catch (ModbusTransportException e) {
+        } catch (ModbusTransportException e) {
             e.printStackTrace();
         } catch (ErrorResponseException e) {
             e.printStackTrace();
