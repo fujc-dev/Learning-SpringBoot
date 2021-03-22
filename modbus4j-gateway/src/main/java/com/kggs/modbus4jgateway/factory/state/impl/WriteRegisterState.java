@@ -6,6 +6,8 @@ import com.serotonin.modbus4j.exception.ErrorResponseException;
 import com.serotonin.modbus4j.exception.ModbusTransportException;
 
 /**
+ * 写指定类型的寄存器 Short
+ *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/3/19 17:08
  */
@@ -14,14 +16,18 @@ public class WriteRegisterState extends WriteState {
     @Override
     public <T> void Write(SlaveWrite<T> writeValue) throws ModbusTransportException, ErrorResponseException {
         //
-        if (writeValue.getDataType() > -1) {
-            //写入数字类型的模拟量
-            //Short、Int、Long、Double等父类都是Number类型
-            Number number = (Number) writeValue.getVal();
-            this.writeService.WriteHoldingRegister(writeValue.getSlaveId(), writeValue.getOffset(), number, writeValue.getDataType());
+        String simpleName = super.GetWriteParamTypeName(writeValue);
+        if ("short".equals(simpleName.toLowerCase())) {
+            short val = (Short) writeValue.getVal();
+            this.writeService.WriteRegister(writeValue.getSlaveId(), writeValue.getOffset(), val);
+        }
+        //写多个保持寄存器
+        else if ("short[]".equals(simpleName.toLowerCase())) {
+            short[] val = (short[]) writeValue.getVal();
+            this.writeService.WriteRegisters(writeValue.getSlaveId(), writeValue.getOffset(), val);
         } else {
-            //该数据未包含处理状态，无法被写入
-            System.out.println("该数据未包含处理状态，无法被写入");
+            this.context.SetState(new WriteHoldingRegisterState());
+            this.context.Write(writeValue);
         }
     }
 }

@@ -8,6 +8,8 @@ import com.serotonin.modbus4j.exception.ErrorResponseException;
 import com.serotonin.modbus4j.exception.ModbusTransportException;
 
 /**
+ * 写如Modbus帮助类
+ *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/3/19 15:16
  */
@@ -30,82 +32,6 @@ public class WriteHelper {
             } catch (ModbusTransportException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    /**
-     * 写 [01 Coil Status(0x)]写一个 function ID = 5
-     *
-     * @param slaveId
-     * @param offset
-     * @param writeValue
-     */
-    @Deprecated
-    public static void Write(int slaveId, int offset, boolean writeValue) throws ModbusTransportException {
-        IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
-        if (writeService != null) {
-            writeService.WriteCoil(slaveId, offset, writeValue);
-        }
-    }
-
-    /**
-     * 写[01 Coil Status(0x)] 写多个 function ID = 15
-     *
-     * @param slaveId
-     * @param offset
-     * @param writeValue
-     */
-    @Deprecated
-    public static void Write(int slaveId, int offset, boolean[] writeValue) throws ModbusTransportException {
-        IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
-        if (writeService != null) {
-            writeService.WriteCoils(slaveId, offset, writeValue);
-        }
-    }
-
-    /**
-     * 写[03 Holding Register(4x)] 写一个 function ID = 6
-     *
-     * @param slaveId
-     * @param offset
-     * @param writeValue
-     */
-    @Deprecated
-    public static void Write(int slaveId, int offset, short writeValue) throws ModbusTransportException {
-        IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
-        if (writeService != null) {
-            writeService.WriteRegister(slaveId, offset, writeValue);
-        }
-    }
-
-    /**
-     * 写入[03 Holding Register(4x)]写多个 function ID=16
-     *
-     * @param slaveId
-     * @param offset
-     * @param sdata
-     */
-    @Deprecated
-    public static void Write(int slaveId, int offset, short[] sdata) throws ModbusTransportException {
-        IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
-        if (writeService != null) {
-            writeService.WriteRegisters(slaveId, offset, sdata);
-        }
-    }
-
-    /**
-     * 写入数字类型的模拟量（如:写入Float类型的模拟量、Double类型模拟量、整数类型Short、Integer、Long）
-     *
-     * @param slaveId
-     * @param offset
-     * @param value
-     * @param dataType
-     */
-    @Deprecated
-    public static void Write(int slaveId, int offset, Number value, int dataType) throws ModbusTransportException, ErrorResponseException {
-        IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
-        if (writeService != null) {
-            writeService.WriteHoldingRegister(slaveId, offset, value, dataType);
         }
     }
 }

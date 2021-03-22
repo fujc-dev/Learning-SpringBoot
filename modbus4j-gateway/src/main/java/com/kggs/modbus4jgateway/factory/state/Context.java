@@ -18,16 +18,13 @@ public class Context {
 
     private WriteState state;
 
-    public WriteState GetState() {
-        return state;
-    }
-
     public void SetState(WriteState state) {
         this.state = state;
         this.state.SetContext(this);
     }
 
     public <T> void Write(SlaveWrite<T> writeValue) throws ModbusTransportException, ErrorResponseException {
-        this.state.Write(writeValue);
+        if (this.state != null)
+            this.state.Write(writeValue);
     }
 }

@@ -26,7 +26,7 @@ public class WriteCoilState extends WriteState {
             boolean[] val = (boolean[]) writeValue.getVal();
             this.writeService.WriteCoils(writeValue.getSlaveId(), writeValue.getOffset(), val);
         } else {
-            this.context.SetState(new WriteHoldingRegisterState());
+            this.context.SetState(new WriteRegisterState());
             this.context.Write(writeValue);
         }
     }

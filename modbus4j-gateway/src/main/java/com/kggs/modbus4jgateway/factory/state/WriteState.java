@@ -21,10 +21,6 @@ public abstract class WriteState {
         this.context = context;
     }
 
-    public Context GetContext() {
-        return context;
-    }
-
     public abstract <T> void Write(SlaveWrite<T> writeValue) throws ModbusTransportException, ErrorResponseException;
 
     /**
