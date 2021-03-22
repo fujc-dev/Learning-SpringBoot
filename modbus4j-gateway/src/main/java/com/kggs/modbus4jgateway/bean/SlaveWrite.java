@@ -8,7 +8,7 @@ import com.serotonin.modbus4j.code.DataType;
  * <p>
  * 1、从机地址<br/>
  * 2、寄存器地址<br/>
- * 3、入的值的数据类型 <br/>
+ * 3、写入的值的数据类型 <br/>
  * 4、具体写入的值<br/>
  * </p>
  *
