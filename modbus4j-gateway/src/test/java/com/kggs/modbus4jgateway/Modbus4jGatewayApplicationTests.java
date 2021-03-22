@@ -24,9 +24,9 @@ class Modbus4jGatewayApplicationTests {
         //Slave slave = new Slave(1, 0x03, point);
         //slaveList.add(slave);
         //salveService.Start(slaveList);
-        WriteHelper.Write(new SlaveWrite<Boolean[]>(1, 0, new Boolean[]{true, true}));
+        WriteHelper.Write(new SlaveWrite<>(1, 0, new boolean[]{true, true}));
         Short _short = 1000;
-        WriteHelper.Write(new SlaveWrite<Short>(1, 2, _short, DataType.FOUR_BYTE_FLOAT));
+        WriteHelper.Write(new SlaveWrite<Short>(1, 2, _short));
     }
 
 }

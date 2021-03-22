@@ -23,7 +23,13 @@ public class WriteHelper {
     public static <T> void Write(SlaveWrite<T> writeValue) {
         WriteSalveFactory salveFactory = SpringContextUtil.getBean(WriteSalveFactory.class);
         if (salveFactory != null) {
-            salveFactory.Write(writeValue);
+            try {
+                salveFactory.Write(writeValue);
+            } catch (ErrorResponseException e) {
+                e.printStackTrace();
+            } catch (ModbusTransportException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -34,6 +40,7 @@ public class WriteHelper {
      * @param offset
      * @param writeValue
      */
+    @Deprecated
     public static void Write(int slaveId, int offset, boolean writeValue) throws ModbusTransportException {
         IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
         if (writeService != null) {
@@ -48,6 +55,7 @@ public class WriteHelper {
      * @param offset
      * @param writeValue
      */
+    @Deprecated
     public static void Write(int slaveId, int offset, boolean[] writeValue) throws ModbusTransportException {
         IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
         if (writeService != null) {
@@ -62,6 +70,7 @@ public class WriteHelper {
      * @param offset
      * @param writeValue
      */
+    @Deprecated
     public static void Write(int slaveId, int offset, short writeValue) throws ModbusTransportException {
         IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
         if (writeService != null) {
@@ -76,6 +85,7 @@ public class WriteHelper {
      * @param offset
      * @param sdata
      */
+    @Deprecated
     public static void Write(int slaveId, int offset, short[] sdata) throws ModbusTransportException {
         IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
         if (writeService != null) {
@@ -91,6 +101,7 @@ public class WriteHelper {
      * @param value
      * @param dataType
      */
+    @Deprecated
     public static void Write(int slaveId, int offset, Number value, int dataType) throws ModbusTransportException, ErrorResponseException {
         IModbus4jWriteService writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
         if (writeService != null) {
