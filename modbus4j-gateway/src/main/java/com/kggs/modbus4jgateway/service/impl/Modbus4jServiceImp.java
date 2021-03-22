@@ -31,7 +31,7 @@ public class Modbus4jServiceImp implements IModbus4jReadService {
         if (this.slaveThread != null) {
             this.slaveThread.interrupt();
         }
-        //这里是不是应该调用一次Start方法
+        //TODO  这里是不是应该调用一次Start方法
     }
 
     @Override
@@ -50,12 +50,12 @@ public class Modbus4jServiceImp implements IModbus4jReadService {
      * <p>
      * 1、循环拉取；
      * 2、消息入队（采集Redis缓存，可能会出现用户需要查询第一次值的情况，那么此时就直接取Redis里面拿最新数据）。推送到前端
-     * 3、入库
+     * 3、入库，数据需要落盘、持久化
      * </p>
      */
     public class PullModbusSlaveThread extends Thread {
         private List<Slave> slaves = null;
-        private long millis = 0L;
+        private long millis = 1000L;
 
         public PullModbusSlaveThread(List<Slave> slaves, long millis) {
             this.slaves = slaves;
