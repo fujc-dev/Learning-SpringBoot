@@ -21,6 +21,7 @@ public class WriteRegisterState extends WriteState {
             this.writeService.WriteHoldingRegister(writeValue.getSlaveId(), writeValue.getOffset(), number, writeValue.getDataType());
         } else {
             //该数据未包含处理状态，无法被写入
+            System.out.println("该数据未包含处理状态，无法被写入");
         }
     }
 }
