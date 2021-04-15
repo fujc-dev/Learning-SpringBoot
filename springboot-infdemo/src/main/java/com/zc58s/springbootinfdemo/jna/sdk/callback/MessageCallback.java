@@ -17,7 +17,7 @@ public interface MessageCallback extends StdCallLibrary.StdCallCallback {
      * 回调函数
      *
      * @param szCmdId
-     * @param nHandle  句柄，后续很多请求都需要传递这个句柄，来完成SDK的调用
+     * @param nHandle  句柄，当前句柄，后续很多请求都需要传递这个句柄，来完成SDK的调用
      * @param szAction 通过szAction的地址判断做什么动作
      * @param szResult
      * @throws UnsupportedEncodingException
