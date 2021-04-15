@@ -1,8 +1,12 @@
 package com.zc58s.springbootinfdemo.jna.service.impl;
 
 import com.sun.jna.Pointer;
+import com.zc58s.springbootinfdemo.jna.request.DownVideoRequest;
 import com.zc58s.springbootinfdemo.jna.request.LoginRequest;
+import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
+import com.zc58s.springbootinfdemo.jna.request.VideoTapeRequest;
 import com.zc58s.springbootinfdemo.jna.response.LoginResponse;
+import com.zc58s.springbootinfdemo.jna.response.PhotographResponse;
 import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.Message;
@@ -12,6 +16,7 @@ import com.zc58s.springbootinfdemo.jna.service.IBusinessService;
 import com.zc58s.springbootinfdemo.jna.service.IPztControlService;
 import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
 import com.zc58s.springbootinfdemo.jna.base.Sdk;
+import com.zc58s.springbootinfdemo.jna.service.IVideoService;
 import com.zc58s.springbootinfdemo.jna.service.base.ServiceBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +44,7 @@ import java.util.concurrent.locks.LockSupport;
  * @createtime : 2021/1/26 17:34
  */
 @Service
-public class VideoPlatformServiceImp extends ServiceBase implements IPlatformService, IPztControlService, IBusinessService {
+public class VideoPlatformServiceImp extends ServiceBase implements IPlatformService, IPztControlService, IBusinessService, IVideoService {
 
     /*
      * 1、服务必须的单例的有效。所有的操作都依赖登录句柄
@@ -62,11 +67,15 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
         LoginResponse response = new LoginResponse();
         try {
             this.m_bServerReturned = false;
-            //1、声明一个定时器，控制登录超时时间
+            //1、声明一个定时器，控制登录超时时间，该模式是按照英飞拓给的C++源码模拟的。
             Timer login_timer = new Timer();
             login_timer.schedule(new LoginTimerTask(), request.getSzTimeout());
-            //2、执行登录
-            InfNetSdk.INSTANCE.INF_NET_Login(request.getSzUrl(), request.getSzUser(), request.getSzPassword(), request.getSzParam(), new MessageCallbackImp());
+            //2、执行登录，这个回调需要经过测试，是否会在Login方法执行完毕后，释放MessageCallbackImp的资源
+            InfNetSdk.INSTANCE.INF_NET_Login(request.getSzUrl(),
+                    request.getSzUser(),
+                    request.getSzPassword(),
+                    request.getSzParam(),
+                    new MessageCallbackImp());
             //3、阻塞当前方法，然后等待执行结果，要么超时，要么登录SDK的回调被执行
             LockSupport.park(m_CurrentThread);
             //解除阻塞，继续执行
@@ -171,6 +180,33 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
         return orgsStr;
     }
 
+    //===========================拍照、下载视频、录像================================
+    @Override
+    public void Download(DownVideoRequest request) {
+
+    }
+
+    @Override
+    public PhotographResponse Photograph(PhotographRequest request) {
+        //存储路径
+        //文件格式
+        //拍照成功与失败
+        InfNetSdk.INSTANCE.INF_NET_SnapshotWithoutReal(this.m_nLoginHandle,
+                request.getSzCameraId(),
+                request.getSzFilePath(),
+                request.getiType().getType());
+        //执行成功的结果可能会由MessageCallbackImp返回，可能直接是该方法返回
+        //假如是MessageCallbackImp返回，需要锁住当前任务，等待异步返回
+
+        return null;
+    }
+
+    @Override
+    public void VideoTape(VideoTapeRequest request) {
+
+    }
+    //===========================拍照、下载视频、录像================================
+
     /**
      * 登录定时器任务
      * <p>
@@ -212,9 +248,10 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
     public class MessageCallbackImp implements MessageCallback {
 
         @Override
-        public void invoke(String szCmdId, int nHandle, String szAction, String szResult, Pointer pUser) throws UnsupportedEncodingException {
+        public void invoke(String szCmdId, int nHandle, String szAction, String szResult, Pointer pUser) {
             mCurrentMessage = new Message(nHandle, szAction, szResult);
             System.out.println(mCurrentMessage.toString());
+            logger.debug(mCurrentMessage.toString());
             if (m_CurrentThread != null) {
                 LockSupport.unpark(m_CurrentThread);
             }

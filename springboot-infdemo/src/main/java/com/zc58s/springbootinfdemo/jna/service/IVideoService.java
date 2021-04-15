@@ -3,6 +3,7 @@ package com.zc58s.springbootinfdemo.jna.service;
 import com.zc58s.springbootinfdemo.jna.request.DownVideoRequest;
 import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
 import com.zc58s.springbootinfdemo.jna.request.VideoTapeRequest;
+import com.zc58s.springbootinfdemo.jna.response.PhotographResponse;
 
 /**
  * 视频服务接口，用于对摄像头视频的操作
@@ -24,7 +25,7 @@ public interface IVideoService {
      *
      * @param request
      */
-    void Photograph(PhotographRequest request);
+    PhotographResponse Photograph(PhotographRequest request);
 
     /**
      * 录像

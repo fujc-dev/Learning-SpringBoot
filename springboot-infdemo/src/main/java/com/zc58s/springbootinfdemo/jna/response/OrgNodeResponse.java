@@ -1,12 +1,14 @@
 package com.zc58s.springbootinfdemo.jna.response;
 
+import com.zc58s.springbootinfdemo.jna.response.base.ResponseBase;
+
 /**
  * 返回组织结构信息
  *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/2/8 10:31
  */
-public class OrgNodeResponse {
+public class OrgNodeResponse extends ResponseBase {
 
     /**
      * 组织ID
