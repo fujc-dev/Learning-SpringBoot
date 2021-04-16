@@ -101,7 +101,9 @@ public class InfCommandServiceImp implements ICommandService {
             Boolean flag = true;
             for (int i = 0; i < num; i++) {
                 String uuid = UUID.randomUUID() + ".jpg";
+                //以站点Id+image+年月创建存储拍照的文件夹
                 StringBuilder pathStr = new StringBuilder(bean.getStationId() + "/image/" + DateUtil.dateToString(new Date(), "yyyymm") + "/");
+                //构建存储图片的绝对路径
                 String szFilePath = infPhoto.BuilderFilePath(pathStr.toString(), uuid);
                 PhotographRequest request = new PhotographRequest("", szFilePath, PhotographRequest.PhotographType.Jpeg);
                 PhotographResponse response = this.videoService.Photograph(request);
@@ -110,12 +112,6 @@ public class InfCommandServiceImp implements ICommandService {
                     result.put("code", 2);
                 } else {
                     pictureList.add(Constants.CAMERA_BEFORE_PATH_IMAGE + pathStr + uuid);
-                    //Ftp上传文件到线路和线网
-                    try {
-                        // 执行推流任务
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
                 Thread.sleep(1000 * Integer.parseInt(bean.getParams3()));//抓图间隔
             }

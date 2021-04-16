@@ -47,6 +47,13 @@ public class InfUtil {
         return leftNow.getTime();
     }
 
+    /**
+     *
+     * @param result
+     * @param code
+     * @param msg
+     * @return
+     */
     public static Map<String, Object> SendMap(Map<String, Object> result, int code, String msg) {
         result.put("code", code);
         result.put("msg", msg);

@@ -15,12 +15,11 @@ public class infPhoto {
 
     /**
      * 构建英飞拓视频拍照图片文件存储地址
-     *
+     * @param pathStr
+     * @param photoName
      * @return
      */
     public static String BuilderFilePath(String pathStr, String photoName) {
-        //站点Id+image+年月
-
         StringBuilder szFilePath = new StringBuilder();
         //文件存储存储地址，不出意外软网关会部署在windows服务器中
         szFilePath.append(Constants.CAMERA_IMAGE);
