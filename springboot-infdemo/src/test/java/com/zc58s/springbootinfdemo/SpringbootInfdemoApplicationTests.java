@@ -6,6 +6,8 @@ import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
 import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
 import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
+import com.zc58s.springbootinfdemo.jna.service.business.infPtz.InfPtzCommand;
+import com.zc58s.springbootinfdemo.jna.service.business.infPtz.factory.InfPtzFactory;
 import com.zc58s.springbootinfdemo.jna.service.impl.VideoPlatformServiceImp;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -46,6 +48,12 @@ class SpringbootInfdemoApplicationTests {
         logger.info("This is an info message");
         logger.warn("This is a warn message");
         logger.error("This is an error message");
+    }
+
+    @Test
+    void ptz() {
+        InfPtzCommand command = InfPtzFactory.GetCommand("", 21, 0);
+        System.out.println(command.Ptz());
     }
 
 }

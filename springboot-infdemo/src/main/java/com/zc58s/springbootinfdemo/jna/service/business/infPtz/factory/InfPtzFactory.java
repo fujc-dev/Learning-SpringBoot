@@ -61,7 +61,7 @@ public class InfPtzFactory {
                     Constructor constructor = clazz.getConstructor(String.class);
                     command = (CommandBase) constructor.newInstance(szCameraId);
                 }
-                if (parameterTypes.length == 1) {
+                if (parameterTypes.length == 2) {
                     Constructor constructor = clazz.getConstructor(String.class, int.class);
                     command = (CommandBase) constructor.newInstance(szCameraId, infCommandValue);
                 }
