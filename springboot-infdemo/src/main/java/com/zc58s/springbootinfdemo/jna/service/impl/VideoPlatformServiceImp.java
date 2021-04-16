@@ -13,7 +13,7 @@ import com.zc58s.springbootinfdemo.jna.sdk.callback.Message;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.MessageCallback;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.SystemEventCallback;
 import com.zc58s.springbootinfdemo.jna.service.IBusinessService;
-import com.zc58s.springbootinfdemo.jna.service.IPztControlService;
+import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
 import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
 import com.zc58s.springbootinfdemo.jna.base.Sdk;
 import com.zc58s.springbootinfdemo.jna.service.IVideoService;
@@ -44,7 +44,7 @@ import java.util.concurrent.locks.LockSupport;
  * @createtime : 2021/1/26 17:34
  */
 @Service
-public class VideoPlatformServiceImp extends ServiceBase implements IPlatformService, IPztControlService, IBusinessService, IVideoService {
+public class VideoPlatformServiceImp extends ServiceBase implements IPlatformService, IPtzControlService, IBusinessService, IVideoService {
 
     /*
      * 1、服务必须的单例的有效。所有的操作都依赖登录句柄；
@@ -119,6 +119,11 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
     }
 
     @Override
+    public PtzResponse PtzDown(String szCameraId) {
+        return super.Ptz(szCameraId, 0, -super.m_Speed / 10.0F, 0);
+    }
+
+    @Override
     public PtzResponse PtzRight(String szCameraId) {
         return super.Ptz(szCameraId, super.m_Speed / 10.0F, 0, 0);
     }
@@ -165,7 +170,12 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
 
     @Override
     public PtzResponse PtzPreset(String szCameraId, int nPresetIndex) {
-        return null;
+        return super.Preset(szCameraId,nPresetIndex);
+    }
+
+    @Override
+    public PtzResponse PtzSetPreset(String szCameraId, int nIndex) {
+        return super.SetPreset(szCameraId,nIndex);
     }
 
     //TODO 经过测试发现，句柄为0时，请求不会被执行，不知道为啥，也就是说，要登录两次，当句柄为1时，请求有效，需要咨询英飞拓技术专家；

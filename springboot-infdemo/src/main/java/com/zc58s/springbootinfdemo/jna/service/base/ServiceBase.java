@@ -58,12 +58,10 @@ public class ServiceBase {
      */
     public PtzResponse Ptz(String szCameraId, float fPan, float fTilt, float fZoom) {
         PtzResponse response = new PtzResponse();
-        //登录平台句柄无效
         if (this.m_nLoginHandle < 0) {
             response.setCode(Sdk.CODE_PLATFORM_NO_LOGIN_HANDLE);
             return response;
         }
-        //输入的摄像机唯一编号为空
         if (StringUtils.isEmpty(szCameraId)) {
             response.setCode(Sdk.CODE_PTZ_CAMERA_ID_INVALID);
             return response;
@@ -81,19 +79,38 @@ public class ServiceBase {
      * @param nPresetIndex 预置位号
      * @return
      */
-    public PtzResponse Ptz(String szCameraId, int nPresetIndex) {
+    public PtzResponse Preset(String szCameraId, int nPresetIndex) {
         PtzResponse response = new PtzResponse();
-        //登录平台句柄无效
         if (this.m_nLoginHandle < 0) {
             response.setCode(Sdk.CODE_PLATFORM_NO_LOGIN_HANDLE);
             return response;
         }
-        //输入的摄像机唯一编号为空
         if (StringUtils.isEmpty(szCameraId)) {
             response.setCode(Sdk.CODE_PTZ_CAMERA_ID_INVALID);
             return response;
         }
         InfNetSdk.INSTANCE.INF_NET_PtzPreset(this.m_nLoginHandle, szCameraId, nPresetIndex);
+        response.setStatus(true);
+        response.setCode(Sdk.CODE_PTZ_SUCCESS);
+        return response;
+    }
+    /**
+     * 设置摄像机云台预置位
+     * @param szCameraId  播放摄像机的ID或伪编码
+     * @param nIndex 预置位号
+     * @return
+     */
+    public PtzResponse SetPreset(String szCameraId, int nIndex) {
+        PtzResponse response = new PtzResponse();
+        if (this.m_nLoginHandle < 0) {
+            response.setCode(Sdk.CODE_PLATFORM_NO_LOGIN_HANDLE);
+            return response;
+        }
+        if (StringUtils.isEmpty(szCameraId)) {
+            response.setCode(Sdk.CODE_PTZ_CAMERA_ID_INVALID);
+            return response;
+        }
+        InfNetSdk.INSTANCE.INF_NET_PtzPresetSet(this.m_nLoginHandle, szCameraId, nIndex);
         response.setStatus(true);
         response.setCode(Sdk.CODE_PTZ_SUCCESS);
         return response;

@@ -5,7 +5,7 @@ import com.zc58s.springbootinfdemo.jna.response.LoginResponse;
 import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
 import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
-import com.zc58s.springbootinfdemo.jna.service.IPztControlService;
+import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
 import com.zc58s.springbootinfdemo.jna.service.impl.VideoPlatformServiceImp;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import java.io.IOException;
 class SpringbootInfdemoApplicationTests {
 
     @Autowired
-    private IPztControlService service;
+    private IPtzControlService service;
 
     @Test
     void contextLoads() {

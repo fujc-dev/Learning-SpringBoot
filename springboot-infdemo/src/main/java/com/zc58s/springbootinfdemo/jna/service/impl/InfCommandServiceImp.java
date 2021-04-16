@@ -4,9 +4,12 @@ import com.zc58s.springbootinfdemo.bean.Command;
 import com.zc58s.springbootinfdemo.bean.LiResource;
 import com.zc58s.springbootinfdemo.jna.request.LoginRequest;
 import com.zc58s.springbootinfdemo.jna.response.LoginResponse;
+import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
 import com.zc58s.springbootinfdemo.jna.service.ICommandService;
 import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
-import com.zc58s.springbootinfdemo.jna.service.IPztControlService;
+import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
+import com.zc58s.springbootinfdemo.jna.service.business.infPtz.InfPtzCommand;
+import com.zc58s.springbootinfdemo.jna.service.business.infPtz.factory.InfPtzFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
@@ -19,7 +22,7 @@ import java.util.Map;
  */
 public class InfCommandServiceImp implements ICommandService {
 
-    private IPztControlService pztService;
+    private IPtzControlService PtzService;
     private IPlatformService platformService;
 
     private LoginResponse Login() {
@@ -28,8 +31,8 @@ public class InfCommandServiceImp implements ICommandService {
     }
 
     @Autowired
-    public InfCommandServiceImp(IPlatformService platformService, IPztControlService pztService) {
-        this.pztService = pztService;
+    public InfCommandServiceImp(IPlatformService platformService, IPtzControlService PtzService) {
+        this.PtzService = PtzService;
         this.platformService = platformService;
     }
 
@@ -42,10 +45,10 @@ public class InfCommandServiceImp implements ICommandService {
             LoginResponse loginResponse = this.Login();
             if (!loginResponse.getStatus()) {
                 result.put("code", 1); // 登录失败
+                result.put("message", "登录失败");
                 return result;
             }
         }
-
         /**
          *          海康定义的API约定
          *         dwPTZCommand：云台控制命令，11=焦距变大，12=焦距变小，13=焦点前调，14=焦点后调，15=光圈扩大，16=光圈扩小
@@ -54,15 +57,18 @@ public class InfCommandServiceImp implements ICommandService {
          *         dwStop：云台开始或停止动作：0=开始，1=停止
          */
 
-        int params2 = Integer.parseInt(bean.getParams2());
-        int params3 = Integer.parseInt(bean.getParams3());
-        //在英飞拓的视频中
-        if (params2 == 8 || params2 == 9 || params2 == 39) {
-
+        int infCommandKey = Integer.parseInt(bean.getParams2());
+        int infCommandValue = Integer.parseInt(bean.getParams3());
+        //在英飞拓的视频中，没有定义操作的点，默认使用海康定义
+        InfPtzCommand command = InfPtzFactory.GetCommand("", infCommandKey,infCommandValue);
+        if (command != null) {
+            PtzResponse response = command.Ptz();
+            result.put("code", response.getStatus());
         } else {
-
+            result.put("code", 1); //command==null ，没有找到该命令
+            result.put("message", "无效的控制命令");
         }
-        return null;
+        return result;
     }
 
     @Override

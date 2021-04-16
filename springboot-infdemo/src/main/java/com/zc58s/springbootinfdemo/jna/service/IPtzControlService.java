@@ -8,13 +8,21 @@ import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/1/27 14:04
  */
-public interface IPztControlService {
+public interface IPtzControlService {
     /**
      * 控制摄像机镜头向上移动
      *
      * @param szCameraId 播放摄像机的ID或伪编码
      */
     PtzResponse PtzUp(String szCameraId);
+
+    /**
+     * 控制摄像机镜头向下移动
+     *
+     * @param szCameraId
+     * @return
+     */
+    PtzResponse PtzDown(String szCameraId);
 
     /**
      * 控制摄像机镜头向右移动
@@ -88,4 +96,13 @@ public interface IPztControlService {
      * @return
      */
     PtzResponse PtzPreset(String szCameraId, int nPresetIndex);
+
+    /**
+     * 设置摄像机云台预置位
+     *
+     * @param szCameraId   播放摄像机的ID或伪编码
+     * @param nIndex 预置位号
+     * @return
+     */
+    PtzResponse PtzSetPreset(String szCameraId, int nIndex);
 }
