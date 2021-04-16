@@ -19,7 +19,7 @@ public class LoginResponse extends ResponseBase {
     @Override
     public String toString() {
         return "LoginResponse{" +
-                "status=" + super.isStatus() +
+                "status=" + super.getStatus() +
                 ", code='" + super.getCode() + '\'' +
                 '}';
     }

@@ -26,4 +26,12 @@ public interface IPlatformService {
     void LoginOut();
 
 
+    /**
+     * 获取登录状态
+     *
+     * @return
+     */
+    Boolean LoginStatus();
+
+
 }

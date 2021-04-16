@@ -47,7 +47,9 @@ import java.util.concurrent.locks.LockSupport;
 public class VideoPlatformServiceImp extends ServiceBase implements IPlatformService, IPztControlService, IBusinessService, IVideoService {
 
     /*
-     * 1、服务必须的单例的有效。所有的操作都依赖登录句柄
+     * 1、服务必须的单例的有效。所有的操作都依赖登录句柄；
+     *
+     * 2、如果后续拍照性能有问题，需要维护一个登录请求一个服务；
      * */
     //
     private Logger logger = LoggerFactory.getLogger(VideoPlatformServiceImp.class);
@@ -107,6 +109,11 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
     }
 
     @Override
+    public Boolean LoginStatus() {
+        return super.m_bIsLogin;
+    }
+
+    @Override
     public PtzResponse PtzUp(String szCameraId) {
         return super.Ptz(szCameraId, 0, super.m_Speed / 10.0F, 0);
     }
@@ -154,6 +161,11 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
     @Override
     public PtzResponse PtzStop(String szCameraId) {
         return super.Ptz(szCameraId, 0, 0, 0);
+    }
+
+    @Override
+    public PtzResponse PtzPreset(String szCameraId, int nPresetIndex) {
+        return null;
     }
 
     //TODO 经过测试发现，句柄为0时，请求不会被执行，不知道为啥，也就是说，要登录两次，当句柄为1时，请求有效，需要咨询英飞拓技术专家；

@@ -16,7 +16,7 @@ public class ResponseBase {
     private int code = Sdk.CODE_ERROR_INVALID_PARA;
 
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -35,4 +35,6 @@ public class ResponseBase {
     public void setCode(int code) {
         this.code = code;
     }
+
+
 }

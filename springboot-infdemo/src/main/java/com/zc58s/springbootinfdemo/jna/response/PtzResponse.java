@@ -11,7 +11,7 @@ public class PtzResponse extends ResponseBase {
     @Override
     public String toString() {
         return "PtzResponse{" +
-                "status=" + super.isStatus() +
+                "status=" + super.getStatus() +
                 ", mgs='" + super.getCode() + '\'' +
                 '}';
     }

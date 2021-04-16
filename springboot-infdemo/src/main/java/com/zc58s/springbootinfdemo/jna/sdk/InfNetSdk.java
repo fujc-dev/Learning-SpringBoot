@@ -112,6 +112,15 @@ public interface InfNetSdk extends StdCallLibrary {
      */
     String INF_NET_PtzControl(int nLoginHandle, String szCameraId, float fPan, float fTilt, float fZoom);
 
+    /**
+     * 摄像机云台预置位
+     *
+     * @param nLoginHandle 登录返回的句柄
+     * @param szCameraId   播放摄像机的ID或伪编码
+     * @param nPresetIndex 预置位号
+     * @return
+     */
+    String INF_NET_PtzPreset(int nLoginHandle, String szCameraId, int nPresetIndex);
 
     //###########################################################################################
     // 资源获取
