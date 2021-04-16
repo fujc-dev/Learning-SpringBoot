@@ -11,6 +11,11 @@ import java.util.Map;
  */
 public class InfUtil {
 
+    /**
+     * 检测文件夹是否存在，如果不存在，并创建
+     *
+     * @param path
+     */
     public static void CheckFile(String path) {
         File baseFile = new File(path);
         try {

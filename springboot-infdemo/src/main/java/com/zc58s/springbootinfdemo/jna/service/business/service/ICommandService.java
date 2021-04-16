@@ -1,4 +1,4 @@
-package com.zc58s.springbootinfdemo.jna.service;
+package com.zc58s.springbootinfdemo.jna.service.business.service;
 
 import com.zc58s.springbootinfdemo.bean.Command;
 import com.zc58s.springbootinfdemo.bean.LiResource;

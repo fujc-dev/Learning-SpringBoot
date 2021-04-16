@@ -52,6 +52,7 @@ class SpringbootInfdemoApplicationTests {
 
     @Test
     void ptz() {
+
         InfPtzCommand command = InfPtzFactory.GetCommand("", 21, 0);
         System.out.println(command.Ptz());
     }

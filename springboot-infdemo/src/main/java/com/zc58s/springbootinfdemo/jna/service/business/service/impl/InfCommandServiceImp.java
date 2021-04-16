@@ -1,6 +1,5 @@
-package com.zc58s.springbootinfdemo.jna.service.impl;
+package com.zc58s.springbootinfdemo.jna.service.business.service.impl;
 
-import com.sun.jna.NativeLong;
 import com.zc58s.springbootinfdemo.bean.Command;
 import com.zc58s.springbootinfdemo.bean.LiResource;
 import com.zc58s.springbootinfdemo.jna.request.LoginRequest;
@@ -8,7 +7,8 @@ import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
 import com.zc58s.springbootinfdemo.jna.response.LoginResponse;
 import com.zc58s.springbootinfdemo.jna.response.PhotographResponse;
 import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
-import com.zc58s.springbootinfdemo.jna.service.ICommandService;
+import com.zc58s.springbootinfdemo.jna.service.business.infPtz.util.infPhoto;
+import com.zc58s.springbootinfdemo.jna.service.business.service.ICommandService;
 import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
 import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
 import com.zc58s.springbootinfdemo.jna.service.IVideoService;
@@ -20,6 +20,7 @@ import com.zc58s.springbootinfdemo.jna.utils.InfUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -29,6 +30,7 @@ import java.util.*;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/4/16 10:00
  */
+@Service
 public class InfCommandServiceImp implements ICommandService {
 
     private final static Logger logger = LoggerFactory.getLogger(InfCommandServiceImp.class);
@@ -98,19 +100,14 @@ public class InfCommandServiceImp implements ICommandService {
             int num = Integer.parseInt(bean.getParams2());//拍照张数
             Boolean flag = true;
             for (int i = 0; i < num; i++) {
-                StringBuilder szFilePath = new StringBuilder();
-                StringBuilder pathStr = new StringBuilder(bean.getStationId() + "/image/" + DateUtil.dateToString(new Date(), "yyyymm") + "/");
-                //根地址
-                szFilePath.append(Constants.CAMERA_IMAGE);
-                szFilePath.append(pathStr);
-                InfUtil.CheckFile(szFilePath.toString());
                 String uuid = UUID.randomUUID() + ".jpg";
-                szFilePath.append(uuid);
-                PhotographRequest request = new PhotographRequest("", szFilePath.toString(), PhotographRequest.PhotographType.Jpeg);
+                StringBuilder pathStr = new StringBuilder(bean.getStationId() + "/image/" + DateUtil.dateToString(new Date(), "yyyymm") + "/");
+                String szFilePath = infPhoto.BuilderFilePath(pathStr.toString(), uuid);
+                PhotographRequest request = new PhotographRequest("", szFilePath, PhotographRequest.PhotographType.Jpeg);
                 PhotographResponse response = this.videoService.Photograph(request);
                 if (!response.getStatus()) {
                     flag = false;
-                    result.put("code", 2); // 当连不通时，直接抛异常，异常捕获即可
+                    result.put("code", 2);
                 } else {
                     pictureList.add(Constants.CAMERA_BEFORE_PATH_IMAGE + pathStr + uuid);
                     //Ftp上传文件到线路和线网
@@ -163,6 +160,8 @@ public class InfCommandServiceImp implements ICommandService {
         //事后时长，得延时记录
         Date endTime = InfUtil.CaleTime(startDate, bean.getParams3(), Constants.INT_1);
         System.out.println("录像开始时间：" + DateUtil.dateToString(startTime, "yyyy-mm-dd hh24:mi:ss") + "---录像结束时间：" + DateUtil.dateToString(endTime, "yyyy-mm-dd hh24:mi:ss"));
+
+
         return result;
     }
 
