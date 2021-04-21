@@ -4,6 +4,7 @@ import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
 import com.zc58s.springbootinfdemo.jna.response.PhotographResponse;
 import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
 import com.zc58s.springbootinfdemo.jna.service.IVideoService;
+import com.zc58s.springbootinfdemo.jna.service.business.infPtz.bean.InfImage;
 import com.zc58s.springbootinfdemo.jna.service.business.infPtz.util.infPhoto;
 import com.zc58s.springbootinfdemo.jna.utils.Constants;
 import com.zc58s.springbootinfdemo.jna.utils.DateUtil;
@@ -21,14 +22,16 @@ import java.util.UUID;
 public class InfPhotoFactory {
 
     /**
+     * //TODO  这个拍照是不是需要优化下，之前是只要包含一个Flag=false就表示拍照失败
+     *
      * @param stationId  站点主键
      * @param szCameraId 播放摄像机的ID或伪编码
      * @param serial     连拍数
      * @return
      */
-    public static List<String> Photograph(String stationId, String szCameraId, int serial) {
+    public static List<InfImage> Photograph(String stationId, String szCameraId, int serial) {
 
-        List<String> pictureList = new ArrayList<>();
+        List<InfImage> pictureList = new ArrayList<>();
         try {
             Boolean flag = true;
             IVideoService videoService = SpringContextUtil.getBean(IVideoService.class);
@@ -42,9 +45,10 @@ public class InfPhotoFactory {
                 PhotographResponse response = videoService.Photograph(request);
                 if (!response.getStatus()) {
                     flag = false;
-
                 } else {
-                    pictureList.add(Constants.CAMERA_BEFORE_PATH_IMAGE + pathStr + uuid);
+                    String path = Constants.CAMERA_BEFORE_PATH_IMAGE + pathStr + uuid;
+                    InfImage image = new InfImage(path, flag);
+                    pictureList.add(image);
                 }
                 Thread.sleep(1000 * Integer.parseInt(stationId));//抓图间隔
             }
@@ -52,6 +56,20 @@ public class InfPhotoFactory {
             e.printStackTrace();
         } finally {
 
+        }
+        return pictureList;
+    }
+
+    /**
+     * @param images
+     * @return
+     */
+    public static List<String> GetImageList(List<InfImage> images) {
+        List<String> pictureList = new ArrayList<String>();
+        for (InfImage img : images) {
+            if (img.getFlag()) {
+                pictureList.add(img.getPath());
+            }
         }
         return pictureList;
     }
