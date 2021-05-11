@@ -10,9 +10,10 @@ public class SpringbootInfdemoApplication {
 
 
     public static void main(String[] args) {
-
         //
+        System.out.println("InfNetSdk Init Begin ...");
         InfNetSdk.INSTANCE.INF_NET_Init();
+        System.out.println("InfNetSdk Init End ...");
         //
         SpringApplication.run(SpringbootInfdemoApplication.class, args);
     }

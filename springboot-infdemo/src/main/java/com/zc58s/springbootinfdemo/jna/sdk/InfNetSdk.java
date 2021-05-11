@@ -1,11 +1,11 @@
 package com.zc58s.springbootinfdemo.jna.sdk;
 
-import com.sun.jna.Native;
-import com.sun.jna.NativeLong;
+import com.sun.jna.*;
 import com.sun.jna.win32.StdCallLibrary;
+
 import com.zc58s.springbootinfdemo.jna.sdk.callback.MessageCallback;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.SystemEventCallback;
-import com.zc58s.springbootinfdemo.jna.sdk.callback.StreamCallBack;
+
 
 /**
  * V2200平台sdk，基于英飞拓Win32动态链接库InfNetSdk.DLL的Java调用封装。
@@ -23,9 +23,9 @@ import com.zc58s.springbootinfdemo.jna.sdk.callback.StreamCallBack;
 public interface InfNetSdk extends StdCallLibrary {
 
     //绝对地址
-    String filePath = "C:\\Users\\Lenovo\\Documents\\WeChat Files\\xhh_lite\\FileStorage\\File\\2021-01\\VMS V2200 2.0 sdk 20190425\\VMS V2200 2.0 sdk 20190425\\app\\InfNetSdk.dll";
+    String filePath = "D:\\infSdk\\InfNetSdk";
 
-    InfNetSdk INSTANCE = Native.loadLibrary(filePath, InfNetSdk.class);
+    InfNetSdk INSTANCE = (InfNetSdk) Native.loadLibrary(filePath, InfNetSdk.class);
 
 
     enum enPTZOtherType {
@@ -160,7 +160,7 @@ public interface InfNetSdk extends StdCallLibrary {
     /**
      * 快照，这里面缺少一个本地存储的路径，后续要取文件，需要从平台拿
      *
-     * @param nPlayHandle    登录句柄
+     * @param nPlayHandle    播放句柄
      * @param szSnapFileName 文件名
      * @param iType          快照类型，0为Bmp，1为Jpeg，2为Png
      * @return 函数执行的错误

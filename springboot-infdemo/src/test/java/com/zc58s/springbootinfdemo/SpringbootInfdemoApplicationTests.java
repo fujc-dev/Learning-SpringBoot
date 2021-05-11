@@ -27,14 +27,14 @@ class SpringbootInfdemoApplicationTests {
     void contextLoads() {
 
         try {
-            System.out.println(service.PtzLeft("111"));
-            IPlatformService platformService = new VideoPlatformServiceImp();
-            InfNetSdk.INSTANCE.INF_NET_Init();
-            String version = InfNetSdk.INSTANCE.INF_NET_GetVersion();
-            System.out.println("SDK Version: " + version);
-            LoginRequest request = new LoginRequest("10.20.2.165", "admin", "admin");
-            LoginResponse response = platformService.Login(request);
-            System.out.println(response);
+//            System.out.println(service.PtzLeft("111"));
+//            IPlatformService platformService = new VideoPlatformServiceImp();
+//            InfNetSdk.INSTANCE.INF_NET_Init();
+//            String version = InfNetSdk.INSTANCE.INF_NET_GetVersion();
+//            System.out.println("SDK Version: " + version);
+//            LoginRequest request = new LoginRequest("10.20.2.165", "admin", "admin");
+//            LoginResponse response = platformService.Login(request);
+//            System.out.println(response);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -43,18 +43,18 @@ class SpringbootInfdemoApplicationTests {
 
     @Test
     void log() {
-        Logger logger = LoggerFactory.getLogger(SpringbootInfdemoApplicationTests.class);
-        logger.debug("This is a debug message");//注意 spring 默认日志输出级别为 info 所以默认情况下 这句不会打印到控制台
-        logger.info("This is an info message");
-        logger.warn("This is a warn message");
-        logger.error("This is an error message");
+//        Logger logger = LoggerFactory.getLogger(SpringbootInfdemoApplicationTests.class);
+//        logger.debug("This is a debug message");//注意 spring 默认日志输出级别为 info 所以默认情况下 这句不会打印到控制台
+//        logger.info("This is an info message");
+//        logger.warn("This is a warn message");
+//        logger.error("This is an error message");
     }
 
     @Test
     void ptz() {
 
-        InfPtzCommand command = InfPtzFactory.GetCommand("", 21, 0);
-        System.out.println(command.Ptz());
+       // InfPtzCommand command = InfPtzFactory.GetCommand("", 21, 0);
+     //   System.out.println(command.Ptz());
     }
 
 }

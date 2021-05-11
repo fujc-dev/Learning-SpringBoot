@@ -41,7 +41,7 @@ public class InfPhotoFactory {
                 StringBuilder pathStr = new StringBuilder(stationId + "/image/" + DateUtil.dateToString(new Date(), "yyyymm") + "/");
                 //构建存储图片的绝对路径
                 String szFilePath = infPhoto.BuilderFilePath(pathStr.toString(), uuid);
-                PhotographRequest request = new PhotographRequest("", szFilePath, PhotographRequest.PhotographType.Jpeg);
+                PhotographRequest request = new PhotographRequest(szCameraId, szFilePath, PhotographRequest.PhotographType.Jpeg);
                 PhotographResponse response = videoService.Photograph(request);
                 if (!response.getStatus()) {
                     flag = false;
