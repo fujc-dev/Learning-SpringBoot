@@ -1,9 +1,10 @@
-# Getting Started
+#  VMS平台2.0 sdk 20190719
 
-### Reference Documentation
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.2/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.4.2/maven-plugin/reference/html/#build-image)
-
+###  直播
+```text
+主码流    rtsp://ip:port/1/h264major
+副码流    rtsp://ip:port/1/h264minor
+MJPEG   rtsp://ip:port/1/mjpeg        
+端口为   554
+rtsp://admin:admin@192.168.1.19:554/1/h264major?rtsp://admin:123qwe@192.168.1.227:554/1/h264major?starttime=20210517t000000z&20210517t001000z
+```
