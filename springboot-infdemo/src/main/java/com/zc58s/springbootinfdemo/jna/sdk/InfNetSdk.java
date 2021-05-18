@@ -168,6 +168,7 @@ public interface InfNetSdk extends StdCallLibrary {
     String INF_NET_Snapshot(int nPlayHandle, String szSnapFileName, int iType);
 
     /**
+     * 非实时模式快照
      * 只需要传递一个设备唯一编号就能进行拍照
      *
      * @param nLoginHandle 登录句柄
