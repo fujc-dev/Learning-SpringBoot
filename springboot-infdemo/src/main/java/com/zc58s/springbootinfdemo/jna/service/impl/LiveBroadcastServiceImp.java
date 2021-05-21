@@ -1,6 +1,5 @@
 package com.zc58s.springbootinfdemo.jna.service.impl;
 
-import com.zc58s.springbootinfdemo.jna.request.LiveRequest;
 import com.zc58s.springbootinfdemo.jna.response.LiveResponse;
 import com.zc58s.springbootinfdemo.jna.service.ILiveBroadcastService;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LiveBroadcastServiceImp implements ILiveBroadcastService {
     @Override
-    public LiveResponse Play(LiveRequest request) {
+    public LiveResponse Play() {
         return null;
     }
 

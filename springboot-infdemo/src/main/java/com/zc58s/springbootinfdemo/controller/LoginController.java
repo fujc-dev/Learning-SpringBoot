@@ -1,20 +1,18 @@
 package com.zc58s.springbootinfdemo.controller;
 
+import com.zc58s.springbootinfdemo.jna.request.LivePlaybackRequest;
 import com.zc58s.springbootinfdemo.jna.request.LoginRequest;
 import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
-import com.zc58s.springbootinfdemo.jna.response.LoginResponse;
-import com.zc58s.springbootinfdemo.jna.response.PhotographResponse;
-import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
+import com.zc58s.springbootinfdemo.jna.response.*;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
-import com.zc58s.springbootinfdemo.jna.service.IBusinessService;
-import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
-import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
-import com.zc58s.springbootinfdemo.jna.service.IVideoService;
+import com.zc58s.springbootinfdemo.jna.service.*;
+import com.zc58s.springbootinfdemo.jna.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,16 +29,20 @@ public class LoginController {
     //摄像头控制服务
     private final IPtzControlService ptzService;
     private final IVideoService videoService;
+    private final ILivePlaybackService playbackService;
+
 
     @Autowired
     public LoginController(IPlatformService platformService,
                            IBusinessService businessService,
                            IPtzControlService ptzService,
-                           IVideoService videoService) {
+                           IVideoService videoService,
+                           ILivePlaybackService playbackService) {
         this.platformService = platformService;
         this.businessService = businessService;
         this.ptzService = ptzService;
         this.videoService = videoService;
+        this.playbackService = playbackService;
     }
 
     @ResponseBody
@@ -147,7 +149,9 @@ public class LoginController {
      */
     @ResponseBody
     @RequestMapping("/photo")
-    public Map<String, Object> photo(String szCameraId, String szFilePath) {
+    public Map<String, Object> photo(String szCameraId) {
+        //有条件的话将这个图片地址放置到配置文件中
+        String szFilePath = "D:\\infImgs\\" + DateUtil.formatByMillisecond() + ".png";
         PhotographRequest photographRequest = new PhotographRequest(
                 szCameraId,
                 szFilePath,
@@ -159,5 +163,27 @@ public class LoginController {
         return map;
     }
 
+    @ResponseBody
+    @RequestMapping("/back_play")
+    public Map<String, Object> StartBackPlay(String szCameraId, String dwBeginTime, String dwEndTime) throws ParseException {
+        LivePlaybackRequest request = new LivePlaybackRequest(szCameraId, dwBeginTime, dwEndTime);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", true);
+        LivePlaybackResponse response = this.playbackService.StartBackPlay(request);
+        map.put("data", response);
+        return map;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/back_play2")
+    public Map<String, Object> StartBackPlay2(String szCameraId, String dwBeginTime, String dwEndTime) throws ParseException {
+        LivePlaybackRequest request = new LivePlaybackRequest(szCameraId, dwBeginTime, dwEndTime);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", true);
+        LivePlaybackResponse response = this.playbackService.StartBackPlay(request);
+        map.put("data", response);
+        return map;
+    }
 
 }

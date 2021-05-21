@@ -4,6 +4,7 @@ import com.sun.jna.*;
 import com.sun.jna.win32.StdCallLibrary;
 
 import com.zc58s.springbootinfdemo.jna.sdk.callback.MessageCallback;
+import com.zc58s.springbootinfdemo.jna.sdk.callback.StreamCallBack;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.SystemEventCallback;
 
 
@@ -124,9 +125,10 @@ public interface InfNetSdk extends StdCallLibrary {
 
     /**
      * 设置摄像机云台预置位
-     * @param nHandle 登录返回的句柄
-     * @param szCameraId  播放摄像机的ID或伪编码
-     * @param nIndex 预置位号
+     *
+     * @param nHandle    登录返回的句柄
+     * @param szCameraId 播放摄像机的ID或伪编码
+     * @param nIndex     预置位号
      * @return
      */
     String INF_NET_PtzPresetSet(int nHandle, String szCameraId, int nIndex);
@@ -168,12 +170,12 @@ public interface InfNetSdk extends StdCallLibrary {
     String INF_NET_Snapshot(int nPlayHandle, String szSnapFileName, int iType);
 
     /**
-     * 非实时模式快照
+     * 非实时模式快照，不播放视频快照
      * 只需要传递一个设备唯一编号就能进行拍照
      *
      * @param nLoginHandle 登录句柄
      * @param szCameraId   摄像头唯一编号
-     * @param szFilePath   文件路径
+     * @param szFilePath   文件名
      * @param iImageType   快照类型，0为Bmp，1为Jpeg，2为Png
      * @return
      */
@@ -210,4 +212,40 @@ public interface InfNetSdk extends StdCallLibrary {
     String INF_NET_GetAllServer(int nLoginHandle);
 
 
+    //###########################################################################################
+    // 回放
+    //###########################################################################################
+
+    /**
+     * 查询摄像机的录像文件。
+     *
+     * @param nLoginHandle 登录返回的句柄
+     * @param szSearchId   标志该次的录像搜索ID，格式为uuid
+     * @param szCameraId   播放摄像机的ID
+     * @param dwBeginTime  查询录像的开始时间(1970年1月1日开始的秒数1483642884)
+     * @param dwEndTime    查询录像的结束时间(1970年1月1日开始的秒数1483743684)
+     * @param szRecordType 搜索的录像类型 ("all" 所有 "auto" 自动 "alarm" 报警 一般赋值"all")
+     * @param playBackType 回放类型（自适应0，内部1，外部2 一般赋值0）
+     *                     //@param lTimeout     服务器返回结果的最大超时时间。
+     * @return
+     */
+    String INF_NET_SearchFile(int nLoginHandle, String szSearchId, String szCameraId, UnsignedLong dwBeginTime, UnsignedLong dwEndTime, String szRecordType, int playBackType);
+
+
+    /**
+     * 回放录像
+     * @param nLoginHandle  登录返回的句柄
+     * @param szPlayParam 回放历史视频参数 Json格式的字符串
+     * @param lpCallback 流数据回调：媒体流格式见LPMEDIAFRAME_INFO
+     * @return
+     */
+    int INF_NET_StartBackPlay(int nLoginHandle, String szPlayParam, StreamCallBack lpCallback);
+
+    /**
+     * 回放控制（服务器）播放，暂停，快进，慢进，帧退，帧进，倒放
+     * @param nConHandle 回放流连接句柄
+     * @param szPlayControlParam  回放控制的参数Json格式的字符串
+     * @return
+     */
+    int INF_NET_StartBackControl(int nConHandle, String szPlayControlParam);
 }

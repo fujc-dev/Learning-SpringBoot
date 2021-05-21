@@ -52,4 +52,11 @@ public final class Sdk {
      * 无效的摄像机识别码
      */
     public static int CODE_PTZ_CAMERA_ID_INVALID = 10081;
+
+    //====================================================================
+    //视频回放
+    //====================================================================
+
+    //查询历史回放的文件不存在
+    public static int CODE_PLAYBACK_FILE_INVALID = 10012;
 }

@@ -1,23 +1,20 @@
 package com.zc58s.springbootinfdemo.jna.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.sun.jna.Pointer;
-import com.zc58s.springbootinfdemo.jna.request.DownVideoRequest;
-import com.zc58s.springbootinfdemo.jna.request.LoginRequest;
-import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
-import com.zc58s.springbootinfdemo.jna.request.VideoTapeRequest;
-import com.zc58s.springbootinfdemo.jna.response.LoginResponse;
-import com.zc58s.springbootinfdemo.jna.response.PhotographResponse;
-import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
+import com.zc58s.springbootinfdemo.jna.request.*;
+import com.zc58s.springbootinfdemo.jna.response.*;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.Message;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.MessageCallback;
+import com.zc58s.springbootinfdemo.jna.sdk.callback.StreamCallBack;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.SystemEventCallback;
-import com.zc58s.springbootinfdemo.jna.service.IBusinessService;
-import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
-import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
+import com.zc58s.springbootinfdemo.jna.service.*;
 import com.zc58s.springbootinfdemo.jna.base.Sdk;
-import com.zc58s.springbootinfdemo.jna.service.IVideoService;
 import com.zc58s.springbootinfdemo.jna.service.base.ServiceBase;
+import com.zc58s.springbootinfdemo.jna.service.impl.params.SzPlayParam;
+import com.zc58s.springbootinfdemo.jna.utils.DateUtil;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -44,7 +41,11 @@ import java.util.concurrent.locks.LockSupport;
  * @createtime : 2021/1/26 17:34
  */
 @Service
-public class VideoPlatformServiceImp extends ServiceBase implements IPlatformService, IPtzControlService, IBusinessService, IVideoService {
+public class VideoPlatformServiceImp extends ServiceBase implements IPlatformService,
+        IPtzControlService,
+        IBusinessService,
+        IVideoService,
+        ILivePlaybackService {
 
     /*
      * 1、服务必须的单例的有效。所有的操作都依赖登录句柄；
@@ -170,15 +171,15 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
 
     @Override
     public PtzResponse PtzPreset(String szCameraId, int nPresetIndex) {
-        return super.Preset(szCameraId,nPresetIndex);
+        return super.Preset(szCameraId, nPresetIndex);
     }
 
     @Override
     public PtzResponse PtzSetPreset(String szCameraId, int nIndex) {
-        return super.SetPreset(szCameraId,nIndex);
+        return super.SetPreset(szCameraId, nIndex);
     }
 
-    //TODO 经过测试发现，句柄为0时，请求不会被执行，不知道为啥，也就是说，要登录两次，当句柄为1时，请求有效，需要咨询英飞拓技术专家；
+    //TODO 经过测试发现，句柄为0时，偶尔请求不会被执行，不知道为啥，也就是说，要登录两次，当句柄为1时，请求有效，需要咨询英飞拓技术专家；
     //TODO 句柄虽是0，但是是从登录成果的回调返回的，意思就是登录是有效的。
 
     @Override
@@ -210,23 +211,81 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
 
     @Override
     public PhotographResponse Photograph(PhotographRequest request) {
+        PhotographResponse response = new PhotographResponse();
+        if (this.m_nLoginHandle < 0) {
+            response.setCode(Sdk.CODE_PLATFORM_NO_LOGIN_HANDLE);
+            return response;
+        }
+        if (StringUtils.isEmpty(request.getSzCameraId())) {
+            response.setCode(Sdk.CODE_PTZ_CAMERA_ID_INVALID);
+            return response;
+        }
+        //TODO
+        System.out.println("---------------请求参数---------------");
+        System.out.println("登录句柄：" + this.m_nLoginHandle);
+        System.out.println(request.toString());
+        System.out.println("---------------执行拍照---------------");
         //存储路径
         //文件格式
         //拍照成功与失败
-        InfNetSdk.INSTANCE.INF_NET_SnapshotWithoutReal(this.m_nLoginHandle,
+        String _execResult = InfNetSdk.INSTANCE.INF_NET_SnapshotWithoutReal(this.m_nLoginHandle,
                 request.getSzCameraId(),
                 request.getSzFilePath(),
-                request.getiType().getType());
-        //执行成功的结果可能会由MessageCallbackImp返回，可能直接是该方法返回
-        //假如是MessageCallbackImp返回，需要锁住当前任务，等待异步返回
-
-        return null;
+                request.getiType().getType() - 1);
+        System.out.println("INF_NET_SnapshotWithoutReal：" + _execResult);
+        return response;
     }
 
     @Override
     public void VideoTape(VideoTapeRequest request) {
 
     }
+
+    //===========================拍照、下载视频、录像================================
+    @Override
+    public LivePlaybackResponse StartBackPlay(LivePlaybackRequest request) {
+        System.out.println(request.toString());
+        LivePlaybackResponse response = new LivePlaybackResponse();
+        if (this.m_nLoginHandle < 0) {
+            response.setCode(Sdk.CODE_PLATFORM_NO_LOGIN_HANDLE);
+            return response;
+        }
+        if (StringUtils.isEmpty(request.getSzCameraId())) {
+            response.setCode(Sdk.CODE_PTZ_CAMERA_ID_INVALID);
+            return response;
+        }
+        //1、根据摄像头ID + 开始日期 + 结束日期 查询是否包含录像文件，
+        //当检测到视频文化后，播放
+
+        //当不包含视频文件时，返回CODE_PLAYBACK_FILE_INVALID
+
+        //  response.setCode(Sdk.CODE_PLAYBACK_FILE_INVALID);
+        //error:InvalidPara
+        // String InvalidPara = InfNetSdk.INSTANCE.INF_NET_SearchFile(this.m_nLoginHandle, request.getSzSearchId(), request.getSzCameraId(), request.getDwBeginTime(), request.getDwEndTime(), request.getSzRecordType().getType(), request.getiBackType().getType());
+        //String InvalidPara = InfNetSdk.INSTANCE.INF_NET_SearchFile(this.m_nLoginHandle, request.getSzSearchId(), request.getSzCameraId(), 1621474659, 1621521459, "all", 1);
+        //System.out.println(InvalidPara);
+
+        //2、依次执行SDK的播放
+        SzPlayParam playParam = new SzPlayParam();
+        playParam.setCameraId(request.getSzCameraId());
+        playParam.setBeginDateTime("2021-05-20T10:00:00");
+        playParam.setEndDateTime("2021-07-20T20:00:00");
+        playParam.setDateTimePosition(DateUtil.dateToString(new Date(), "yyyy-mm-dd hh24:mi:ss"));
+        playParam.setArchiveServerUrl("nvr://192.168.1.229:5003");
+        String szPlayParam = JSON.toJSONString(playParam);
+        InfNetSdk.INSTANCE.INF_NET_StartBackPlay(this.m_nLoginHandle, szPlayParam, new StreamCallBack() {
+            @Override
+            public void invoke(Pointer pUser, int nHandle, String szType, String szError, byte[] pBuf, int nSize) {
+                System.out.println(pBuf);
+            }
+        });
+        System.out.println(playParam.toString());
+        //3、在回调函数中获取视频流，通过FFMPEG执行流转码。推流到我们自己的流媒体服务器
+
+        //4、停止回放，
+        return response;
+    }
+
     //===========================拍照、下载视频、录像================================
 
     /**

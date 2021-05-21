@@ -10,5 +10,5 @@ import com.sun.jna.Pointer;
  */
 public interface StreamCallBack {
 
-    public void invoke(Pointer pUser, int nHandle, String szType, String szError, String pBuf, int nSize);
+    void invoke(Pointer pUser, int nHandle, String szType, String szError, byte[] pBuf, int nSize);
 }

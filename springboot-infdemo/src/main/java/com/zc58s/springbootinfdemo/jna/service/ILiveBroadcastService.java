@@ -1,6 +1,5 @@
 package com.zc58s.springbootinfdemo.jna.service;
 
-import com.zc58s.springbootinfdemo.jna.request.LiveRequest;
 import com.zc58s.springbootinfdemo.jna.response.LiveResponse;
 
 /**
@@ -17,8 +16,11 @@ public interface ILiveBroadcastService {
     /**
      * 基于RTSP协议的推流，实际网页端播放是调用的代理地址
      *
-     * @param request
+     * @param
      * @return
      */
-    LiveResponse Play(LiveRequest request);
+    LiveResponse Play();
+
+
+
 }
