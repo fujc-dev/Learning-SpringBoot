@@ -1,8 +1,9 @@
 package com.zc58s.springbootinfdemo.controller;
 
-import com.zc58s.springbootinfdemo.jna.request.LivePlaybackRequest;
 import com.zc58s.springbootinfdemo.jna.request.LoginRequest;
 import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
+import com.zc58s.springbootinfdemo.jna.request.PlaybackRequest;
+import com.zc58s.springbootinfdemo.jna.request.SearchFileRequest;
 import com.zc58s.springbootinfdemo.jna.response.*;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
 import com.zc58s.springbootinfdemo.jna.service.*;
@@ -165,8 +166,8 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping("/back_play")
-    public Map<String, Object> StartBackPlay(String szCameraId, String dwBeginTime, String dwEndTime) throws ParseException {
-        LivePlaybackRequest request = new LivePlaybackRequest(szCameraId, dwBeginTime, dwEndTime);
+    public Map<String, Object> StartBackPlay(String szCameraId, String dwBeginTime, String dwEndTime, String archiveServerUrl) throws ParseException {
+        PlaybackRequest request = new PlaybackRequest(szCameraId, dwBeginTime, dwEndTime, archiveServerUrl);
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
         LivePlaybackResponse response = this.playbackService.StartBackPlay(request);
@@ -176,12 +177,12 @@ public class LoginController {
 
 
     @ResponseBody
-    @RequestMapping("/back_play2")
-    public Map<String, Object> StartBackPlay2(String szCameraId, String dwBeginTime, String dwEndTime) throws ParseException {
-        LivePlaybackRequest request = new LivePlaybackRequest(szCameraId, dwBeginTime, dwEndTime);
+    @RequestMapping("/search_file")
+    public Map<String, Object> SearchFile(String szCameraId, String dwBeginTime, String dwEndTime) throws ParseException {
+        SearchFileRequest request = new SearchFileRequest(szCameraId, dwBeginTime, dwEndTime);
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        LivePlaybackResponse response = this.playbackService.StartBackPlay(request);
+        SearchFileResponse response = this.playbackService.SearchFile(request);
         map.put("data", response);
         return map;
     }

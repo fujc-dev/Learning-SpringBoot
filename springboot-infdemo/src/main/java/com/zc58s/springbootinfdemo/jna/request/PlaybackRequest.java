@@ -1,4 +1,4 @@
-package com.zc58s.springbootinfdemo.jna.service.impl.params;
+package com.zc58s.springbootinfdemo.jna.request;
 
 /**
  * 回放历史视频参数，需要组装成 Json格式的字符串
@@ -6,7 +6,7 @@ package com.zc58s.springbootinfdemo.jna.service.impl.params;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/5/21 14:52
  */
-public class SzPlayParam {
+public class PlaybackRequest {
     private String cameraId;
     private String beginDateTime;
     private String endDateTime;
@@ -16,6 +16,14 @@ public class SzPlayParam {
     private String dateTimePosition;
     private String archiveServerUrl;
 
+
+    public PlaybackRequest(String cameraId, String beginDateTime, String endDateTime, String archiveServerUrl) {
+        this.cameraId = cameraId;
+        this.beginDateTime = beginDateTime;
+        this.dateTimePosition = beginDateTime;
+        this.endDateTime = endDateTime;
+        this.archiveServerUrl = archiveServerUrl;
+    }
 
     public String getCameraId() {
         return cameraId;
@@ -83,7 +91,7 @@ public class SzPlayParam {
 
     @Override
     public String toString() {
-        return "SzPlayParam{" +
+        return "PlaybackRequest{" +
                 "cameraId='" + cameraId + '\'' +
                 ", beginDateTime='" + beginDateTime + '\'' +
                 ", endDateTime='" + endDateTime + '\'' +

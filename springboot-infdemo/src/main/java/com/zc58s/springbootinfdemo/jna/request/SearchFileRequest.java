@@ -1,21 +1,15 @@
 package com.zc58s.springbootinfdemo.jna.request;
 
-import com.zc58s.springbootinfdemo.jna.sdk.UnsignedLong;
-
-import java.security.PublicKey;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
 
 /**
- * 直播的请求数据模型
- *
  * @author : fjc.dane@gmail.com
- * @createtime : 2021/2/4 10:03
+ * @createtime : 2021/5/24 16:25
  */
-public class LivePlaybackRequest {
+public class SearchFileRequest {
     /*
      * 标志该次的录像搜索ID，格式为uuid
      */
@@ -27,34 +21,31 @@ public class LivePlaybackRequest {
     /*
      * 查询录像的开始时间(1970年1月1日开始的秒数1483642884)
      */
-    private UnsignedLong dwBeginTime;
+    private long dwBeginTime;
     /*
      * 查询录像的结束时间(1970年1月1日开始的秒数1483743684)
      */
-    private UnsignedLong dwEndTime;
+    private long dwEndTime;
     /*
      * 搜索的录像类型 ("all" 所有 "auto" 自动 "alarm" 报警 一般赋值"all")
      */
-    private RecordType szRecordType;
+    private SearchFileRequest.RecordType szRecordType;
 
     /*
      * 回放类型（自适应0，内部1，外部2 一般赋值0）
      */
-    private BackType iBackType;
+    private SearchFileRequest.BackType iBackType;
 
     /*
      * 服务器返回结果的最大超时时间。
      */
-    private UnsignedLong lTimeout;
+    private int lTimeout;
 
-    public LivePlaybackRequest() {
-        //{92811773-C7CC-41BE-B848-CD90A4EB6A11}
-        //{26D0278F-A2E3-4E7D-A612-1FF3793955BA}
-        this.szSearchId = "{" + UUID.randomUUID().toString().toUpperCase() + "}";
-        this.szRecordType = RecordType.all;
-        this.iBackType = BackType.self_adaption;
-        this.lTimeout = new UnsignedLong();
-        this.lTimeout.setValue(5000);
+    public SearchFileRequest() {
+        this.szSearchId = UUID.randomUUID().toString();
+        this.szRecordType = SearchFileRequest.RecordType.all;
+        this.iBackType = SearchFileRequest.BackType.self_adaption;
+        this.lTimeout = 5000;
     }
 
     /**
@@ -63,21 +54,21 @@ public class LivePlaybackRequest {
      * @param dwEndTime
      * @throws ParseException
      */
-    public LivePlaybackRequest(String szCameraId, String dwBeginTime, String dwEndTime) throws ParseException {
+    public SearchFileRequest(String szCameraId, String dwBeginTime, String dwEndTime) throws ParseException {
         this();
-        this.szCameraId = szCameraId;
+        System.out.println("szCameraId：" + szCameraId);
+        System.out.println("dwBeginTime：" + dwBeginTime);
+        System.out.println("dwEndTime：" + dwEndTime);
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
+        this.szCameraId = szCameraId;
         this.dwBeginTime = java_long_to_cpp_unsigned_long(dwBeginTime);
         this.dwEndTime = java_long_to_cpp_unsigned_long(dwEndTime);
     }
 
-    private UnsignedLong java_long_to_cpp_unsigned_long(String dwTime) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
-        UnsignedLong unsignedLong = new UnsignedLong();
-        long _ = df.parse(dwTime).getTime() / 1000L;
-        unsignedLong.setValue(_);
-        return unsignedLong;
+    private long java_long_to_cpp_unsigned_long(String dwTime) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return df.parse(dwTime).getTime() / 1000L;
+
     }
 
     public String getSzSearchId() {
@@ -96,43 +87,43 @@ public class LivePlaybackRequest {
         this.szCameraId = szCameraId;
     }
 
-    public UnsignedLong getDwBeginTime() {
+    public long getDwBeginTime() {
         return dwBeginTime;
     }
 
-    public void setDwBeginTime(UnsignedLong dwBeginTime) {
+    public void setDwBeginTime(long dwBeginTime) {
         this.dwBeginTime = dwBeginTime;
     }
 
-    public UnsignedLong getDwEndTime() {
+    public long getDwEndTime() {
         return dwEndTime;
     }
 
-    public void setDwEndTime(UnsignedLong dwEndTime) {
+    public void setDwEndTime(long dwEndTime) {
         this.dwEndTime = dwEndTime;
     }
 
-    public RecordType getSzRecordType() {
+    public SearchFileRequest.RecordType getSzRecordType() {
         return szRecordType;
     }
 
-    public void setSzRecordType(RecordType szRecordType) {
+    public void setSzRecordType(SearchFileRequest.RecordType szRecordType) {
         this.szRecordType = szRecordType;
     }
 
-    public BackType getiBackType() {
+    public SearchFileRequest.BackType getiBackType() {
         return iBackType;
     }
 
-    public void setiBackType(BackType iBackType) {
+    public void setiBackType(SearchFileRequest.BackType iBackType) {
         this.iBackType = iBackType;
     }
 
-    public UnsignedLong getlTimeout() {
+    public int getlTimeout() {
         return lTimeout;
     }
 
-    public void setlTimeout(UnsignedLong lTimeout) {
+    public void setlTimeout(int lTimeout) {
         this.lTimeout = lTimeout;
     }
 
@@ -192,14 +183,14 @@ public class LivePlaybackRequest {
 
     @Override
     public String toString() {
-        return "LivePlaybackRequest{" +
+        return "SearchFileRequest{" +
                 "szSearchId='" + szSearchId + '\'' +
                 ", szCameraId='" + szCameraId + '\'' +
-                ", dwBeginTime=" + dwBeginTime.longValue() +
-                ", dwEndTime=" + dwEndTime.longValue() +
-                ", szRecordType='" + szRecordType.getType() + '\'' +
-                ", iBackType=" + iBackType.getType() +
-                ", lTimeout=" + lTimeout.longValue() +
+                ", dwBeginTime=" + dwBeginTime +
+                ", dwEndTime=" + dwEndTime +
+                ", szRecordType=" + szRecordType +
+                ", iBackType=" + iBackType +
+                ", lTimeout=" + lTimeout +
                 '}';
     }
 }

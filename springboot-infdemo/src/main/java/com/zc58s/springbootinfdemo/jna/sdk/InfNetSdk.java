@@ -4,8 +4,8 @@ import com.sun.jna.*;
 import com.sun.jna.win32.StdCallLibrary;
 
 import com.zc58s.springbootinfdemo.jna.sdk.callback.MessageCallback;
-import com.zc58s.springbootinfdemo.jna.sdk.callback.StreamCallBack;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.SystemEventCallback;
+import com.zc58s.springbootinfdemo.jna.sdk.callback.streamCallBack;
 
 
 /**
@@ -229,22 +229,24 @@ public interface InfNetSdk extends StdCallLibrary {
      *                     //@param lTimeout     服务器返回结果的最大超时时间。
      * @return
      */
-    String INF_NET_SearchFile(int nLoginHandle, String szSearchId, String szCameraId, UnsignedLong dwBeginTime, UnsignedLong dwEndTime, String szRecordType, int playBackType);
+    String INF_NET_SearchFile(int nLoginHandle, String szSearchId, String szCameraId, Pointer dwBeginTime, Pointer dwEndTime, String szRecordType, int playBackType);
 
 
     /**
      * 回放录像
-     * @param nLoginHandle  登录返回的句柄
-     * @param szPlayParam 回放历史视频参数 Json格式的字符串
-     * @param lpCallback 流数据回调：媒体流格式见LPMEDIAFRAME_INFO
+     *
+     * @param nLoginHandle 登录返回的句柄
+     * @param szPlayParam  回放历史视频参数 Json格式的字符串
+     * @param lpCallback   流数据回调：媒体流格式见LPMEDIAFRAME_INFO
      * @return
      */
-    int INF_NET_StartBackPlay(int nLoginHandle, String szPlayParam, StreamCallBack lpCallback);
+    int INF_NET_StartBackPlay(int nLoginHandle, String szPlayParam, streamCallBack lpCallback);
 
     /**
      * 回放控制（服务器）播放，暂停，快进，慢进，帧退，帧进，倒放
-     * @param nConHandle 回放流连接句柄
-     * @param szPlayControlParam  回放控制的参数Json格式的字符串
+     *
+     * @param nConHandle         回放流连接句柄
+     * @param szPlayControlParam 回放控制的参数Json格式的字符串
      * @return
      */
     int INF_NET_StartBackControl(int nConHandle, String szPlayControlParam);

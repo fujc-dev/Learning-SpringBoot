@@ -70,4 +70,13 @@ public class PhotographRequest {
     public void setiType(PhotographType iType) {
         this.iType = iType;
     }
+
+    @Override
+    public String toString() {
+        return "PhotographRequest{" +
+                "szCameraId='" + szCameraId + '\'' +
+                ", szFilePath='" + szFilePath + '\'' +
+                ", iType=" + iType +
+                '}';
+    }
 }

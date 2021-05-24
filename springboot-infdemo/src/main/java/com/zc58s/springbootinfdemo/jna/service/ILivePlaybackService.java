@@ -1,8 +1,9 @@
 package com.zc58s.springbootinfdemo.jna.service;
 
-import com.zc58s.springbootinfdemo.jna.request.LivePlaybackRequest;
+import com.zc58s.springbootinfdemo.jna.request.PlaybackRequest;
+import com.zc58s.springbootinfdemo.jna.request.SearchFileRequest;
 import com.zc58s.springbootinfdemo.jna.response.LivePlaybackResponse;
-import com.zc58s.springbootinfdemo.jna.response.LiveResponse;
+import com.zc58s.springbootinfdemo.jna.response.SearchFileResponse;
 
 /**
  * 基于SDK的视频回放。
@@ -16,10 +17,11 @@ import com.zc58s.springbootinfdemo.jna.response.LiveResponse;
  */
 public interface ILivePlaybackService {
 
+    SearchFileResponse SearchFile(SearchFileRequest request);
     /**
      * 回放录像
      * @param request
      * @return
      */
-    LivePlaybackResponse StartBackPlay(LivePlaybackRequest request);
+    LivePlaybackResponse StartBackPlay(PlaybackRequest request);
 }

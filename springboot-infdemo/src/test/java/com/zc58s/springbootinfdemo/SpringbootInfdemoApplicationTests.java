@@ -1,21 +1,12 @@
 package com.zc58s.springbootinfdemo;
 
-import com.zc58s.springbootinfdemo.jna.request.LoginRequest;
-import com.zc58s.springbootinfdemo.jna.response.LoginResponse;
-import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
-import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
-import com.zc58s.springbootinfdemo.jna.service.IPlatformService;
 import com.zc58s.springbootinfdemo.jna.service.IPtzControlService;
-import com.zc58s.springbootinfdemo.jna.service.business.infPtz.InfPtzCommand;
-import com.zc58s.springbootinfdemo.jna.service.business.infPtz.factory.InfPtzFactory;
-import com.zc58s.springbootinfdemo.jna.service.impl.VideoPlatformServiceImp;
+import com.zc58s.springbootinfdemo.jna.utils.DateUtil;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.IOException;
+import java.util.Date;
 
 @SpringBootTest
 class SpringbootInfdemoApplicationTests {
@@ -25,15 +16,20 @@ class SpringbootInfdemoApplicationTests {
 
     @Test
     void contextLoads() {
-
+        System.out.println(DateUtil.dateToString(new Date(), "yyyy-mm-dd hh24:mi:ss"));
         try {
 //            System.out.println(service.PtzLeft("111"));
-//            IPlatformService platformService = new VideoPlatformServiceImp();
+//            ILivePlaybackService platformService = new VideoPlatformServiceImp();
 //            InfNetSdk.INSTANCE.INF_NET_Init();
 //            String version = InfNetSdk.INSTANCE.INF_NET_GetVersion();
 //            System.out.println("SDK Version: " + version);
-//            LoginRequest request = new LoginRequest("10.20.2.165", "admin", "admin");
-//            LoginResponse response = platformService.Login(request);
+//            String szCameraId ="3b97f7edab8c4a7ea1f69c68ee1351f7";
+//            String dwBeginTime ="2021-05-20 09:01:01";
+//            String dwEndTime ="2021-05-20 22:01:01";
+//            PlaybackRequest request = new PlaybackRequest(szCameraId, dwBeginTime, dwEndTime);
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("status", true);
+//            LivePlaybackResponse response = platformService.StartBackPlay(request);
 //            System.out.println(response);
         } catch (Exception ex) {
             ex.printStackTrace();

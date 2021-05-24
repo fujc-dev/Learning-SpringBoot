@@ -1,25 +1,25 @@
 package com.zc58s.springbootinfdemo.jna.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import com.zc58s.springbootinfdemo.jna.request.*;
 import com.zc58s.springbootinfdemo.jna.response.*;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.Message;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.MessageCallback;
-import com.zc58s.springbootinfdemo.jna.sdk.callback.StreamCallBack;
 import com.zc58s.springbootinfdemo.jna.sdk.callback.SystemEventCallback;
 import com.zc58s.springbootinfdemo.jna.service.*;
 import com.zc58s.springbootinfdemo.jna.base.Sdk;
 import com.zc58s.springbootinfdemo.jna.service.base.ServiceBase;
-import com.zc58s.springbootinfdemo.jna.service.impl.params.SzPlayParam;
-import com.zc58s.springbootinfdemo.jna.utils.DateUtil;
+import com.zc58s.springbootinfdemo.jna.request.PlaybackRequest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -54,6 +54,7 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
      * */
     //
     private Logger logger = LoggerFactory.getLogger(VideoPlatformServiceImp.class);
+    private MessageCallback _cllback = new MessageCallbackImp();
 
     public VideoPlatformServiceImp() {
         System.out.println(new Date());
@@ -67,6 +68,7 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
     @Override
     public LoginResponse Login(LoginRequest request) {
         this.m_CurrentThread = Thread.currentThread();
+        System.out.println("====>Login CurrentThread：" + m_CurrentThread);
         LoginResponse response = new LoginResponse();
         try {
             this.m_bServerReturned = false;
@@ -77,8 +79,7 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
             InfNetSdk.INSTANCE.INF_NET_Login(request.getSzUrl(),
                     request.getSzUser(),
                     request.getSzPassword(),
-                    request.getSzParam(),
-                    new MessageCallbackImp());
+                    request.getSzParam(), _cllback);
             //3、阻塞当前方法，然后等待执行结果，要么超时，要么登录SDK的回调被执行
             LockSupport.park(m_CurrentThread);
             //解除阻塞，继续执行
@@ -98,6 +99,7 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
+            mCurrentMessage = null;
             m_CurrentThread = null;
         }
         return response;
@@ -220,7 +222,6 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
             response.setCode(Sdk.CODE_PTZ_CAMERA_ID_INVALID);
             return response;
         }
-        //TODO
         System.out.println("---------------请求参数---------------");
         System.out.println("登录句柄：" + this.m_nLoginHandle);
         System.out.println(request.toString());
@@ -228,11 +229,14 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
         //存储路径
         //文件格式
         //拍照成功与失败
-        String _execResult = InfNetSdk.INSTANCE.INF_NET_SnapshotWithoutReal(this.m_nLoginHandle,
-                request.getSzCameraId(),
-                request.getSzFilePath(),
-                request.getiType().getType() - 1);
-        System.out.println("INF_NET_SnapshotWithoutReal：" + _execResult);
+        try {
+            InfNetSdk.INSTANCE.INF_NET_SnapshotWithoutReal(this.m_nLoginHandle,
+                    request.getSzCameraId(),
+                    request.getSzFilePath(),
+                    request.getiType().getType() - 1);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return response;
     }
 
@@ -241,47 +245,64 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
 
     }
 
-    //===========================拍照、下载视频、录像================================
+    //===========================回放================================
+
     @Override
-    public LivePlaybackResponse StartBackPlay(LivePlaybackRequest request) {
+    public SearchFileResponse SearchFile(SearchFileRequest request) {
+        System.out.println("---------------请求参数---------------");
+        System.out.println("登录句柄：" + this.m_nLoginHandle);
         System.out.println(request.toString());
+        System.out.println("---------------查询回放文件---------------");
+        this.m_CurrentThread = Thread.currentThread();
+        System.out.println("====>SearchFile CurrentThread：" + m_CurrentThread);
+        SearchFileResponse response = new SearchFileResponse();
+        //1、根据摄像头ID + 开始日期 + 结束日期 查询是否包含录像文件
+        System.out.println(request.toString());
+        Pointer dwBeginTime = new Memory(8);
+        dwBeginTime.setLong(0, request.getDwBeginTime());
+        System.out.println(dwBeginTime.getLong(0));
+        Pointer dwEndTime = new Memory(8);
+        dwEndTime.setLong(0, request.getDwEndTime());
+        System.out.println(dwEndTime.getLong(0));
+        String InvalidPara = InfNetSdk.INSTANCE.INF_NET_SearchFile(this.m_nLoginHandle,
+                request.getSzSearchId(),
+                request.getSzCameraId(),
+                dwBeginTime,
+                dwEndTime,
+                request.getSzRecordType().getType(),
+                request.getiBackType().getType());
+        System.out.println(InvalidPara);
+        //阻隔当前线程
+        LockSupport.park(m_CurrentThread);
+        //解除阻塞，继续执行
+        if (this.mCurrentMessage != null) {
+            System.out.println("SearchFile /CMS/action/record/record/asyncSearch.do  ：" + this.mCurrentMessage.getSzAction());
+            System.out.println("SearchFile /CMS/action/record/record/asyncSearch.do  ：" + this.mCurrentMessage.getSzResult());
+        }
+        LockSupport.park(m_CurrentThread);
+        if (this.mCurrentMessage != null) {
+            System.out.println("SearchFile /CMS/action/record/record/getAsyncSearchResult.do ：" + this.mCurrentMessage.getSzAction());
+            System.out.println("SearchFile /CMS/action/record/record/getAsyncSearchResult.do ：" + this.mCurrentMessage.getSzResult());
+        }
+        return response;
+    }
+
+
+    @Override
+    public LivePlaybackResponse StartBackPlay(PlaybackRequest request) {
+        System.out.println("---------------请求参数---------------");
+        System.out.println("登录句柄：" + this.m_nLoginHandle);
+        System.out.println(request.toString());
+        System.out.println("---------------执行回放---------------");
+        this.m_CurrentThread = Thread.currentThread();
+        System.out.println("====>StartBackPlay CurrentThread：" + m_CurrentThread);
         LivePlaybackResponse response = new LivePlaybackResponse();
-        if (this.m_nLoginHandle < 0) {
-            response.setCode(Sdk.CODE_PLATFORM_NO_LOGIN_HANDLE);
-            return response;
-        }
-        if (StringUtils.isEmpty(request.getSzCameraId())) {
-            response.setCode(Sdk.CODE_PTZ_CAMERA_ID_INVALID);
-            return response;
-        }
-        //1、根据摄像头ID + 开始日期 + 结束日期 查询是否包含录像文件，
-        //当检测到视频文化后，播放
-
-        //当不包含视频文件时，返回CODE_PLAYBACK_FILE_INVALID
-
-        //  response.setCode(Sdk.CODE_PLAYBACK_FILE_INVALID);
-        //error:InvalidPara
-        // String InvalidPara = InfNetSdk.INSTANCE.INF_NET_SearchFile(this.m_nLoginHandle, request.getSzSearchId(), request.getSzCameraId(), request.getDwBeginTime(), request.getDwEndTime(), request.getSzRecordType().getType(), request.getiBackType().getType());
-        //String InvalidPara = InfNetSdk.INSTANCE.INF_NET_SearchFile(this.m_nLoginHandle, request.getSzSearchId(), request.getSzCameraId(), 1621474659, 1621521459, "all", 1);
-        //System.out.println(InvalidPara);
-
-        //2、依次执行SDK的播放
-        SzPlayParam playParam = new SzPlayParam();
-        playParam.setCameraId(request.getSzCameraId());
-        playParam.setBeginDateTime("2021-05-20T10:00:00");
-        playParam.setEndDateTime("2021-07-20T20:00:00");
-        playParam.setDateTimePosition(DateUtil.dateToString(new Date(), "yyyy-mm-dd hh24:mi:ss"));
-        playParam.setArchiveServerUrl("nvr://192.168.1.229:5003");
-        String szPlayParam = JSON.toJSONString(playParam);
-        InfNetSdk.INSTANCE.INF_NET_StartBackPlay(this.m_nLoginHandle, szPlayParam, new StreamCallBack() {
-            @Override
-            public void invoke(Pointer pUser, int nHandle, String szType, String szError, byte[] pBuf, int nSize) {
-                System.out.println(pBuf);
-            }
-        });
-        System.out.println(playParam.toString());
-        //3、在回调函数中获取视频流，通过FFMPEG执行流转码。推流到我们自己的流媒体服务器
-
+        //1、执行SDK的播放
+        String szPlayParam = JSON.toJSONString(request);
+        System.out.println(szPlayParam);
+        //2、在回调函数中获取视频流，通过FFMPEG执行流转码。推流到流媒体服务器
+        BackPlayThread playThread = new BackPlayThread(szPlayParam);
+        playThread.run();
         //4、停止回放，
         return response;
     }
@@ -310,6 +331,45 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
     }
 
     /**
+     *
+     */
+    public class BackPlayThread extends Thread {
+
+        private String szPlayParam;
+
+        public BackPlayThread(String szPlayParam) {
+            this.szPlayParam = szPlayParam;
+        }
+
+        @Override
+        public void run() {
+
+            try {
+
+                int nConHandle = InfNetSdk.INSTANCE.INF_NET_StartBackPlay(m_nLoginHandle, this.szPlayParam,
+                        (pUser, nHandle, szType, szError, pBuf, nSize) -> {
+                            System.out.println("====> nHandle：" + nHandle);
+                            System.out.println("====> szType：" + szType);
+                            System.out.println("====> szError：" + szError);
+                            System.out.println("====> pBuf：" + pBuf);
+                            System.out.println("====> nSize：" + nSize);
+                            System.out.println("====================================");
+                            byte[] _pBuf = pBuf.getByteArray(0, nSize);
+                            System.out.println(Arrays.toString(_pBuf));
+                            System.out.println("====================================");
+                            //厂家的技术人员说，pBuf是标准的H.264或者H.265
+                            return 0;
+                        });
+                System.out.println("====> nConHandle：" + nConHandle);
+                System.out.println("====================================");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
      * 系统事件回调接口，就目前测试来看，当我们修改了平台相关的参数时，会将信息回调到该接口
      * <p>在平台修改了数据，回调会被执行，感觉对目前业务没有什么帮助</p>
      */
@@ -331,8 +391,6 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
         @Override
         public void invoke(String szCmdId, int nHandle, String szAction, String szResult, Pointer pUser) {
             mCurrentMessage = new Message(nHandle, szAction, szResult);
-            System.out.println(mCurrentMessage.toString());
-            logger.debug(mCurrentMessage.toString());
             if (m_CurrentThread != null) {
                 LockSupport.unpark(m_CurrentThread);
             }

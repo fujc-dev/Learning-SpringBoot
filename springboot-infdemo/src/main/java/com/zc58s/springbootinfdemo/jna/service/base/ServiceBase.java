@@ -33,6 +33,8 @@ public class ServiceBase {
      * 登录成功后，回调szAction参数值
      */
     protected final String LOGIN_STATUS_ACTION = "/CMS/main/login.do";
+
+    protected final String SEARCH_FILE_STATUS_ACTION = "/CMS/main/login.do";
     /**
      * 控制方法阻塞，记录当前方法的线程。
      */

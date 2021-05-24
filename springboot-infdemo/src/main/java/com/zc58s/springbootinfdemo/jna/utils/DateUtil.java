@@ -2,6 +2,7 @@ package com.zc58s.springbootinfdemo.jna.utils;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,11 +14,64 @@ import java.util.Hashtable;
  * @createtime : 2021/4/16 14:40
  */
 public class DateUtil {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static String dateToString(Date d, String format) {
-        return "";
+        if (d == null){
+            return "";
+        }
+        Hashtable h = new Hashtable();
+        String javaFormat = new String();
+        String s = format.toLowerCase();
+        h = checkStr1(s,h);
+
+        int intStart = 0;
+        while (s.indexOf(Constants.SYMBOL_STROKE, intStart) != -1) {
+            intStart = s.indexOf(Constants.SYMBOL_STROKE, intStart);
+            h.put(new Integer(intStart), Constants.SYMBOL_STROKE);
+            intStart++;
+        }
+
+        intStart = 0;
+        while (s.indexOf(Constants.SYMBOL_LEFT_SLASH, intStart) != -1) {
+            intStart = s.indexOf(Constants.SYMBOL_LEFT_SLASH, intStart);
+            h.put(new Integer(intStart), Constants.SYMBOL_LEFT_SLASH);
+            intStart++;
+        }
+
+        intStart = 0;
+        while (s.indexOf(Constants.SYMBOL_SPACE, intStart) != -1) {
+            intStart = s.indexOf(Constants.SYMBOL_SPACE, intStart);
+            h.put(new Integer(intStart), Constants.SYMBOL_SPACE);
+            intStart++;
+        }
+
+        intStart = 0;
+        while (s.indexOf(Constants.SYMBOL_COLON, intStart) != -1) {
+            intStart = s.indexOf(Constants.SYMBOL_COLON, intStart);
+            h.put(new Integer(intStart), Constants.SYMBOL_COLON);
+            intStart++;
+        }
+        h = checkStr2(s,h);
+        int i = 0;
+        while (h.size() != 0) {
+            Enumeration e = h.keys();
+            int n = 0;
+            while (e.hasMoreElements()) {
+                i = ((Integer) e.nextElement()).intValue();
+                if (i >= n){
+                    n = i;}
+            }
+            String temp = (String) h.get(new Integer(n));
+            h.remove(new Integer(n));
+
+            javaFormat = temp + javaFormat;
+        }
+        SimpleDateFormat df = new SimpleDateFormat(javaFormat, new DateFormatSymbols());
+
+        return df.format(d);
     }
 
-    public static final String DATE_FORMAT_MILLISECOND = "yyyy-MM-dd HH:mm:ss SSS";
+    public static final String DATE_FORMAT_MILLISECOND = "yyyyMMddHHmmssSSS";
 
     /**
      * 按指定的格式，把Date转换成String 如date为null,返回null
