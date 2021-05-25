@@ -226,10 +226,10 @@ public interface InfNetSdk extends StdCallLibrary {
      * @param dwEndTime    查询录像的结束时间(1970年1月1日开始的秒数1483743684)
      * @param szRecordType 搜索的录像类型 ("all" 所有 "auto" 自动 "alarm" 报警 一般赋值"all")
      * @param playBackType 回放类型（自适应0，内部1，外部2 一般赋值0）
-     *                     //@param lTimeout     服务器返回结果的最大超时时间。
+     * //@param lTimeout     服务器返回结果的最大超时时间。
      * @return
      */
-    String INF_NET_SearchFile(int nLoginHandle, String szSearchId, String szCameraId, Pointer dwBeginTime, Pointer dwEndTime, String szRecordType, int playBackType);
+    String INF_NET_SearchFile(int nLoginHandle, String szSearchId, String szCameraId, long dwBeginTime, long dwEndTime, String szRecordType, int playBackType);
 
 
     /**
@@ -241,6 +241,15 @@ public interface InfNetSdk extends StdCallLibrary {
      * @return
      */
     int INF_NET_StartBackPlay(int nLoginHandle, String szPlayParam, streamCallBack lpCallback);
+
+
+    /**
+     * 停止实时预览视频（厂家那边的技术说，这个接口也是用来关闭回放的）
+     *
+     * @param nConHandle 实时流连接句柄
+     * @return
+     */
+    int INF_NET_StopPlay(int nConHandle);
 
     /**
      * 回放控制（服务器）播放，暂停，快进，慢进，帧退，帧进，倒放

@@ -1,6 +1,10 @@
 package com.zc58s.springbootinfdemo.jna.utils;
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -48,7 +52,6 @@ public class InfUtil {
     }
 
     /**
-     *
      * @param result
      * @param code
      * @param msg
@@ -58,5 +61,26 @@ public class InfUtil {
         result.put("code", code);
         result.put("msg", msg);
         return result;
+    }
+
+    public static byte[] Long2Bytes(long num) {
+        byte[] byteNum = new byte[8];
+        for (int ix = 0; ix < 8; ++ix) {
+            int offset = 64 - (ix + 1) * 8;
+            byteNum[ix] = (byte) ((num >> offset) & 0xff);
+        }
+        return byteNum;
+    }
+
+    public static byte[] JavaByteToCByte(long x) {
+        //1、将Long转为byte
+        byte[] bytes = Long2Bytes(x);
+        System.out.println(x);
+        System.out.println(Arrays.toString(bytes));
+        //
+        ByteBuffer buffer1 = ByteBuffer.wrap(bytes);
+        buffer1.order(ByteOrder.LITTLE_ENDIAN);
+        System.out.println(buffer1.array());
+        return buffer1.array();
     }
 }

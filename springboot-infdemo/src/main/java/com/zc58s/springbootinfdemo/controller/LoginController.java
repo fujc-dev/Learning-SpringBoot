@@ -30,7 +30,7 @@ public class LoginController {
     //摄像头控制服务
     private final IPtzControlService ptzService;
     private final IVideoService videoService;
-    private final ILivePlaybackService playbackService;
+    private final IPlaybackService playbackService;
 
 
     @Autowired
@@ -38,7 +38,7 @@ public class LoginController {
                            IBusinessService businessService,
                            IPtzControlService ptzService,
                            IVideoService videoService,
-                           ILivePlaybackService playbackService) {
+                           IPlaybackService playbackService) {
         this.platformService = platformService;
         this.businessService = businessService;
         this.ptzService = ptzService;
@@ -170,7 +170,7 @@ public class LoginController {
         PlaybackRequest request = new PlaybackRequest(szCameraId, dwBeginTime, dwEndTime, archiveServerUrl);
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        LivePlaybackResponse response = this.playbackService.StartBackPlay(request);
+        PlaybackResponse response = this.playbackService.StartBackPlay(request);
         map.put("data", response);
         return map;
     }

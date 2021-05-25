@@ -19,10 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -45,7 +42,7 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
         IPtzControlService,
         IBusinessService,
         IVideoService,
-        ILivePlaybackService {
+        IPlaybackService {
 
     /*
      * 1、服务必须的单例的有效。所有的操作都依赖登录句柄；
@@ -54,7 +51,14 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
      * */
     //
     private Logger logger = LoggerFactory.getLogger(VideoPlatformServiceImp.class);
-    private MessageCallback _cllback = new MessageCallbackImp();
+    /**
+     *     登录服务器的回调函数 通过szAction的地址判断做什么动作
+     */
+    private MessageCallback _callback = new MessageCallbackImp();
+    /**
+     *  回放任务Maps
+     */
+    private Map<String, BackPlayThread> _backPlayThreadMap = new HashMap<>();
 
     public VideoPlatformServiceImp() {
         System.out.println(new Date());
@@ -79,7 +83,7 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
             InfNetSdk.INSTANCE.INF_NET_Login(request.getSzUrl(),
                     request.getSzUser(),
                     request.getSzPassword(),
-                    request.getSzParam(), _cllback);
+                    request.getSzParam(), _callback);
             //3、阻塞当前方法，然后等待执行结果，要么超时，要么登录SDK的回调被执行
             LockSupport.park(m_CurrentThread);
             //解除阻塞，继续执行
@@ -256,19 +260,25 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
         this.m_CurrentThread = Thread.currentThread();
         System.out.println("====>SearchFile CurrentThread：" + m_CurrentThread);
         SearchFileResponse response = new SearchFileResponse();
-        //1、根据摄像头ID + 开始日期 + 结束日期 查询是否包含录像文件
+        //根据摄像头ID + 开始日期 + 结束日期 查询是否包含录像文件
         System.out.println(request.toString());
+
+        String _unsignedString = Long.toUnsignedString(request.getDwBeginTime());
+        Long _unsignedLong = Long.parseUnsignedLong(_unsignedString);
+        System.out.println("UnsignedString===>" + _unsignedString);
+        System.out.println("UnsignedLong===>" + _unsignedLong);
+
         Pointer dwBeginTime = new Memory(8);
-        dwBeginTime.setLong(0, request.getDwBeginTime());
+        dwBeginTime.setLong(0, _unsignedLong);
         System.out.println(dwBeginTime.getLong(0));
         Pointer dwEndTime = new Memory(8);
-        dwEndTime.setLong(0, request.getDwEndTime());
+        dwEndTime.setLong(0, _unsignedLong);
         System.out.println(dwEndTime.getLong(0));
         String InvalidPara = InfNetSdk.INSTANCE.INF_NET_SearchFile(this.m_nLoginHandle,
                 request.getSzSearchId(),
                 request.getSzCameraId(),
-                dwBeginTime,
-                dwEndTime,
+                request.getDwBeginTime(),
+                request.getDwEndTime(),
                 request.getSzRecordType().getType(),
                 request.getiBackType().getType());
         System.out.println(InvalidPara);
@@ -289,20 +299,23 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
 
 
     @Override
-    public LivePlaybackResponse StartBackPlay(PlaybackRequest request) {
+    public PlaybackResponse StartBackPlay(PlaybackRequest request) {
         System.out.println("---------------请求参数---------------");
         System.out.println("登录句柄：" + this.m_nLoginHandle);
         System.out.println(request.toString());
         System.out.println("---------------执行回放---------------");
         this.m_CurrentThread = Thread.currentThread();
         System.out.println("====>StartBackPlay CurrentThread：" + m_CurrentThread);
-        LivePlaybackResponse response = new LivePlaybackResponse();
+        PlaybackResponse response = new PlaybackResponse(request.getCameraId());
         //1、执行SDK的播放
         String szPlayParam = JSON.toJSONString(request);
         System.out.println(szPlayParam);
         //2、在回调函数中获取视频流，通过FFMPEG执行流转码。推流到流媒体服务器
+
         BackPlayThread playThread = new BackPlayThread(szPlayParam);
         playThread.run();
+        //维护一个当前回放的历史记录，用于关闭回放记录，终止线程
+        _backPlayThreadMap.put(request.getCameraId(), playThread);
         //4、停止回放，
         return response;
     }
@@ -314,9 +327,6 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
      * <p>
      * 在登录的过程中，进行超时检测
      * </p>
-     *
-     * @author : fjc.dane@gmail.com
-     * @createtime : 2021/1/27 10:42
      */
     public class LoginTimerTask extends TimerTask {
         @Override
@@ -331,11 +341,12 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
     }
 
     /**
-     *
+     * 回放线程，用于回放英飞拓视频，后续需要将创建一个维护回放的线程队列
      */
     public class BackPlayThread extends Thread {
 
         private String szPlayParam;
+        private int nConHandle = -1;
 
         public BackPlayThread(String szPlayParam) {
             this.szPlayParam = szPlayParam;
@@ -343,10 +354,9 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
 
         @Override
         public void run() {
-
             try {
-
-                int nConHandle = InfNetSdk.INSTANCE.INF_NET_StartBackPlay(m_nLoginHandle, this.szPlayParam,
+                //返回 nConHandle 回放句柄
+                this.nConHandle = InfNetSdk.INSTANCE.INF_NET_StartBackPlay(m_nLoginHandle, this.szPlayParam,
                         (pUser, nHandle, szType, szError, pBuf, nSize) -> {
                             System.out.println("====> nHandle：" + nHandle);
                             System.out.println("====> szType：" + szType);
@@ -365,6 +375,13 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        public void close() {
+            //执行终止播放\回放
+            InfNetSdk.INSTANCE.INF_NET_StopPlay(this.nConHandle);
+            //终止当前现场
+            this.interrupt();
         }
     }
 
