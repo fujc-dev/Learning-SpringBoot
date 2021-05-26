@@ -173,13 +173,12 @@ public class LoginController {
         return map;
     }
 
-
     @ResponseBody
     @RequestMapping("/down")
-    public Map<String, Object> Down(String szCameraId, String dwBeginTime, String dwEndTime, String archiveServerUrl) throws ParseException {
+    public Map<String, Object> Down(String szCameraId, String dwBeginTime, String dwEndTime, String downloadType, String archiveServerUrl) throws ParseException {
         //有条件的话将这个图片地址放置到配置文件中
-        String szFilePath = "D:\\infImgs\\" + DateUtil.formatByMillisecond() + ".avi";
-        DownParam szDownParam = new DownParam(szCameraId, dwBeginTime, dwEndTime, "2x", archiveServerUrl);
+        String szFilePath = "D:\\infVideo\\" + DateUtil.formatByMillisecond();
+        DownParam szDownParam = new DownParam(szCameraId, dwBeginTime, dwEndTime, "2x", downloadType, archiveServerUrl);
         DownVideoRequest request = new DownVideoRequest(szFilePath, szDownParam);
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);

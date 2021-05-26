@@ -43,4 +43,11 @@ public class DownVideoRequest {
     }
 
 
+    @Override
+    public String toString() {
+        return "DownVideoRequest{" +
+                "szFileName='" + szFileName + '\'' +
+                ", szDownParam" + szDownParam.toString() +
+                '}';
+    }
 }

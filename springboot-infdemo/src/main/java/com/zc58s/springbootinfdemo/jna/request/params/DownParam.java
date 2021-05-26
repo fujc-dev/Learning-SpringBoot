@@ -10,6 +10,7 @@ public class DownParam {
     private String beginDateTime;
     private String endDateTime;
     private String speed;
+    private  String downloadType;
     private String archiveServerUrl;
 
     public DownParam() {
@@ -18,18 +19,19 @@ public class DownParam {
 
     /**
      * 构建下载视频参数
-     *
-     * @param cameraId         视频唯一编号
+     *  @param cameraId         视频唯一编号
      * @param beginDateTime    开始时间
      * @param endDateTime      结束时间
      * @param speed            下载速度  最高16x
+     * @param downloadType
      * @param archiveServerUrl 录像存储的服务器的地址
      */
-    public DownParam(String cameraId, String beginDateTime, String endDateTime, String speed, String archiveServerUrl) {
+    public DownParam(String cameraId, String beginDateTime, String endDateTime, String speed, String downloadType, String archiveServerUrl) {
         this.cameraId = cameraId;
         this.beginDateTime = beginDateTime.replace(" ", "T");
         this.endDateTime = endDateTime.replace(" ", "T");
         this.speed = speed;
+        this.downloadType = downloadType;
         this.archiveServerUrl = archiveServerUrl;
     }
 
@@ -72,6 +74,14 @@ public class DownParam {
 
     public void setArchiveServerUrl(String archiveServerUrl) {
         this.archiveServerUrl = archiveServerUrl;
+    }
+
+    public String getDownloadType() {
+        return downloadType;
+    }
+
+    public void setDownloadType(String downloadType) {
+        this.downloadType = downloadType;
     }
 
     @Override

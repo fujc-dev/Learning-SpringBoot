@@ -214,10 +214,11 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
         System.out.println(request.toString());
         System.out.println("---------------下载视频---------------");
 
+        System.out.println(request.toString());
         String szDownParam = JSON.toJSONString(request.getSzDownParam());
         String szDownloadTaskId = "";
-        InfNetSdk.INSTANCE.INF_NET_StartDownload(this.m_nLoginHandle, szDownParam, request.getSzFileName(), szDownloadTaskId);
-        System.out.println("szDownloadTaskId：" + szDownloadTaskId);
+        DownThread downThread = new DownThread(request.getSzFileName(), szDownParam, szDownloadTaskId);
+        downThread.run();
         return response;
     }
 
@@ -262,15 +263,11 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
         System.out.println("登录句柄：" + this.m_nLoginHandle);
         System.out.println(request.toString());
         System.out.println("---------------查询回放文件---------------");
-        Thread currentThread = Thread.currentThread();
-        System.out.println("====>SearchFile CurrentThread：" + currentThread);
+        this.m_CurrentThread = Thread.currentThread();
+        System.out.println("====>SearchFile CurrentThread：" + this.m_CurrentThread);
         SearchFileResponse response = new SearchFileResponse();
         //根据摄像头ID + 开始日期 + 结束日期 查询是否包含录像文件
         System.out.println(request.toString());
-        //
-        Timer over_time = new Timer();
-        over_time.schedule(new OvertimeTask(currentThread), request.getlTimeout());
-
         String InvalidPara = InfNetSdk.INSTANCE.INF_NET_SearchFile(this.m_nLoginHandle,
                 request.getSzSearchId(),
                 request.getSzCameraId(),
@@ -283,12 +280,12 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
             return response;
         }
         //阻塞当前线程
-        LockSupport.park(currentThread);
+        LockSupport.park(m_CurrentThread);
         //解除阻塞，继续执行
         if (this.mCurrentMessage != null) {
-            if (LOGIN_STATUS_ACTION.equals(this.mCurrentMessage.getSzAction())) {
-                System.out.println("SearchFile /CMS/action/record/record/getAsyncSearchResult.do ：" + this.mCurrentMessage.getSzAction());
-                this.logger.debug(this.mCurrentMessage.getSzResult());
+            System.out.println("=====>：2" + this.mCurrentMessage.getSzAction());
+            if (SEARCH_FILE_STATUS_ACTION.equals(this.mCurrentMessage.getSzAction())) {
+                //System.out.println("=====> ：" + this.mCurrentMessage.getSzResult());
                 SearchFileSzResult szResult = JSON.parseObject(this.mCurrentMessage.getSzResult(), SearchFileSzResult.class);
                 if (szResult.getMsg() != null && szResult.getMsg().getRecordFile() != null && szResult.getMsg().getRecordFile().size() > 0) {
                     System.out.println(szResult.getMsg().getRecordFile().size());
@@ -296,6 +293,8 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
                 } else {
                     response.setCode(Sdk.CODE_PLAYBACK_FILE_INVALID);
                 }
+            } else {
+                System.out.println("=====> ：" + "....");
             }
         }
         return response;
@@ -348,18 +347,10 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
      * 超时任务回调
      */
     public class OvertimeTask extends TimerTask {
-
-        private Thread currentThread;
-
-        public OvertimeTask(Thread currentThread) {
-            this.currentThread = currentThread;
-        }
-
         @Override
         public void run() {
             this.cancel();
-            System.out.println("OvertimeTask currentThread" + this.currentThread);
-            LockSupport.unpark(currentThread);
+            LockSupport.unpark(m_CurrentThread);
         }
     }
 
@@ -413,6 +404,25 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
         }
     }
 
+    public class DownThread extends Thread {
+
+        private String SzFileName;
+        private String szDownParam;
+        private String szDownloadTaskId;
+
+        public DownThread(String SzFileName, String szDownParam, String szDownloadTaskId) {
+            this.SzFileName = SzFileName;
+            this.szDownParam = szDownParam;
+            this.szDownloadTaskId = szDownloadTaskId;
+        }
+
+        @Override
+        public void run() {
+            InfNetSdk.INSTANCE.INF_NET_StartDownload(m_nLoginHandle, this.szDownParam, this.SzFileName, this.szDownloadTaskId);
+            System.out.println("szDownloadTaskId：" + this.szDownloadTaskId);
+        }
+    }
+
 
     /**
      * 系统事件回调接口，就目前测试来看，当我们修改了平台相关的参数时，会将信息回调到该接口
@@ -436,8 +446,13 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
         @Override
         public void invoke(String szCmdId, int nHandle, String szAction, String szResult, Pointer pUser) {
             mCurrentMessage = new Message(nHandle, szAction, szResult);
+            System.out.println("=====> ：" + szAction);
             if (m_CurrentThread != null) {
-                LockSupport.unpark(m_CurrentThread);
+                //后续有必要，就增加一个公共判断
+                if (LOGIN_STATUS_ACTION.equals(szAction))
+                    LockSupport.unpark(m_CurrentThread);
+                if (SEARCH_FILE_STATUS_ACTION.equals(szAction))
+                    LockSupport.unpark(m_CurrentThread);
             }
         }
     }

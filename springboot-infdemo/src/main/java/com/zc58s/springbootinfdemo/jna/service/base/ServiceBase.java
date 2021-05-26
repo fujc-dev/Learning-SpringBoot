@@ -39,6 +39,8 @@ public class ServiceBase {
      */
     protected final String LOGIN_STATUS_ACTION = "/CMS/main/login.do";
 
+
+    protected final String ASYNC_SEARCH_STATUS_ACTION = "/CMS/action/record/record/asyncSearch.do";
     protected final String SEARCH_FILE_STATUS_ACTION = "/CMS/action/record/record/getAsyncSearchResult.do";
     /**
      * 控制方法阻塞，记录当前方法的线程。
