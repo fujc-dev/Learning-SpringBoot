@@ -5,6 +5,11 @@ import com.zc58s.springbootinfdemo.jna.response.PtzResponse;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 基类
  *
@@ -34,7 +39,7 @@ public class ServiceBase {
      */
     protected final String LOGIN_STATUS_ACTION = "/CMS/main/login.do";
 
-    protected final String SEARCH_FILE_STATUS_ACTION = "/CMS/main/login.do";
+    protected final String SEARCH_FILE_STATUS_ACTION = "/CMS/action/record/record/getAsyncSearchResult.do";
     /**
      * 控制方法阻塞，记录当前方法的线程。
      */
@@ -96,10 +101,12 @@ public class ServiceBase {
         response.setCode(Sdk.CODE_PTZ_SUCCESS);
         return response;
     }
+
     /**
      * 设置摄像机云台预置位
-     * @param szCameraId  播放摄像机的ID或伪编码
-     * @param nIndex 预置位号
+     *
+     * @param szCameraId 播放摄像机的ID或伪编码
+     * @param nIndex     预置位号
      * @return
      */
     public PtzResponse SetPreset(String szCameraId, int nIndex) {
@@ -116,6 +123,19 @@ public class ServiceBase {
         response.setStatus(true);
         response.setCode(Sdk.CODE_PTZ_SUCCESS);
         return response;
+    }
+
+    public boolean DateFormat(String datetimeStr) {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        boolean fate_flag = true;
+        try {
+            Date date = format.parse(datetimeStr);
+        } catch (ParseException e) {
+            fate_flag = false;
+        } finally {
+            System.out.println("日期是否满足要求：" + fate_flag);
+        }
+        return fate_flag;
     }
 
 }

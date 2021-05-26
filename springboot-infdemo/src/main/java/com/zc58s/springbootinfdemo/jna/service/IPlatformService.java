@@ -9,7 +9,10 @@ import com.zc58s.springbootinfdemo.jna.response.LoginResponse;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/1/26 17:33
  */
-public interface IPlatformService {
+public interface IPlatformService extends IPtzControlService,
+        IBusinessService,
+        IVideoService,
+        IPlaybackService {
 
     /**
      * 登录到平台，目前针对的是英飞拓

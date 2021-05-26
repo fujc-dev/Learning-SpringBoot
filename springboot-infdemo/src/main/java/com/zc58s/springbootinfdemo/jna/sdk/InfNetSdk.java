@@ -229,7 +229,7 @@ public interface InfNetSdk extends StdCallLibrary {
      * //@param lTimeout     服务器返回结果的最大超时时间。
      * @return
      */
-    String INF_NET_SearchFile(int nLoginHandle, String szSearchId, String szCameraId, long dwBeginTime, long dwEndTime, String szRecordType, int playBackType);
+    String INF_NET_SearchFile(int nLoginHandle, String szSearchId, String szCameraId, int dwBeginTime, int dwEndTime, String szRecordType, int playBackType);
 
 
     /**

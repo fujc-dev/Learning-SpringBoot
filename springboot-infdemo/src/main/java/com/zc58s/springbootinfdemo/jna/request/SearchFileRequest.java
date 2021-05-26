@@ -21,11 +21,11 @@ public class SearchFileRequest {
     /*
      * 查询录像的开始时间(1970年1月1日开始的秒数1483642884)
      */
-    private long dwBeginTime;
+    private int dwBeginTime;
     /*
      * 查询录像的结束时间(1970年1月1日开始的秒数1483743684)
      */
-    private long dwEndTime;
+    private int dwEndTime;
     /*
      * 搜索的录像类型 ("all" 所有 "auto" 自动 "alarm" 报警 一般赋值"all")
      */
@@ -65,9 +65,9 @@ public class SearchFileRequest {
         this.dwEndTime = java_long_to_cpp_unsigned_long(dwEndTime);
     }
 
-    private long java_long_to_cpp_unsigned_long(String dwTime) throws ParseException {
+    private int java_long_to_cpp_unsigned_long(String dwTime) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return df.parse(dwTime).getTime() / 1000L;
+        return (int) (df.parse(dwTime).getTime() / 1000L);
 
     }
 
@@ -87,19 +87,19 @@ public class SearchFileRequest {
         this.szCameraId = szCameraId;
     }
 
-    public long getDwBeginTime() {
+    public int getDwBeginTime() {
         return dwBeginTime;
     }
 
-    public void setDwBeginTime(long dwBeginTime) {
+    public void setDwBeginTime(int dwBeginTime) {
         this.dwBeginTime = dwBeginTime;
     }
 
-    public long getDwEndTime() {
+    public int getDwEndTime() {
         return dwEndTime;
     }
 
-    public void setDwEndTime(long dwEndTime) {
+    public void setDwEndTime(int dwEndTime) {
         this.dwEndTime = dwEndTime;
     }
 
@@ -126,6 +126,7 @@ public class SearchFileRequest {
     public void setlTimeout(int lTimeout) {
         this.lTimeout = lTimeout;
     }
+
 
     /**
      * 搜索的录像类型 ("all" 所有 "auto" 自动 "alarm" 报警 一般赋值"all")

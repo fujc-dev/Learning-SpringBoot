@@ -1,9 +1,7 @@
 package com.zc58s.springbootinfdemo.controller;
 
-import com.zc58s.springbootinfdemo.jna.request.LoginRequest;
-import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
-import com.zc58s.springbootinfdemo.jna.request.PlaybackRequest;
-import com.zc58s.springbootinfdemo.jna.request.SearchFileRequest;
+import com.zc58s.springbootinfdemo.jna.request.*;
+import com.zc58s.springbootinfdemo.jna.request.params.DownParam;
 import com.zc58s.springbootinfdemo.jna.response.*;
 import com.zc58s.springbootinfdemo.jna.sdk.InfNetSdk;
 import com.zc58s.springbootinfdemo.jna.service.*;
@@ -26,24 +24,12 @@ import java.util.Map;
 public class LoginController {
 
     private final IPlatformService platformService;
-    private final IBusinessService businessService;
-    //摄像头控制服务
-    private final IPtzControlService ptzService;
-    private final IVideoService videoService;
-    private final IPlaybackService playbackService;
 
 
     @Autowired
-    public LoginController(IPlatformService platformService,
-                           IBusinessService businessService,
-                           IPtzControlService ptzService,
-                           IVideoService videoService,
-                           IPlaybackService playbackService) {
+    public LoginController(IPlatformService platformService) {
+        //this.platformService = PlatformFactory.CreateNew();
         this.platformService = platformService;
-        this.businessService = businessService;
-        this.ptzService = ptzService;
-        this.videoService = videoService;
-        this.playbackService = playbackService;
     }
 
     @ResponseBody
@@ -83,7 +69,7 @@ public class LoginController {
     public Map<String, Object> getOrgs() {
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        String response = this.businessService.GetOrgs();
+        String response = this.platformService.GetOrgs();
         map.put("data", response);
         return map;
     }
@@ -96,7 +82,7 @@ public class LoginController {
     public Map<String, Object> getAllResources() {
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        String response = this.businessService.GetAllResourceList();
+        String response = this.platformService.GetAllResourceList();
         map.put("data", response);
         return map;
     }
@@ -109,7 +95,7 @@ public class LoginController {
     public Map<String, Object> GetAllServer() {
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        String response = this.businessService.GetAllServer();
+        String response = this.platformService.GetAllServer();
         map.put("data", response);
         return map;
     }
@@ -123,8 +109,8 @@ public class LoginController {
     public Map<String, Object> PtzUp(String szCameraId) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        PtzResponse response = this.ptzService.PtzUp(szCameraId);
-        this.ptzService.PtzStop(szCameraId);
+        PtzResponse response = this.platformService.PtzUp(szCameraId);
+        this.platformService.PtzStop(szCameraId);
         map.put("data", response);
         return map;
     }
@@ -137,8 +123,8 @@ public class LoginController {
     public Map<String, Object> PtzDown(String szCameraId) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        PtzResponse response = this.ptzService.PtzDown(szCameraId);
-        this.ptzService.PtzStop(szCameraId);
+        PtzResponse response = this.platformService.PtzDown(szCameraId);
+        this.platformService.PtzStop(szCameraId);
         map.put("data", response);
         return map;
     }
@@ -159,7 +145,7 @@ public class LoginController {
                 PhotographRequest.PhotographType.Png);
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        PhotographResponse response = this.videoService.Photograph(photographRequest);
+        PhotographResponse response = this.platformService.Photograph(photographRequest);
         map.put("data", response);
         return map;
     }
@@ -170,7 +156,7 @@ public class LoginController {
         PlaybackRequest request = new PlaybackRequest(szCameraId, dwBeginTime, dwEndTime, archiveServerUrl);
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        PlaybackResponse response = this.playbackService.StartBackPlay(request);
+        PlaybackResponse response = this.platformService.StartBackPlay(request);
         map.put("data", response);
         return map;
     }
@@ -182,9 +168,25 @@ public class LoginController {
         SearchFileRequest request = new SearchFileRequest(szCameraId, dwBeginTime, dwEndTime);
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
-        SearchFileResponse response = this.playbackService.SearchFile(request);
+        SearchFileResponse response = this.platformService.SearchFile(request);
         map.put("data", response);
         return map;
     }
+
+
+    @ResponseBody
+    @RequestMapping("/down")
+    public Map<String, Object> Down(String szCameraId, String dwBeginTime, String dwEndTime, String archiveServerUrl) throws ParseException {
+        //有条件的话将这个图片地址放置到配置文件中
+        String szFilePath = "D:\\infImgs\\" + DateUtil.formatByMillisecond() + ".avi";
+        DownParam szDownParam = new DownParam(szCameraId, dwBeginTime, dwEndTime, "2x", archiveServerUrl);
+        DownVideoRequest request = new DownVideoRequest(szFilePath, szDownParam);
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", true);
+        DownVideoResponse response = this.platformService.Download(request);
+        map.put("data", response);
+        return map;
+    }
+
 
 }

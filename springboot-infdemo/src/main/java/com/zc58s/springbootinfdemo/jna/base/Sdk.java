@@ -58,5 +58,7 @@ public final class Sdk {
     //====================================================================
 
     //查询历史回放的文件不存在
-    public static int CODE_PLAYBACK_FILE_INVALID = 10012;
+    public static int CODE_PLAYBACK_FILE_SUCCESS = 10010;
+    public static int CODE_PLAYBACK_FILE_INVALID = 10011;
+
 }

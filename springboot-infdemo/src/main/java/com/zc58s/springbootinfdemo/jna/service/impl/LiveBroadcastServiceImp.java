@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/2/4 10:17
  */
-@Service
+
 public class LiveBroadcastServiceImp implements ILiveBroadcastService {
     @Override
     public LiveResponse Play() {

@@ -1,7 +1,6 @@
 package com.zc58s.springbootinfdemo.jna.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import com.zc58s.springbootinfdemo.jna.request.*;
 import com.zc58s.springbootinfdemo.jna.response.*;
@@ -13,6 +12,7 @@ import com.zc58s.springbootinfdemo.jna.service.*;
 import com.zc58s.springbootinfdemo.jna.base.Sdk;
 import com.zc58s.springbootinfdemo.jna.service.base.ServiceBase;
 import com.zc58s.springbootinfdemo.jna.request.PlaybackRequest;
+import com.zc58s.springbootinfdemo.jna.service.impl.response.SearchFileSzResult;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +38,7 @@ import java.util.concurrent.locks.LockSupport;
  * @createtime : 2021/1/26 17:34
  */
 @Service
-public class VideoPlatformServiceImp extends ServiceBase implements IPlatformService,
-        IPtzControlService,
-        IBusinessService,
-        IVideoService,
-        IPlaybackService {
+public class InfPlatformServiceImp extends ServiceBase implements IPlatformService {
 
     /*
      * 1、服务必须的单例的有效。所有的操作都依赖登录句柄；
@@ -50,17 +46,17 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
      * 2、如果后续拍照性能有问题，需要维护一个登录请求一个服务；
      * */
     //
-    private Logger logger = LoggerFactory.getLogger(VideoPlatformServiceImp.class);
+    private Logger logger = LoggerFactory.getLogger(InfPlatformServiceImp.class);
     /**
-     *     登录服务器的回调函数 通过szAction的地址判断做什么动作
+     * 登录服务器的回调函数 通过szAction的地址判断做什么动作
      */
     private MessageCallback _callback = new MessageCallbackImp();
     /**
-     *  回放任务Maps
+     * 回放任务Maps
      */
     private Map<String, BackPlayThread> _backPlayThreadMap = new HashMap<>();
 
-    public VideoPlatformServiceImp() {
+    public InfPlatformServiceImp() {
         System.out.println(new Date());
     }
 
@@ -211,8 +207,18 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
 
     //===========================拍照、下载视频、录像================================
     @Override
-    public void Download(DownVideoRequest request) {
+    public DownVideoResponse Download(DownVideoRequest request) {
+        DownVideoResponse response = new DownVideoResponse();
+        System.out.println("---------------请求参数---------------");
+        System.out.println("登录句柄：" + this.m_nLoginHandle);
+        System.out.println(request.toString());
+        System.out.println("---------------下载视频---------------");
 
+        String szDownParam = JSON.toJSONString(request.getSzDownParam());
+        String szDownloadTaskId = "";
+        InfNetSdk.INSTANCE.INF_NET_StartDownload(this.m_nLoginHandle, szDownParam, request.getSzFileName(), szDownloadTaskId);
+        System.out.println("szDownloadTaskId：" + szDownloadTaskId);
+        return response;
     }
 
     @Override
@@ -244,36 +250,27 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
         return response;
     }
 
-    @Override
-    public void VideoTape(VideoTapeRequest request) {
-
-    }
 
     //===========================回放================================
 
+
+    //TODO  客户端批量发起请求后，会出问题
+    //TODO
     @Override
     public SearchFileResponse SearchFile(SearchFileRequest request) {
         System.out.println("---------------请求参数---------------");
         System.out.println("登录句柄：" + this.m_nLoginHandle);
         System.out.println(request.toString());
         System.out.println("---------------查询回放文件---------------");
-        this.m_CurrentThread = Thread.currentThread();
-        System.out.println("====>SearchFile CurrentThread：" + m_CurrentThread);
+        Thread currentThread = Thread.currentThread();
+        System.out.println("====>SearchFile CurrentThread：" + currentThread);
         SearchFileResponse response = new SearchFileResponse();
         //根据摄像头ID + 开始日期 + 结束日期 查询是否包含录像文件
         System.out.println(request.toString());
+        //
+        Timer over_time = new Timer();
+        over_time.schedule(new OvertimeTask(currentThread), request.getlTimeout());
 
-        String _unsignedString = Long.toUnsignedString(request.getDwBeginTime());
-        Long _unsignedLong = Long.parseUnsignedLong(_unsignedString);
-        System.out.println("UnsignedString===>" + _unsignedString);
-        System.out.println("UnsignedLong===>" + _unsignedLong);
-
-        Pointer dwBeginTime = new Memory(8);
-        dwBeginTime.setLong(0, _unsignedLong);
-        System.out.println(dwBeginTime.getLong(0));
-        Pointer dwEndTime = new Memory(8);
-        dwEndTime.setLong(0, _unsignedLong);
-        System.out.println(dwEndTime.getLong(0));
         String InvalidPara = InfNetSdk.INSTANCE.INF_NET_SearchFile(this.m_nLoginHandle,
                 request.getSzSearchId(),
                 request.getSzCameraId(),
@@ -282,17 +279,24 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
                 request.getSzRecordType().getType(),
                 request.getiBackType().getType());
         System.out.println(InvalidPara);
-        //阻隔当前线程
-        LockSupport.park(m_CurrentThread);
+        if (error_str.equals(InvalidPara)) {
+            return response;
+        }
+        //阻塞当前线程
+        LockSupport.park(currentThread);
         //解除阻塞，继续执行
         if (this.mCurrentMessage != null) {
-            System.out.println("SearchFile /CMS/action/record/record/asyncSearch.do  ：" + this.mCurrentMessage.getSzAction());
-            System.out.println("SearchFile /CMS/action/record/record/asyncSearch.do  ：" + this.mCurrentMessage.getSzResult());
-        }
-        LockSupport.park(m_CurrentThread);
-        if (this.mCurrentMessage != null) {
-            System.out.println("SearchFile /CMS/action/record/record/getAsyncSearchResult.do ：" + this.mCurrentMessage.getSzAction());
-            System.out.println("SearchFile /CMS/action/record/record/getAsyncSearchResult.do ：" + this.mCurrentMessage.getSzResult());
+            if (LOGIN_STATUS_ACTION.equals(this.mCurrentMessage.getSzAction())) {
+                System.out.println("SearchFile /CMS/action/record/record/getAsyncSearchResult.do ：" + this.mCurrentMessage.getSzAction());
+                this.logger.debug(this.mCurrentMessage.getSzResult());
+                SearchFileSzResult szResult = JSON.parseObject(this.mCurrentMessage.getSzResult(), SearchFileSzResult.class);
+                if (szResult.getMsg() != null && szResult.getMsg().getRecordFile() != null && szResult.getMsg().getRecordFile().size() > 0) {
+                    System.out.println(szResult.getMsg().getRecordFile().size());
+                    response.setCode(Sdk.CODE_PLAYBACK_FILE_SUCCESS);
+                } else {
+                    response.setCode(Sdk.CODE_PLAYBACK_FILE_INVALID);
+                }
+            }
         }
         return response;
     }
@@ -341,6 +345,25 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
     }
 
     /**
+     * 超时任务回调
+     */
+    public class OvertimeTask extends TimerTask {
+
+        private Thread currentThread;
+
+        public OvertimeTask(Thread currentThread) {
+            this.currentThread = currentThread;
+        }
+
+        @Override
+        public void run() {
+            this.cancel();
+            System.out.println("OvertimeTask currentThread" + this.currentThread);
+            LockSupport.unpark(currentThread);
+        }
+    }
+
+    /**
      * 回放线程，用于回放英飞拓视频，后续需要将创建一个维护回放的线程队列
      */
     public class BackPlayThread extends Thread {
@@ -358,6 +381,11 @@ public class VideoPlatformServiceImp extends ServiceBase implements IPlatformSer
                 //返回 nConHandle 回放句柄
                 this.nConHandle = InfNetSdk.INSTANCE.INF_NET_StartBackPlay(m_nLoginHandle, this.szPlayParam,
                         (pUser, nHandle, szType, szError, pBuf, nSize) -> {
+                            if (szType.equals("clientClose")) {
+                                //
+                            } else {
+                                //
+                            }
                             System.out.println("====> nHandle：" + nHandle);
                             System.out.println("====> szType：" + szType);
                             System.out.println("====> szError：" + szError);

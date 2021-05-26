@@ -2,7 +2,7 @@ package com.zc58s.springbootinfdemo.jna.service;
 
 import com.zc58s.springbootinfdemo.jna.request.DownVideoRequest;
 import com.zc58s.springbootinfdemo.jna.request.PhotographRequest;
-import com.zc58s.springbootinfdemo.jna.request.VideoTapeRequest;
+import com.zc58s.springbootinfdemo.jna.response.DownVideoResponse;
 import com.zc58s.springbootinfdemo.jna.response.PhotographResponse;
 
 /**
@@ -18,21 +18,19 @@ public interface IVideoService {
      *
      * @param request
      */
-    void Download(DownVideoRequest request);
+    DownVideoResponse Download(DownVideoRequest request);
 
     /**
      * 文档上说是快照，但是没有指明摄像头的唯一编号，感觉这个接口不对。
      *
-     * @param request
-     */
-    PhotographResponse Photograph(PhotographRequest request);
-
-    /**
-     * 录像
+     * <p>
+     * 修改记录：
+     * 1、2021-5-19，厂家修改SDK，增加实时拍照
+     * </p>
      *
      * @param request
      */
-    void VideoTape(VideoTapeRequest request);
+    PhotographResponse Photograph(PhotographRequest request);
 
 
 }
