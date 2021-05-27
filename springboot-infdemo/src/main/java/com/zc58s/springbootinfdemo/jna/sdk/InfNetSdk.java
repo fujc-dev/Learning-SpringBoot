@@ -200,7 +200,7 @@ public interface InfNetSdk extends StdCallLibrary {
     String INF_NET_StopRecord(int nLoginHandle, String szCameraId);
 
     //下载
-    void INF_NET_StartDownload(int nLoginHandle, String szDownParam, String szFileName, String szTastId);
+    void INF_NET_StartDownload(int nLoginHandle, String szDownParam, String szFileName, byte[]  szTastId);
 
 
     /**

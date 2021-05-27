@@ -216,9 +216,10 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
 
         System.out.println(request.toString());
         String szDownParam = JSON.toJSONString(request.getSzDownParam());
-        String szDownloadTaskId = "";
-        DownThread downThread = new DownThread(request.getSzFileName(), szDownParam, szDownloadTaskId);
-        downThread.run();
+        byte[] szDownloadTaskId = new byte[64];
+//        DownThread downThread = new DownThread(request.getSzFileName(), szDownParam, szDownloadTaskId);
+//        downThread.run();
+        InfNetSdk.INSTANCE.INF_NET_StartDownload(m_nLoginHandle, szDownParam, request.getSzFileName(), szDownloadTaskId);
         return response;
     }
 
@@ -288,7 +289,8 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
                 //System.out.println("=====> ：" + this.mCurrentMessage.getSzResult());
                 SearchFileSzResult szResult = JSON.parseObject(this.mCurrentMessage.getSzResult(), SearchFileSzResult.class);
                 if (szResult.getMsg() != null && szResult.getMsg().getRecordFile() != null && szResult.getMsg().getRecordFile().size() > 0) {
-                    System.out.println(szResult.getMsg().getRecordFile().size());
+                    System.out.println("=====>：RecordFile-" + szResult.getMsg().getRecordFile().size());
+                    response.setSize(szResult.getMsg().getRecordFile().size());
                     response.setCode(Sdk.CODE_PLAYBACK_FILE_SUCCESS);
                 } else {
                     response.setCode(Sdk.CODE_PLAYBACK_FILE_INVALID);
@@ -408,9 +410,9 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
 
         private String SzFileName;
         private String szDownParam;
-        private String szDownloadTaskId;
+        private byte[] szDownloadTaskId;
 
-        public DownThread(String SzFileName, String szDownParam, String szDownloadTaskId) {
+        public DownThread(String SzFileName, String szDownParam, byte[] szDownloadTaskId) {
             this.SzFileName = SzFileName;
             this.szDownParam = szDownParam;
             this.szDownloadTaskId = szDownloadTaskId;
