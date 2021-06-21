@@ -12,15 +12,13 @@ public class PlaybackResponse extends ResponseBase {
      * 用户收到的推流地址
      */
     private String url;
-
-    /**
-     * 回放ID，也就是相机唯一编号
-     */
-    private String cameraId;
+    private  String szPlayParam;
+    private  int loginHandle;
 
 
-    public PlaybackResponse(String cameraId) {
-        this.cameraId = cameraId;
+    public PlaybackResponse(String szPlayParam, int loginHandle) {
+        this.szPlayParam = szPlayParam;
+        this.loginHandle = loginHandle;
     }
 
     public String getUrl() {
@@ -31,11 +29,19 @@ public class PlaybackResponse extends ResponseBase {
         this.url = url;
     }
 
-    public String getCameraId() {
-        return cameraId;
+    public String getSzPlayParam() {
+        return szPlayParam;
     }
 
-    public void setCameraId(String cameraId) {
-        this.cameraId = cameraId;
+    public void setSzPlayParam(String szPlayParam) {
+        this.szPlayParam = szPlayParam;
+    }
+
+    public int getLoginHandle() {
+        return loginHandle;
+    }
+
+    public void setLoginHandle(int loginHandle) {
+        this.loginHandle = loginHandle;
     }
 }

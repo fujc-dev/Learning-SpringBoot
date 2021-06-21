@@ -35,7 +35,7 @@ public class Context {
      *
      * @param slave
      */
-    public static void Read(Slave slave)   {
+    public static void Read(Slave slave) {
         Strategy strategy = (Strategy) SpringContextUtil.getBean("0x0" + slave.getCode());
         if (strategy != null) {
             strategy.Read(slave.getSlaveId(), slave.getPoints());
@@ -51,7 +51,7 @@ public class Context {
      *
      * @param slaves
      */
-    public static void Read(List<Slave> slaves)  {
+    public static void Read(List<Slave> slaves) {
         if (slaves != null) {
             for (Slave slave : slaves) {
                 Read(slave);

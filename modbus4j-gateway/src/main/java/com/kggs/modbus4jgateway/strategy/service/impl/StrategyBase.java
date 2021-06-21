@@ -6,7 +6,11 @@ import com.serotonin.modbus4j.exception.ErrorResponseException;
 import com.serotonin.modbus4j.exception.ModbusInitException;
 import com.serotonin.modbus4j.exception.ModbusTransportException;
 import com.serotonin.modbus4j.locator.BaseLocator;
+import com.serotonin.modbus4j.msg.ReadHoldingRegistersRequest;
+import com.serotonin.modbus4j.msg.ReadHoldingRegistersResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Arrays;
 
 /**
  * @author : fjc.dane@gmail.com
@@ -100,6 +104,24 @@ public abstract class StrategyBase implements Strategy {
         return -1;
     }
 
+    private Number readHoldingRegisters(int slaveId, int start, int len) {
+        try {
+            ReadHoldingRegistersRequest request = new ReadHoldingRegistersRequest(slaveId, start, len);
+            ReadHoldingRegistersResponse response = (ReadHoldingRegistersResponse) this.master.send(request);
+            if (response.isException()) {
+                System.out.println("异常消息:" + response.getExceptionMessage());
+            } else {
+                System.out.println(Arrays.toString(response.getShortData()));
+                short[] list = response.getShortData();
+                for (int i = 0; i < list.length; i++) {
+                    System.out.print(list[i] + " ");
+                }
+            }
+        } catch (ModbusTransportException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     /**
      * 读取[04 Input Registers 3x]类型 模拟量数据

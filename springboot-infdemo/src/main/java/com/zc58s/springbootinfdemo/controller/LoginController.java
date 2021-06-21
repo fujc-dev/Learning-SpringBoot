@@ -177,7 +177,7 @@ public class LoginController {
     @RequestMapping("/down")
     public Map<String, Object> Down(String szCameraId, String dwBeginTime, String dwEndTime, String downloadType, String archiveServerUrl) throws ParseException {
         //有条件的话将这个图片地址放置到配置文件中
-        String szFilePath = "D:\\infVideo\\" + DateUtil.formatByMillisecond();
+        String szFilePath = "D:\\infVideos\\anyRouter\\3b97f7edab8c4a7ea1f69c68ee1351f7\\video\\202106\\C883F7497F0F45E5B69938AA2E68B041";
         DownParam szDownParam = new DownParam(szCameraId, dwBeginTime, dwEndTime, "2x", downloadType, archiveServerUrl);
         DownVideoRequest request = new DownVideoRequest(szFilePath, szDownParam);
         Map<String, Object> map = new HashMap<>();

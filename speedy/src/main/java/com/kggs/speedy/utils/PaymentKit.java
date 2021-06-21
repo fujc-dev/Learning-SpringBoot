@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+
 /**
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/4/14 11:38
@@ -16,7 +17,8 @@ public class PaymentKit {
 
     /**
      * 组装签名的字段
-     * @param params 参数
+     *
+     * @param params     参数
      * @param urlEncoder 是否urlEncoder
      * @return String
      */
@@ -38,7 +40,10 @@ public class PaymentKit {
             }
             sb.append(param.getKey()).append("=");
             if (urlEncoder) {
-                try { value = urlEncode(value); } catch (UnsupportedEncodingException e) {}
+                try {
+                    value = urlEncode(value);
+                } catch (UnsupportedEncodingException e) {
+                }
             }
             sb.append(value);
         }
@@ -47,6 +52,7 @@ public class PaymentKit {
 
     /**
      * urlEncode
+     *
      * @param src 微信参数
      * @return String
      * @throws UnsupportedEncodingException 编码错误
@@ -57,7 +63,8 @@ public class PaymentKit {
 
     /**
      * 生成签名
-     * @param params 参数
+     *
+     * @param params      参数
      * @param paternerKey 支付密钥
      * @return sign
      */
@@ -71,11 +78,12 @@ public class PaymentKit {
 
     /**
      * 支付异步通知时校验sign
-     * @param params 参数
+     *
+     * @param params      参数
      * @param paternerKey 支付密钥
      * @return {boolean}
      */
-    public static boolean verifyNotify(Map<String, String> params, String paternerKey){
+    public static boolean verifyNotify(Map<String, String> params, String paternerKey) {
         String sign = params.get("sign");
         String localSign = PaymentKit.createSign(params, paternerKey);
         return sign.equals(localSign);
@@ -83,6 +91,7 @@ public class PaymentKit {
 
     /**
      * 微信下单，map to xml
+     *
      * @param params 参数
      * @return String
      */
@@ -90,7 +99,7 @@ public class PaymentKit {
         StringBuilder xml = new StringBuilder();
         xml.append("<xml>");
         for (Entry<String, String> entry : params.entrySet()) {
-            String key   = entry.getKey();
+            String key = entry.getKey();
             String value = entry.getValue();
             // 略过空值
             if (Tools.isEmpty(value)) continue;
@@ -104,6 +113,7 @@ public class PaymentKit {
 
     /**
      * 针对支付的xml，没有嵌套节点的简单处理
+     *
      * @param xmlStr xml字符串
      * @return map集合
      */

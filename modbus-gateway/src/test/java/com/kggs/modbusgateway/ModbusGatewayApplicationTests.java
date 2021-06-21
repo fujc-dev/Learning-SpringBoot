@@ -43,21 +43,21 @@ class ModbusGatewayApplicationTests {
     }
 
     /**
-     *  modbus4j
+     * modbus4j
      */
     @Test
-    void  modbus4j(){
+    void modbus4j() {
         try {
-            Modbus4jUtils modbus4jUtils = new  Modbus4jUtils();
-            Modbus4jWriteUtils modbus4jWriteUtils = new  Modbus4jWriteUtils();
+            Modbus4jUtils modbus4jUtils = new Modbus4jUtils();
+            Modbus4jWriteUtils modbus4jWriteUtils = new Modbus4jWriteUtils();
 
             // 01测试
             //Boolean v011 = modbus4jUtils.readCoilStatus(1, 0);
             //Boolean v012 =modbus4jUtils. readCoilStatus(1, 1);
             //Boolean v013 =modbus4jUtils. readCoilStatus(1, 6);
-           //System.out.println("v011:" + v011);
+            //System.out.println("v011:" + v011);
             //System.out.println("v012:" + v012);
-           // System.out.println("v013:" + v013);
+            // System.out.println("v013:" + v013);
             // 02测试
             //Boolean v021 = modbus4jUtils.readInputStatus(1, 0);
             //Boolean v022 =modbus4jUtils. readInputStatus(1, 1);
@@ -67,20 +67,20 @@ class ModbusGatewayApplicationTests {
             //System.out.println("v023:" + v023);
 
             // 03测试
-            Number v031 =modbus4jUtils. readHoldingRegister(1, 0, DataType.FOUR_BYTE_FLOAT);// 注意,float
-            Number v032 = modbus4jUtils.readHoldingRegister(1, 2,DataType.TWO_BYTE_INT_SIGNED);
+            Number v031 = modbus4jUtils.readHoldingRegister(1, 0, DataType.FOUR_BYTE_FLOAT);// 注意,float
+            Number v032 = modbus4jUtils.readHoldingRegister(1, 2, DataType.TWO_BYTE_INT_SIGNED);
             System.out.println("v031:" + v031);
             System.out.println("v032:" + v032);
 
-            modbus4jWriteUtils.writeHoldingRegister(1,2,100,DataType.TWO_BYTE_INT_SIGNED);
-            modbus4jWriteUtils.writeCoil(1,0,true);
+            modbus4jWriteUtils.writeHoldingRegister(1, 2, 100, DataType.TWO_BYTE_INT_SIGNED);
+            modbus4jWriteUtils.writeCoil(1, 0, true);
             // 04测试
             //Number v041 =modbus4jUtils. readInputRegisters(1, 0, DataType.FOUR_BYTE_FLOAT);//
             //Number v042 = modbus4jUtils.readInputRegisters(1, 2, DataType.FOUR_BYTE_FLOAT);//
             //System.out.println("v041:" + v041);
             //System.out.println("v042:" + v042);
             // 批量读取
-           // modbus4jUtils.batchRead();
+            // modbus4jUtils.batchRead();
 
         } catch (Exception e) {
             e.printStackTrace();

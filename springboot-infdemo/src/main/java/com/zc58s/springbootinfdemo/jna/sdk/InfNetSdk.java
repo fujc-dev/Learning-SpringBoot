@@ -202,7 +202,7 @@ public interface InfNetSdk extends StdCallLibrary {
     //下载
     void INF_NET_StartDownload(int nLoginHandle, String szDownParam, String szFileName, byte[]  szTastId);
 
-
+    int INF_NET_GetDownloadPos(byte[] szDownloadTaskId);
     /**
      * 获取所有服务器信息：即v2200平台服务器模块，包含aps smt acs vqs kbs nvr
      *

@@ -69,7 +69,7 @@ public class Slave {
      *
      * @param slaveId 从机地址
      * @param code    功能码，此处的目的是用于注入
-     * @param point  点位数据
+     * @param point   点位数据
      */
     public Slave(int slaveId, int code, SlavePoint point) {
         this.slaveId = slaveId;

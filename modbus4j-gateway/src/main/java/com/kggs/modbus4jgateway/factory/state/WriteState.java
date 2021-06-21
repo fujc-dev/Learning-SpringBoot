@@ -13,6 +13,7 @@ import com.serotonin.modbus4j.exception.ModbusTransportException;
 public abstract class WriteState {
     protected IModbus4jWriteService writeService;
     protected Context context = null;
+
     public WriteState() {
         this.writeService = SpringContextUtil.getBean(IModbus4jWriteService.class);
     }

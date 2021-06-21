@@ -51,10 +51,6 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
      * 登录服务器的回调函数 通过szAction的地址判断做什么动作
      */
     private MessageCallback _callback = new MessageCallbackImp();
-    /**
-     * 回放任务Maps
-     */
-    private Map<String, BackPlayThread> _backPlayThreadMap = new HashMap<>();
 
     public InfPlatformServiceImp() {
         System.out.println(new Date());
@@ -218,8 +214,21 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
         String szDownParam = JSON.toJSONString(request.getSzDownParam());
         byte[] szDownloadTaskId = new byte[64];
 //        DownThread downThread = new DownThread(request.getSzFileName(), szDownParam, szDownloadTaskId);
-//        downThread.run();
+//        downThread.start();
         InfNetSdk.INSTANCE.INF_NET_StartDownload(m_nLoginHandle, szDownParam, request.getSzFileName(), szDownloadTaskId);
+        int _produce = this.DownloadPos(szDownloadTaskId);
+        System.out.println("下载进度：" + _produce);
+        while (_produce < 100) {
+            _produce = this.DownloadPos(szDownloadTaskId);
+            System.out.println("下载进度：" + _produce);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        response.setSzDownloadTaskId(szDownloadTaskId);
+        System.out.println("下载进度：下载完毕");
         return response;
     }
 
@@ -250,6 +259,11 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
             ex.printStackTrace();
         }
         return response;
+    }
+
+    @Override
+    public int DownloadPos(byte[] szDownloadTaskId) {
+        return InfNetSdk.INSTANCE.INF_NET_GetDownloadPos(szDownloadTaskId);
     }
 
 
@@ -311,17 +325,9 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
         System.out.println("---------------执行回放---------------");
         this.m_CurrentThread = Thread.currentThread();
         System.out.println("====>StartBackPlay CurrentThread：" + m_CurrentThread);
-        PlaybackResponse response = new PlaybackResponse(request.getCameraId());
-        //1、执行SDK的播放
         String szPlayParam = JSON.toJSONString(request);
+        PlaybackResponse response = new PlaybackResponse(szPlayParam, this.m_nLoginHandle);
         System.out.println(szPlayParam);
-        //2、在回调函数中获取视频流，通过FFMPEG执行流转码。推流到流媒体服务器
-
-        BackPlayThread playThread = new BackPlayThread(szPlayParam);
-        playThread.run();
-        //维护一个当前回放的历史记录，用于关闭回放记录，终止线程
-        _backPlayThreadMap.put(request.getCameraId(), playThread);
-        //4、停止回放，
         return response;
     }
 
@@ -356,55 +362,6 @@ public class InfPlatformServiceImp extends ServiceBase implements IPlatformServi
         }
     }
 
-    /**
-     * 回放线程，用于回放英飞拓视频，后续需要将创建一个维护回放的线程队列
-     */
-    public class BackPlayThread extends Thread {
-
-        private String szPlayParam;
-        private int nConHandle = -1;
-
-        public BackPlayThread(String szPlayParam) {
-            this.szPlayParam = szPlayParam;
-        }
-
-        @Override
-        public void run() {
-            try {
-                //返回 nConHandle 回放句柄
-                this.nConHandle = InfNetSdk.INSTANCE.INF_NET_StartBackPlay(m_nLoginHandle, this.szPlayParam,
-                        (pUser, nHandle, szType, szError, pBuf, nSize) -> {
-                            if (szType.equals("clientClose")) {
-                                //
-                            } else {
-                                //
-                            }
-                            System.out.println("====> nHandle：" + nHandle);
-                            System.out.println("====> szType：" + szType);
-                            System.out.println("====> szError：" + szError);
-                            System.out.println("====> pBuf：" + pBuf);
-                            System.out.println("====> nSize：" + nSize);
-                            System.out.println("====================================");
-                            byte[] _pBuf = pBuf.getByteArray(0, nSize);
-                            System.out.println(Arrays.toString(_pBuf));
-                            System.out.println("====================================");
-                            //厂家的技术人员说，pBuf是标准的H.264或者H.265
-                            return 0;
-                        });
-                System.out.println("====> nConHandle：" + nConHandle);
-                System.out.println("====================================");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void close() {
-            //执行终止播放\回放
-            InfNetSdk.INSTANCE.INF_NET_StopPlay(this.nConHandle);
-            //终止当前现场
-            this.interrupt();
-        }
-    }
 
     public class DownThread extends Thread {
 

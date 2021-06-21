@@ -20,11 +20,11 @@ public class ReadInputRegisterStrategy extends StrategyBase {
     }
 
     @Override
-    public void Read(int slaveId, List<SlavePoint> points)  {
+    public void Read(int slaveId, List<SlavePoint> points) {
         if (points != null) {
             for (SlavePoint point : points) {
-                Number val =  this.readInputRegisters(slaveId, point.getOffset(),point.getDataType());
-                System.out.println("Offset：" + point.getOffset() + " Value：" +val);
+                Number val = this.readInputRegisters(slaveId, point.getOffset(), point.getDataType());
+                System.out.println("Offset：" + point.getOffset() + " Value：" + val);
             }
         }
     }

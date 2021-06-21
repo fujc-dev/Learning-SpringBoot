@@ -32,5 +32,13 @@ public interface IVideoService {
      */
     PhotographResponse Photograph(PhotographRequest request);
 
+    /**
+     * 获取当前录像下载进度
+     *
+     * @param szDownloadTaskId
+     * @return
+     */
+    int DownloadPos(byte[] szDownloadTaskId);
+
 
 }

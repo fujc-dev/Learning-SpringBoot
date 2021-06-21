@@ -19,7 +19,8 @@ public class WriteCoilState extends WriteState {
         String simpleName = super.GetWriteParamTypeName(writeValue);
         if ("boolean".equals(simpleName.toLowerCase())) {
             boolean val = (Boolean) writeValue.getVal();
-            this.writeService.WriteCoil(writeValue.getSlaveId(), writeValue.getOffset(), val);
+            boolean status = this.writeService.WriteCoil(writeValue.getSlaveId(), writeValue.getOffset(), val);
+            System.out.println(status);
         }
         //写多个线圈
         else if ("boolean[]".equals(simpleName.toLowerCase())) {

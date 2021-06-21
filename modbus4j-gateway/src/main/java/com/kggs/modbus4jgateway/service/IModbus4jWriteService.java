@@ -34,7 +34,7 @@ public interface IModbus4jWriteService {
      * @throws ModbusTransportException
      * @throws ModbusInitException
      */
-    Boolean WriteCoils(int slaveId, int startOffset, boolean[] bdata)throws ModbusTransportException ;
+    Boolean WriteCoils(int slaveId, int startOffset, boolean[] bdata) throws ModbusTransportException;
 
     /***
      * 写[03 Holding Register(4x)] 写一个 function ID = 6
@@ -46,7 +46,7 @@ public interface IModbus4jWriteService {
      * @throws ModbusTransportException
      * @throws ModbusInitException
      */
-    Boolean WriteRegister(int slaveId, int writeOffset, short writeValue)throws ModbusTransportException ;
+    Boolean WriteRegister(int slaveId, int writeOffset, short writeValue) throws ModbusTransportException;
 
     /**
      * 写入[03 Holding Register(4x)]写多个 function ID=16
@@ -58,7 +58,7 @@ public interface IModbus4jWriteService {
      * @throws ModbusTransportException
      * @throws ModbusInitException
      */
-    Boolean WriteRegisters(int slaveId, int startOffset, short[] sdata) throws ModbusTransportException ;
+    Boolean WriteRegisters(int slaveId, int startOffset, short[] sdata) throws ModbusTransportException;
 
     /**
      * 写入数字类型的模拟量（如:写入Float类型的模拟量、Double类型模拟量、整数类型Short、Integer、Long）

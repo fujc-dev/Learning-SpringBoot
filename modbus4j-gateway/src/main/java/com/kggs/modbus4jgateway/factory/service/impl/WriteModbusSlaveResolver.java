@@ -26,7 +26,7 @@ public class WriteModbusSlaveResolver extends WriteSalveFactory {
 
     @Override
     public <T> void Write(SlaveWrite<T> writeValue) throws ErrorResponseException, ModbusTransportException {
-        Context context  = new Context();
+        Context context = new Context();
         context.Write(writeValue);
     }
 }
