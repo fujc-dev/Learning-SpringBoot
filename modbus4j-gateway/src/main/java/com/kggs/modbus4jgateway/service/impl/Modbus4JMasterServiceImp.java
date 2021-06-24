@@ -7,6 +7,7 @@ import com.serotonin.modbus4j.ModbusFactory;
 import com.serotonin.modbus4j.ModbusMaster;
 import com.serotonin.modbus4j.exception.ModbusInitException;
 import com.serotonin.modbus4j.ip.IpParameters;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/6/24 10:30
  */
+@Service
 public class Modbus4JMasterServiceImp implements IModbus4JMasterService {
     @Override
     public void Start(List<Master> masters) {

@@ -22,23 +22,27 @@ public class Modbus4jGatewayApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(Modbus4jGatewayApplication.class, args);
-
-        Master master = new Master("192.168.0.5");
+        //多网关模式
+        //第一步、启动并连接所有的Master
+        Master master = new Master("127.0.0.1");
         List<Master> masters = new ArrayList<>();
         masters.add(master);
-        //第一步、启动并连接所有的Master
         IModbus4JMasterService masterService = SpringContextUtil.getBean(IModbus4JMasterService.class);
         masterService.Start(masters);
-        IModbus4jReadService salveService = SpringContextUtil.getBean(IModbus4jReadService.class);
+        //第二步、初始化SlaveId与点位寄存器地址，并与Master绑定
         List<Slave> slaveList = new ArrayList<>();
         Slave slave = null;
         //int _hex = IntegerUtil.ConvertBy16Hex("0x0A");
-        slave = new Slave(master, 50, 0x03, new SlavePoint(0, DataType.TWO_BYTE_INT_UNSIGNED));
+        slave = new Slave(master, 1, 0x03, new SlavePoint(0, DataType.FOUR_BYTE_FLOAT));
+        slaveList.add(slave);
+        slave = new Slave(master, 2, 0x03, new SlavePoint(0, DataType.FOUR_BYTE_FLOAT));
         slaveList.add(slave);
         //slave = new Slave(50, 0x02, new SlavePoint(40002));
         //slaveList.add(slave);
+        //第三步、开启读线程，读取点位数据
+        IModbus4jReadService salveService = SpringContextUtil.getBean(IModbus4jReadService.class);
         salveService.Start(slaveList);
-        WriteHelper.Write(new SlaveWrite<>(master, 50, 2, false));
+        //WriteHelper.Write(new SlaveWrite<>(master, 50, 2, false));
         //Short _short = 1;
         //WriteHelper.Write(new SlaveWrite<Short>(1, 1, _short));
     }

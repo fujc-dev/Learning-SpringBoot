@@ -19,12 +19,7 @@ import java.util.List;
 @Service
 public class Modbus4jServiceImp implements IModbus4jReadService {
     private PullModbusSlaveThread slaveThread = null;
-    private ModbusMaster master = null;
 
-    @Autowired
-    public Modbus4jServiceImp(ModbusMaster master) {
-        this.master = master;
-    }
 
     @Override
     public void Reset() {
