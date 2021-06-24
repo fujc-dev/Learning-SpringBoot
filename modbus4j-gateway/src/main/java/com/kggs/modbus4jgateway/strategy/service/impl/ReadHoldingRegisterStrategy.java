@@ -15,15 +15,13 @@ import java.util.List;
 @Service("0x03")
 public class ReadHoldingRegisterStrategy extends StrategyBase {
 
-    public ReadHoldingRegisterStrategy(ModbusMaster master) {
-        super(master);
-    }
+
 
     @Override
-    public void Read(int slaveId, List<SlavePoint> points) {
+    public void Read(ModbusMaster master,int slaveId, List<SlavePoint> points) {
         if (points != null) {
             for (SlavePoint point : points) {
-                Number value = this.readHoldingRegister(slaveId, point.getOffset(), point.getDataType());
+                Number value = this.readHoldingRegister(master,slaveId, point.getOffset(), point.getDataType());
                 System.out.println("Offset：" + point.getOffset() + " Value：" + value);
             }
         }

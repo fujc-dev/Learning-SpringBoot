@@ -18,6 +18,8 @@ import java.util.List;
  * @createtime : 2021/3/19 10:12
  */
 public class Slave {
+
+    private Master master;
     /**
      * Modbus  Salve地址
      */
@@ -46,7 +48,8 @@ public class Slave {
      * @param slaveId 从机地址
      * @param code    功能码，此处的目的是用于注入
      */
-    public Slave(int slaveId, int code) {
+    public Slave(Master master, int slaveId, int code) {
+        this.master =master;
         this.slaveId = slaveId;
         this.code = code;
     }
@@ -58,7 +61,8 @@ public class Slave {
      * @param code    功能码，此处的目的是用于注入
      * @param points  点位数据
      */
-    public Slave(int slaveId, int code, List<SlavePoint> points) {
+    public Slave(Master master, int slaveId, int code, List<SlavePoint> points) {
+        this.master =master;
         this.slaveId = slaveId;
         this.code = code;
         this.points = points;
@@ -71,12 +75,20 @@ public class Slave {
      * @param code    功能码，此处的目的是用于注入
      * @param point   点位数据
      */
-    public Slave(int slaveId, int code, SlavePoint point) {
+    public Slave(Master master, int slaveId, int code, SlavePoint point) {
+        this.master =master;
         this.slaveId = slaveId;
         this.code = code;
         this.points.add(point);
     }
 
+    public Master getMaster() {
+        return master;
+    }
+
+    public void setMaster(Master master) {
+        this.master = master;
+    }
 
     public int getSlaveId() {
         return slaveId;

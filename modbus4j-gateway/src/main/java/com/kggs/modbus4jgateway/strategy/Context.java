@@ -2,8 +2,10 @@ package com.kggs.modbus4jgateway.strategy;
 
 
 import com.kggs.modbus4jgateway.bean.Slave;
+import com.kggs.modbus4jgateway.factory.MasterFactory;
 import com.kggs.modbus4jgateway.strategy.service.Strategy;
 import com.kggs.modbus4jgateway.utils.SpringContextUtil;
+import com.serotonin.modbus4j.ModbusMaster;
 
 import java.util.List;
 
@@ -38,7 +40,8 @@ public class Context {
     public static void Read(Slave slave) {
         Strategy strategy = (Strategy) SpringContextUtil.getBean("0x0" + slave.getCode());
         if (strategy != null) {
-            strategy.Read(slave.getSlaveId(), slave.getPoints());
+            ModbusMaster master = MasterFactory.getInstance().GetModbusMaster(slave.getMaster());
+            strategy.Read(master, slave.getSlaveId(), slave.getPoints());
         }
     }
 

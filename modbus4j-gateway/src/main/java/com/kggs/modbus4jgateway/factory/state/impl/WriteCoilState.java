@@ -1,7 +1,10 @@
 package com.kggs.modbus4jgateway.factory.state.impl;
 
 import com.kggs.modbus4jgateway.bean.SlaveWrite;
+import com.kggs.modbus4jgateway.factory.MasterFactory;
 import com.kggs.modbus4jgateway.factory.state.WriteState;
+import com.serotonin.modbus4j.ModbusFactory;
+import com.serotonin.modbus4j.ModbusMaster;
 import com.serotonin.modbus4j.exception.ErrorResponseException;
 import com.serotonin.modbus4j.exception.ModbusTransportException;
 
@@ -19,13 +22,15 @@ public class WriteCoilState extends WriteState {
         String simpleName = super.GetWriteParamTypeName(writeValue);
         if ("boolean".equals(simpleName.toLowerCase())) {
             boolean val = (Boolean) writeValue.getVal();
-            boolean status = this.writeService.WriteCoil(writeValue.getSlaveId(), writeValue.getOffset(), val);
+            ModbusMaster master = MasterFactory.getInstance().GetModbusMaster(writeValue.getMaster());
+            boolean status = this.writeService.WriteCoil(master, writeValue.getSlaveId(), writeValue.getOffset(), val);
             System.out.println(status);
         }
         //写多个线圈
         else if ("boolean[]".equals(simpleName.toLowerCase())) {
             boolean[] val = (boolean[]) writeValue.getVal();
-            this.writeService.WriteCoils(writeValue.getSlaveId(), writeValue.getOffset(), val);
+            ModbusMaster master = MasterFactory.getInstance().GetModbusMaster(writeValue.getMaster());
+            this.writeService.WriteCoils(master, writeValue.getSlaveId(), writeValue.getOffset(), val);
         } else {
             this.context.SetState(new WriteRegisterState());
             this.context.Write(writeValue);

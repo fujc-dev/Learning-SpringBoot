@@ -15,19 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class Modbus4jWriteServiceImp implements IModbus4jWriteService {
 
-    private ModbusMaster master;
-
-    public Modbus4jWriteServiceImp(ModbusMaster master) {
-        this.master = master;
-    }
 
     @Override
-    public Boolean WriteCoil(int slaveId, int writeOffset, boolean writeValue) throws ModbusTransportException {
+    public Boolean WriteCoil(ModbusMaster master,int slaveId, int writeOffset, boolean writeValue) throws ModbusTransportException {
         // 创建请求
         WriteCoilRequest request = null;
         request = new WriteCoilRequest(slaveId, writeOffset, writeValue);
         // 发送请求并获取响应对象
-        WriteCoilResponse response = (WriteCoilResponse) this.master.send(request);
+        WriteCoilResponse response = (WriteCoilResponse) master.send(request);
         if (response.isException()) {
             return false;
         } else {
@@ -36,11 +31,11 @@ public class Modbus4jWriteServiceImp implements IModbus4jWriteService {
     }
 
     @Override
-    public Boolean WriteCoils(int slaveId, int startOffset, boolean[] bdata) throws ModbusTransportException {
+    public Boolean WriteCoils(ModbusMaster master,int slaveId, int startOffset, boolean[] bdata) throws ModbusTransportException {
         // 创建请求
         WriteCoilsRequest request = new WriteCoilsRequest(slaveId, startOffset, bdata);
         // 发送请求并获取响应对象
-        WriteCoilsResponse response = (WriteCoilsResponse) this.master.send(request);
+        WriteCoilsResponse response = (WriteCoilsResponse) master.send(request);
         if (response.isException()) {
             return false;
         } else {
@@ -49,10 +44,10 @@ public class Modbus4jWriteServiceImp implements IModbus4jWriteService {
     }
 
     @Override
-    public Boolean WriteRegister(int slaveId, int writeOffset, short writeValue) throws ModbusTransportException {
+    public Boolean WriteRegister(ModbusMaster master,int slaveId, int writeOffset, short writeValue) throws ModbusTransportException {
         // 创建请求对象
         WriteRegisterRequest request = new WriteRegisterRequest(slaveId, writeOffset, writeValue);
-        WriteRegisterResponse response = (WriteRegisterResponse) this.master.send(request);
+        WriteRegisterResponse response = (WriteRegisterResponse) master.send(request);
         if (response.isException()) {
             // log.error(response.getExceptionMessage());
             return false;
@@ -62,11 +57,11 @@ public class Modbus4jWriteServiceImp implements IModbus4jWriteService {
     }
 
     @Override
-    public Boolean WriteRegisters(int slaveId, int startOffset, short[] sdata) throws ModbusTransportException {
+    public Boolean WriteRegisters(ModbusMaster master,int slaveId, int startOffset, short[] sdata) throws ModbusTransportException {
         // 创建请求对象
         WriteRegistersRequest request = new WriteRegistersRequest(slaveId, startOffset, sdata);
         // 发送请求并获取响应对象
-        ModbusResponse response = this.master.send(request);
+        ModbusResponse response = master.send(request);
         if (response.isException()) {
             //log.error(response.getExceptionMessage());
             return false;
@@ -76,9 +71,9 @@ public class Modbus4jWriteServiceImp implements IModbus4jWriteService {
     }
 
     @Override
-    public void WriteHoldingRegister(int slaveId, int offset, Number value, int dataType) throws ErrorResponseException, ModbusTransportException {
+    public void WriteHoldingRegister(ModbusMaster master,int slaveId, int offset, Number value, int dataType) throws ErrorResponseException, ModbusTransportException {
         // 类型
         BaseLocator<Number> locator = BaseLocator.holdingRegister(slaveId, offset, dataType);
-        this.master.setValue(locator, value);
+        master.setValue(locator, value);
     }
 }

@@ -12,14 +12,12 @@ import org.springframework.context.annotation.Configuration;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/3/19 10:18
  */
-@Configuration
+
 public class ModbusConfig {
 
     @Value("${spring.modbus.ip}")
     public String ip;
 
-
-    @Bean
     public ModbusMaster BuilderModbusMaster() {
         try {
             ModbusFactory modbusFactory = new ModbusFactory();

@@ -19,14 +19,6 @@ import java.util.Arrays;
 
 public abstract class StrategyBase implements Strategy {
 
-    private ModbusMaster master;
-
-
-    @Autowired
-    public StrategyBase(ModbusMaster master) {
-        this.master = master;
-    }
-
 
     /**
      * 读取[01 Coil Status 0x]类型 开关数据
@@ -38,12 +30,12 @@ public abstract class StrategyBase implements Strategy {
      * @throws ErrorResponseException   异常
      * @throws ModbusInitException      异常
      */
-    protected Boolean readCoilStatus(int slaveId, int offset) {
+    protected Boolean readCoilStatus(ModbusMaster master, int slaveId, int offset) {
         try {
-            if (this.master != null) {
+            if (master != null) {
                 // 01 Coil Status
                 BaseLocator<Boolean> loc = BaseLocator.coilStatus(slaveId, offset);
-                Boolean value = this.master.getValue(loc);
+                Boolean value = master.getValue(loc);
                 return value;
             }
         } catch (ModbusTransportException e) {
@@ -64,12 +56,12 @@ public abstract class StrategyBase implements Strategy {
      * @throws ErrorResponseException
      * @throws ModbusInitException
      */
-    public Boolean readInputStatus(int slaveId, int offset) {
+    public Boolean readInputStatus(ModbusMaster master,int slaveId, int offset) {
         try {
-            if (this.master != null) {
+            if (master != null) {
                 // 02 Input Status
                 BaseLocator<Boolean> loc = BaseLocator.inputStatus(slaveId, offset);
-                Boolean value = this.master.getValue(loc);
+                Boolean value = master.getValue(loc);
                 return value;
             }
         } catch (ModbusTransportException e) {
@@ -88,12 +80,12 @@ public abstract class StrategyBase implements Strategy {
      * @param dataType 数据类型,来自com.serotonin.modbus4j.code.DataType
      * @return
      */
-    public Number readHoldingRegister(int slaveId, int offset, int dataType) {
+    public Number readHoldingRegister(ModbusMaster master,int slaveId, int offset, int dataType) {
         try {
-            if (this.master != null) {
+            if (master != null) {
                 // 03 Holding Register类型数据读取
                 BaseLocator<Number> loc = BaseLocator.holdingRegister(slaveId, offset, dataType);
-                Number value = this.master.getValue(loc);
+                Number value = master.getValue(loc);
                 return value;
             }
         } catch (ModbusTransportException e) {
@@ -104,10 +96,22 @@ public abstract class StrategyBase implements Strategy {
         return -1;
     }
 
-    private Number readHoldingRegisters(int slaveId, int start, int len) {
+    /**
+     * 读取[03 Holding Register类型 2x]模拟量数据
+     *
+     * <p>
+     * 针对long类型读取
+     * </p>
+     *
+     * @param slaveId
+     * @param start
+     * @param len
+     * @return
+     */
+    private Number readHoldingRegisters(ModbusMaster master,int slaveId, int start, int len) {
         try {
             ReadHoldingRegistersRequest request = new ReadHoldingRegistersRequest(slaveId, start, len);
-            ReadHoldingRegistersResponse response = (ReadHoldingRegistersResponse) this.master.send(request);
+            ReadHoldingRegistersResponse response = (ReadHoldingRegistersResponse) master.send(request);
             if (response.isException()) {
                 System.out.println("异常消息:" + response.getExceptionMessage());
             } else {
@@ -131,12 +135,12 @@ public abstract class StrategyBase implements Strategy {
      * @param dataType 数据类型,来自com.serotonin.modbus4j.code.DataType
      * @return 返回结果
      */
-    public Number readInputRegisters(int slaveId, int offset, int dataType) {
+    public Number readInputRegisters(ModbusMaster master,int slaveId, int offset, int dataType) {
         try {
-            if (this.master != null) {
+            if (master != null) {
                 // 04 Input Registers类型数据读取
                 BaseLocator<Number> loc = BaseLocator.inputRegister(slaveId, offset, dataType);
-                Number value = this.master.getValue(loc);
+                Number value = master.getValue(loc);
                 return value;
             }
         } catch (ModbusTransportException e) {

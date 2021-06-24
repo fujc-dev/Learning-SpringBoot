@@ -1,8 +1,10 @@
 package com.kggs.modbus4jgateway.factory.state.impl;
 
 import com.kggs.modbus4jgateway.bean.SlaveWrite;
+import com.kggs.modbus4jgateway.factory.MasterFactory;
 import com.kggs.modbus4jgateway.factory.state.Context;
 import com.kggs.modbus4jgateway.factory.state.WriteState;
+import com.serotonin.modbus4j.ModbusMaster;
 import com.serotonin.modbus4j.exception.ErrorResponseException;
 import com.serotonin.modbus4j.exception.ModbusTransportException;
 
@@ -21,7 +23,8 @@ public class WriteHoldingRegisterState extends WriteState {
             //写入数字类型的模拟量
             //Short、Int、Long、Double等父类都是Number类型
             Number number = (Number) writeValue.getVal();
-            this.writeService.WriteHoldingRegister(writeValue.getSlaveId(), writeValue.getOffset(), number, writeValue.getDataType());
+            ModbusMaster master = MasterFactory.getInstance().GetModbusMaster(writeValue.getMaster());
+            this.writeService.WriteHoldingRegister(master,writeValue.getSlaveId(), writeValue.getOffset(), number, writeValue.getDataType());
         } else {
             //该数据未包含处理状态，无法被写入
             System.out.println("该数据未包含处理状态，无法被写入");

@@ -16,6 +16,8 @@ import com.serotonin.modbus4j.code.DataType;
  * @createtime : 2021/3/19 14:55
  */
 public class SlaveWrite<T> {
+
+    private Master master;
     /**
      * Modbus  Salve地址
      */
@@ -33,18 +35,28 @@ public class SlaveWrite<T> {
 
     private T val;
 
-    public SlaveWrite(int slaveId, int offset, T val) {
+    public SlaveWrite(Master master, int slaveId, int offset, T val) {
+        this.master = master;
         this.slaveId = slaveId;
         this.offset = offset;
         this.val = val;
         this.dataType = -1; //在写线圈状态、写单个保持寄存器时，不需要传数据类型
     }
 
-    public SlaveWrite(int slaveId, int offset, T val, Integer dataType) {
+    public SlaveWrite(Master master, int slaveId, int offset, T val, Integer dataType) {
+        this.master = master;
         this.slaveId = slaveId;
         this.offset = offset;
         this.val = val;
         this.dataType = dataType; //
+    }
+
+    public Master getMaster() {
+        return master;
+    }
+
+    public void setMaster(Master master) {
+        this.master = master;
     }
 
     public int getSlaveId() {

@@ -1,6 +1,7 @@
 package com.kggs.modbus4jgateway.strategy.service;
 
 import com.kggs.modbus4jgateway.bean.SlavePoint;
+import com.serotonin.modbus4j.ModbusMaster;
 import com.serotonin.modbus4j.exception.ModbusInitException;
 
 import java.util.List;
@@ -25,5 +26,5 @@ public interface Strategy {
      * @param slaveId Slave 设备的固定Id
      * @param points  访问的寄存器的起始地址，从第几个口子开始取值，以及数据类型
      */
-    void Read(int slaveId, List<SlavePoint> points);
+    void Read(ModbusMaster master, int slaveId, List<SlavePoint> points);
 }

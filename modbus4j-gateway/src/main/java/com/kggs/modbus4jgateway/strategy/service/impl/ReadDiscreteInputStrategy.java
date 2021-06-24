@@ -15,15 +15,13 @@ import java.util.List;
 @Service("0x02")
 public class ReadDiscreteInputStrategy extends StrategyBase {
 
-    public ReadDiscreteInputStrategy(ModbusMaster master) {
-        super(master);
-    }
+
 
     @Override
-    public void Read(int slaveId, List<SlavePoint> points) {
+    public void Read(ModbusMaster master,int slaveId, List<SlavePoint> points) {
         if (points != null) {
             for (SlavePoint point : points) {
-                Boolean val = this.readInputStatus(slaveId, point.getOffset());
+                Boolean val = this.readInputStatus(master,slaveId, point.getOffset());
                 System.out.println("Offset：" + point.getOffset() + " Value：" + val);
             }
         }
