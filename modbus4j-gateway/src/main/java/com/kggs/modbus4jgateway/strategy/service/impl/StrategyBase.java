@@ -108,7 +108,7 @@ public abstract class StrategyBase implements Strategy {
      * @param len
      * @return
      */
-    private Number readHoldingRegisters(ModbusMaster master,int slaveId, int start, int len) {
+    public Number readHoldingRegisters(ModbusMaster master,int slaveId, int start, int len) {
         try {
             ReadHoldingRegistersRequest request = new ReadHoldingRegistersRequest(slaveId, start, len);
             ReadHoldingRegistersResponse response = (ReadHoldingRegistersResponse) master.send(request);

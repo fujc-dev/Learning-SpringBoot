@@ -17,19 +17,4 @@ public class ModbusConfig {
 
     @Value("${spring.modbus.ip}")
     public String ip;
-
-    public ModbusMaster BuilderModbusMaster() {
-        try {
-            ModbusFactory modbusFactory = new ModbusFactory();
-            IpParameters params = new IpParameters();
-            params.setHost(ip);
-            params.setPort(502);
-            ModbusMaster master = modbusFactory.createTcpMaster(params, true);// TCP 协议
-            master.init();
-            return master;
-        } catch (ModbusInitException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

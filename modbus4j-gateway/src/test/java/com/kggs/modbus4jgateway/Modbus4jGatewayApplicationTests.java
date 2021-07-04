@@ -19,9 +19,8 @@ class Modbus4jGatewayApplicationTests {
 
     @Test
     void contextLoads() {
-        //int _hex = IntegerUtil.ConvertBy16Hex("0x0A");
-        //System.out.println( _hex);
-        //System.out.println("12313");
+        int _hex = IntegerUtil.ConvertBy16Hex("0x0A");
+        System.out.println( _hex);
     }
 
 }

@@ -42,6 +42,8 @@ public class Context {
         if (strategy != null) {
             ModbusMaster master = MasterFactory.getInstance().GetModbusMaster(slave.getMaster());
             strategy.Read(master, slave.getSlaveId(), slave.getPoints());
+            //增加一个返回结果的判断
+            //
         }
     }
 

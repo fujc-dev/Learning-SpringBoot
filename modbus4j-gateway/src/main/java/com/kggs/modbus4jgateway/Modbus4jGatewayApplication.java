@@ -24,27 +24,32 @@ public class Modbus4jGatewayApplication {
         SpringApplication.run(Modbus4jGatewayApplication.class, args);
         //多网关模式
         //第一步、启动并连接所有的Master
-        Master master = new Master("127.0.0.1");
+        IModbus4JMasterService masterService = SpringContextUtil.getBean(IModbus4JMasterService.class);
+        Master master = new Master("192.168.0.91");
         List<Master> masters = new ArrayList<>();
         masters.add(master);
-        IModbus4JMasterService masterService = SpringContextUtil.getBean(IModbus4JMasterService.class);
         masterService.Start(masters);
         //第二步、初始化SlaveId与点位寄存器地址，并与Master绑定
         List<Slave> slaveList = new ArrayList<>();
         Slave slave = null;
         //int _hex = IntegerUtil.ConvertBy16Hex("0x0A");
-        slave = new Slave(master, 1, 0x03, new SlavePoint(0, DataType.FOUR_BYTE_FLOAT));
+        //多联机
+        slave = new Slave(master, 50, 0x03, new SlavePoint(40645, DataType.TWO_BYTE_INT_UNSIGNED));
         slaveList.add(slave);
-        slave = new Slave(master, 2, 0x03, new SlavePoint(0, DataType.FOUR_BYTE_FLOAT));
+        slave = new Slave(master, 50, 0x03, new SlavePoint(40640, DataType.TWO_BYTE_INT_UNSIGNED));
         slaveList.add(slave);
-        //slave = new Slave(50, 0x02, new SlavePoint(40002));
-        //slaveList.add(slave);
+        slave = new Slave(master, 50, 0x03, new SlavePoint(40641, DataType.TWO_BYTE_INT_UNSIGNED));
+        slaveList.add(slave);
+        slave = new Slave(master, 50, 0x03, new SlavePoint(40639, DataType.TWO_BYTE_INT_UNSIGNED));
+        slaveList.add(slave);
+        slave = new Slave(master, 50, 0x03, new SlavePoint(40659, DataType.TWO_BYTE_INT_UNSIGNED));
+        slaveList.add(slave);
         //第三步、开启读线程，读取点位数据
-        IModbus4jReadService salveService = SpringContextUtil.getBean(IModbus4jReadService.class);
+         IModbus4jReadService salveService = SpringContextUtil.getBean(IModbus4jReadService.class);
         salveService.Start(slaveList);
-        //WriteHelper.Write(new SlaveWrite<>(master, 50, 2, false));
-        //Short _short = 1;
-        //WriteHelper.Write(new SlaveWrite<Short>(1, 1, _short));
+        //WriteHelper.Write(new SlaveWrite<>(master, 50, 43081, true));
+        //Integer _short =1;
+        //WriteHelper.Write(new SlaveWrite<Integer>(master, 50, 43081, _short, DataType.TWO_BYTE_INT_SIGNED));
     }
 
 
