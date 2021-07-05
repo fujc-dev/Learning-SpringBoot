@@ -34,11 +34,14 @@ public class JobConfiguration {
     @Bean
     public Job HelloWorld() {
         return jobBuilderFactory.get("HelloWorldJob")
-                .start(StepHelloWorld())
+                .start(Step1())
                 .build();
     }
+
+
+
     @Bean
-    public Step StepHelloWorld() {
+    public Step Step1() {
         return stepBuilderFactory.get("StepHelloWorld").tasklet(new Tasklet() {
             @Override
             public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
