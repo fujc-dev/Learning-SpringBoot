@@ -1,10 +1,15 @@
 package com.kggs.c9000sdk;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.kggs.c9000sdk.factory.RxBusFactory;
+import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.rxbus.RxBus;
 import com.kggs.c9000sdk.rxbus.RxBusSubscriber;
 import com.kggs.c9000sdk.rxbus.RxSubscriptions;
 import com.kggs.c9000sdk.rxbus.event.Event;
 import com.kggs.c9000sdk.vo.ConnectNotify;
+import com.kggs.c9000sdk.vo.base.VoBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.Subscription;
@@ -20,17 +25,13 @@ import java.util.UUID;
  */
 public class Programs {
 
-    private static Subscription mRxSub, mRxSubSticky;
+    private static Subscription mRxSub;
 
     /**
      * @param args
      */
     public static void main(String[] args) {
         //
-        Logger logger = LoggerFactory.getLogger(Programs.class);
-        logger.info("TestInfo 1");
-        Bundle.csst_lhb9000_client_operate_place("127.0.0.1", 1, 1, 1);
-        Bundle.csst_lhb9000_client_operate_remove("127.0.0.1", 1, 1, 1);
         RxSubscriptions.remove(mRxSub);
         mRxSub = RxBus.getDefault().toObservable(Event.class).map(event -> event)
                 .subscribe(new RxBusSubscriber<Event>() {
@@ -47,6 +48,35 @@ public class Programs {
         RxBus.getDefault().post(new Event(connectNotify));
         connectNotify.setInfo("3");
         RxBus.getDefault().post(new Event(connectNotify));
+
+        Logger logger = LoggerFactory.getLogger(Programs.class);
+        logger.info("TestInfo 1");
+        String szData = "{\"message\":\"system\",  \"status\":1, \"info\":\"已经连接管理平台\" }";
+        Enum<Status> status = RxBusFactory.Format(szData);
+        VoBase vo = RxBusFactory.Serialize(status, szData);
+        RxBus.getDefault().post(new Event(vo));
+        szData = "{\"message\":\"machine\",\"commtype\":1,\"connect\":1896,\"ip\":\"127.0.0.1\",\"port\":6003,\"status\":1}";
+        status = RxBusFactory.Format(szData);
+        vo = RxBusFactory.Serialize(status, szData);
+        RxBus.getDefault().post(new Event(vo));
+
+        szData = "{\"message\":\"alarm\",\"commtype\":1,\"connect\":2408,\"ip\":\"127.0.0.1\",\"port\":6016,\"eventflag\":1,\"EventTriger\":1,\"cidcode\":\"133\",\"cidlevel\":1,\"cidtype\":\"窃盗\",\"cidmemo\":\"24小时防区\",\"partcode\":1,\"guardcode\":4}";
+        status = RxBusFactory.Format(szData);
+        vo = RxBusFactory.Serialize(status, szData);
+        RxBus.getDefault().post(new Event(vo));
+        szData = " {\"message\":\"cidinfo\",\"cidcode\":\"000\",\"cidlevel\":0,\"cidtype\":\"错误\",\"cidmemo\":\"未明事件\"} ";
+        status = RxBusFactory.Format(szData);
+        vo = RxBusFactory.Serialize(status, szData);
+        RxBus.getDefault().post(new Event(vo));
+
+        szData = "{\"message\":\"不能识别的类型\",  \"status\":1, \"info\":\"已经连接管理平台\" }";
+        status = RxBusFactory.Format(szData);
+        vo = RxBusFactory.Serialize(status, szData);
+        RxBus.getDefault().post(new Event(vo));
+
+        //Bundle.csst_lhb9000_client_operate_place("127.0.0.1", 1, 1, 1);
+        //Bundle.csst_lhb9000_client_operate_remove("127.0.0.1", 1, 1, 1);
+
     }
 
 

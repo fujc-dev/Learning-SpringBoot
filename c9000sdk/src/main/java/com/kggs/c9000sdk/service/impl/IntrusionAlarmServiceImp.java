@@ -1,12 +1,17 @@
 package com.kggs.c9000sdk.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.kggs.c9000sdk.annotations.ServiceImpl;
 import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
+import com.kggs.c9000sdk.factory.RxBusFactory;
+import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.rxbus.RxBus;
 import com.kggs.c9000sdk.rxbus.event.Event;
 import com.kggs.c9000sdk.sdk.LHB9000NetSdk;
 import com.kggs.c9000sdk.sdk.callback.SDK9000ClientCallBack;
 import com.kggs.c9000sdk.service.IntrusionAlarmService;
+import com.kggs.c9000sdk.vo.base.VoBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +39,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_init(_callback, true);
             log.debug("CSST：----，{}，Init End", _status);
         } catch (Exception e) {
-            throw  new CsstLHB9000Exception(e);
+            throw new CsstLHB9000Exception(e);
         }
         return _status;
     }
@@ -46,7 +51,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_uninit();
             log.debug("CSST：----，{}，UnInit End", _status);
         } catch (Exception e) {
-            throw  new CsstLHB9000Exception(e);
+            throw new CsstLHB9000Exception(e);
         }
         return _status;
     }
@@ -58,7 +63,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_connect(szIP, nPort, nTimeoutSecond);
             log.debug("CSST：----，{}，Connect End", _status);
         } catch (Exception e) {
-           throw  new CsstLHB9000Exception(e);
+            throw new CsstLHB9000Exception(e);
         }
         return _status;
     }
@@ -70,7 +75,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_connect(szIP, 6769, nTimeoutSecond);
             log.debug("CSST：----，{}，Connect End", _status);
         } catch (Exception e) {
-            throw  new CsstLHB9000Exception(e);
+            throw new CsstLHB9000Exception(e);
         }
         return _status;
     }
@@ -82,7 +87,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_disconnect();
             log.debug("CSST：----，{}，DisConnect End", _status);
         } catch (Exception e) {
-            throw  new CsstLHB9000Exception(e);
+            throw new CsstLHB9000Exception(e);
         }
         return _status;
     }
@@ -94,7 +99,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_operate_place(nMachine, nPlaceType, nAreaNo);
             log.debug("CSST：----，{}，OperatePlace End", _status);
         } catch (Exception e) {
-            throw  new CsstLHB9000Exception(e);
+            throw new CsstLHB9000Exception(e);
         }
         return _status;
     }
@@ -106,7 +111,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_operate_remove(nMachine, nRemoveType, nAreaNo);
             log.debug("CSST：----，{}，OperateRemove End", _status);
         } catch (Exception e) {
-            throw  new CsstLHB9000Exception(e);
+            throw new CsstLHB9000Exception(e);
         }
         return _status;
     }
@@ -116,7 +121,9 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
         public void invoke(String szData, int nDataLength) throws UnsupportedEncodingException {
             //
             log.debug(szData);
-            //RxBus.getDefault().post(new Event(connectNotify));
+            Enum<Status> status = RxBusFactory.Format(szData);
+            VoBase vo = RxBusFactory.Serialize(status, szData);
+            RxBus.getDefault().post(new Event(vo));
         }
     }
 }
