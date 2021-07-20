@@ -1,6 +1,7 @@
 package com.kggs.c9000sdk.service.impl;
 
 import com.kggs.c9000sdk.annotations.ServiceImpl;
+import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
 import com.kggs.c9000sdk.rxbus.RxBus;
 import com.kggs.c9000sdk.rxbus.event.Event;
 import com.kggs.c9000sdk.sdk.LHB9000NetSdk;
@@ -25,7 +26,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
 
     private static final Logger log = LoggerFactory.getLogger(IntrusionAlarmService.class);
 
-    public boolean Init() {
+    public boolean Init() throws CsstLHB9000Exception {
         boolean _status = false;
         try {
             log.debug("CSST：----Init Begin");
@@ -33,79 +34,79 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_init(_callback, true);
             log.debug("CSST：----，{}，Init End", _status);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw  new CsstLHB9000Exception(e);
         }
         return _status;
     }
 
-    public boolean UnInit() {
+    public boolean UnInit() throws CsstLHB9000Exception {
         boolean _status = false;
         try {
             log.debug("CSST：----UnInit Begin");
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_uninit();
             log.debug("CSST：----，{}，UnInit End", _status);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw  new CsstLHB9000Exception(e);
         }
         return _status;
     }
 
-    public boolean Connect(String szIP, int nPort, int nTimeoutSecond) {
+    public boolean Connect(String szIP, int nPort, int nTimeoutSecond) throws CsstLHB9000Exception {
         boolean _status = false;
         try {
             log.debug("CSST：----Connect Begin");
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_connect(szIP, nPort, nTimeoutSecond);
             log.debug("CSST：----，{}，Connect End", _status);
         } catch (Exception e) {
-            e.printStackTrace();
+           throw  new CsstLHB9000Exception(e);
         }
         return _status;
     }
 
-    public boolean Connect(String szIP, int nTimeoutSecond) {
+    public boolean Connect(String szIP, int nTimeoutSecond) throws CsstLHB9000Exception {
         boolean _status = false;
         try {
             log.debug("CSST：----Connect Begin");
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_connect(szIP, 6769, nTimeoutSecond);
             log.debug("CSST：----，{}，Connect End", _status);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw  new CsstLHB9000Exception(e);
         }
         return _status;
     }
 
-    public boolean DisConnect() {
+    public boolean DisConnect() throws CsstLHB9000Exception {
         log.debug("CSST：----DisConnect Begin");
         boolean _status = false;
         try {
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_disconnect();
             log.debug("CSST：----，{}，DisConnect End", _status);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw  new CsstLHB9000Exception(e);
         }
         return _status;
     }
 
-    public boolean OperatePlace(int nMachine, int nPlaceType, int nAreaNo) {
+    public boolean OperatePlace(int nMachine, int nPlaceType, int nAreaNo) throws CsstLHB9000Exception {
         boolean _status = false;
         try {
             log.debug("CSST：----OperatePlace Begin");
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_operate_place(nMachine, nPlaceType, nAreaNo);
             log.debug("CSST：----，{}，OperatePlace End", _status);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw  new CsstLHB9000Exception(e);
         }
         return _status;
     }
 
-    public boolean OperateRemove(int nMachine, int nRemoveType, int nAreaNo) {
+    public boolean OperateRemove(int nMachine, int nRemoveType, int nAreaNo) throws CsstLHB9000Exception {
         boolean _status = false;
         try {
             log.debug("CSST：----OperateRemove Begin");
             _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_operate_remove(nMachine, nRemoveType, nAreaNo);
             log.debug("CSST：----，{}，OperateRemove End", _status);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw  new CsstLHB9000Exception(e);
         }
         return _status;
     }

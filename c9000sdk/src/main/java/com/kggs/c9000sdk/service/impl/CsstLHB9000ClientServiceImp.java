@@ -3,6 +3,7 @@ package com.kggs.c9000sdk.service.impl;
 
 
 import com.kggs.c9000sdk.annotations.ServiceImpl;
+import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
 import com.kggs.c9000sdk.factory.ServiceFactory;
 import com.kggs.c9000sdk.service.ICsstLHB9000ClientService;
 import com.kggs.c9000sdk.service.IntrusionAlarmService;
@@ -19,11 +20,11 @@ public class CsstLHB9000ClientServiceImp implements ICsstLHB9000ClientService {
     private IntrusionAlarmService intrusionService = ServiceFactory.GetService(IntrusionAlarmService.class);
     private static final Logger logger = LoggerFactory.getLogger(CsstLHB9000ClientServiceImp.class);
 
-    public boolean OperatePlace(String szIP, int nMachine, int nPlaceType, int nAreaNo) {
+    public boolean OperatePlace(String szIP, int nMachine, int nPlaceType, int nAreaNo) throws CsstLHB9000Exception {
         return OperatePlace(szIP, 6769, nMachine, nPlaceType, nAreaNo);
     }
 
-    public boolean OperatePlace(String szIP, int nPort, int nMachine, int nPlaceType, int nAreaNo) {
+    public boolean OperatePlace(String szIP, int nPort, int nMachine, int nPlaceType, int nAreaNo) throws CsstLHB9000Exception {
         try {
             //1、初始化
             boolean _init_status = intrusionService.Init();
@@ -50,11 +51,11 @@ public class CsstLHB9000ClientServiceImp implements ICsstLHB9000ClientService {
         }
     }
 
-    public boolean OperateRemove(String szIP, int nMachine, int nRemoveType, int nAreaNo) {
+    public boolean OperateRemove(String szIP, int nMachine, int nRemoveType, int nAreaNo) throws CsstLHB9000Exception {
         return OperateRemove(szIP, 6769, nMachine, nRemoveType, nAreaNo);
     }
 
-    public boolean OperateRemove(String szIP, int nPort, int nMachine, int nRemoveType, int nAreaNo) {
+    public boolean OperateRemove(String szIP, int nPort, int nMachine, int nRemoveType, int nAreaNo) throws CsstLHB9000Exception {
         try {
             //1、初始化
             boolean _init_status = intrusionService.Init();

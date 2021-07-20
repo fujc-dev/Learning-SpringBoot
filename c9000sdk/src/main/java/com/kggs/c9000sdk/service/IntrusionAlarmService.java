@@ -1,5 +1,7 @@
 package com.kggs.c9000sdk.service;
 
+import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
+
 /**
  * 入侵报警服务
  *
@@ -15,32 +17,32 @@ public interface IntrusionAlarmService {
     /**
      * 初始化客户端，调用其他SDK函数的前提。
      */
-    boolean Init();
+    boolean Init() throws CsstLHB9000Exception;
 
     /**
      * 释放SDK资源，在结束之前最后调用。
      */
-    boolean UnInit();
+    boolean UnInit() throws CsstLHB9000Exception;
 
     /**
      * 连接豪恩管理平台。
      */
-    boolean Connect(String szIP, int nPort, int nTimeoutSecond);
+    boolean Connect(String szIP, int nPort, int nTimeoutSecond) throws CsstLHB9000Exception;
 
-    boolean Connect(String szIP, int nTimeoutSecond);
+    boolean Connect(String szIP, int nTimeoutSecond) throws CsstLHB9000Exception;
 
     /**
      * 断开与管理平台的连接。
      */
-    boolean DisConnect();
+    boolean DisConnect() throws CsstLHB9000Exception;
 
     /**
      * 主机分区、防区布防
      */
-    boolean OperatePlace(int nMachine, int nPlaceType, int nAreaNo);
+    boolean OperatePlace(int nMachine, int nPlaceType, int nAreaNo) throws CsstLHB9000Exception;
 
     /**
      * 主机分区、防区撤防
      */
-    boolean OperateRemove(int nMachine, int nRemoveType, int nAreaNo);
+    boolean OperateRemove(int nMachine, int nRemoveType, int nAreaNo) throws CsstLHB9000Exception;
 }

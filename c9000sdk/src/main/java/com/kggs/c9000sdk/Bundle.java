@@ -1,6 +1,7 @@
 package com.kggs.c9000sdk;
 
 
+import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
 import com.kggs.c9000sdk.factory.ServiceFactory;
 import com.kggs.c9000sdk.service.ICsstLHB9000ClientService;
 
@@ -25,9 +26,13 @@ public class Bundle {
      *                   ）
      */
     public static void csst_lhb9000_client_operate_place(String szIP, int nMachine, int nPlaceType, int nAreaNo) {
-        ICsstLHB9000ClientService csstLHB9000ClientService = ServiceFactory.GetService(ICsstLHB9000ClientService.class);
-        if (csstLHB9000ClientService != null) {
-            csstLHB9000ClientService.OperatePlace(szIP, nMachine, nPlaceType, nAreaNo);
+        try {
+            ICsstLHB9000ClientService csstLHB9000ClientService = ServiceFactory.GetService(ICsstLHB9000ClientService.class);
+            if (csstLHB9000ClientService != null) {
+                csstLHB9000ClientService.OperatePlace(szIP, nMachine, nPlaceType, nAreaNo);
+            }
+        } catch (CsstLHB9000Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -41,12 +46,16 @@ public class Bundle {
      * @param nAreaNo     分区或防区号（注意：如果该参数nAreaNo作为分区，取值范围0~15，如果该参数nAreaNo作为防区，取值范围0~247）
      */
     public static void csst_lhb9000_client_operate_remove(String szIP, int nMachine, int nRemoveType, int nAreaNo) {
-        ICsstLHB9000ClientService csstLHB9000ClientService = ServiceFactory.GetService(ICsstLHB9000ClientService.class);
-        if (csstLHB9000ClientService != null) {
-            csstLHB9000ClientService.OperateRemove(szIP, nMachine, nRemoveType, nAreaNo);
+        try {
+            ICsstLHB9000ClientService csstLHB9000ClientService = ServiceFactory.GetService(ICsstLHB9000ClientService.class);
+            if (csstLHB9000ClientService != null) {
+
+                csstLHB9000ClientService.OperateRemove(szIP, nMachine, nRemoveType, nAreaNo);
+            }
+        } catch (CsstLHB9000Exception e) {
+            e.printStackTrace();
         }
     }
-
 
 
 }

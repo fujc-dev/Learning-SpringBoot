@@ -27,7 +27,7 @@ public class ClasspathPackageScanner {
         return this.FindClass(packageName, clazzs);
     }
 
-    public List<Class> FindClass(String packageName, List<Class> clazzs) throws ClassNotFoundException, IOException {
+    public List<Class> FindClass(String packageName, List<Class> clazzs) throws ClassNotFoundException {
         String fileName = packageName.replaceAll("\\.", "/");
         URL url = Thread.currentThread().getContextClassLoader().getResource(fileName);
         File file = new File(url.getFile());
