@@ -9,7 +9,7 @@ import com.kggs.c9000sdk.factory.state.event.AlarmState;
 import com.kggs.c9000sdk.factory.state.event.CidinfoState;
 import com.kggs.c9000sdk.factory.state.event.MachineState;
 import com.kggs.c9000sdk.factory.state.event.SystemState;
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -74,11 +74,11 @@ public class StateFactory {
      * @param szData
      * @return
      */
-    public static synchronized VoBase Serialize(Enum<Status> currentStatus, String szData) {
+    public static synchronized NotifyBase Serialize(Enum<Status> currentStatus, String szData) {
         if (stateMap.containsKey(currentStatus)) {
             return stateMap.get(currentStatus).Serialize(currentStatus, szData);
         } else {
-            VoBase voBase = new VoBase();
+            NotifyBase voBase = new NotifyBase();
             voBase.setMessage(currentStatus.name());
             return voBase;
         }

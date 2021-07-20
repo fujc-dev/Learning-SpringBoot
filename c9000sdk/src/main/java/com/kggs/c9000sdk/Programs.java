@@ -7,7 +7,7 @@ import com.kggs.c9000sdk.rxbus.RxBusSubscriber;
 import com.kggs.c9000sdk.rxbus.RxSubscriptions;
 import com.kggs.c9000sdk.rxbus.event.Event;
 import com.kggs.c9000sdk.vo.ConnectNotify;
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.Subscription;
@@ -45,7 +45,7 @@ public class Programs {
         logger.info("TestInfo 1");
         String szData = "{\"message\":\"system\",  \"status\":1, \"info\":\"已经连接管理平台\" }";
         Enum<Status> status = StateFactory.Format(szData);
-        VoBase vo = StateFactory.Serialize(status, szData);
+        NotifyBase vo = StateFactory.Serialize(status, szData);
         RxBus.getDefault().post(new Event(vo));
         szData = "{\"message\":\"machine\",\"commtype\":1,\"connect\":1896,\"ip\":\"127.0.0.1\",\"port\":6003,\"status\":1}";
         status = StateFactory.Format(szData);

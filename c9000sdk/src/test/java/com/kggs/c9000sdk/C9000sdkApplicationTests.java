@@ -7,7 +7,7 @@ import com.kggs.c9000sdk.rxbus.RxBusSubscriber;
 import com.kggs.c9000sdk.rxbus.RxSubscriptions;
 import com.kggs.c9000sdk.rxbus.event.Event;
 import com.kggs.c9000sdk.vo.ConnectNotify;
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ class C9000sdkApplicationTests {
         logger.info("TestInfo 1");
         String szData = "{\"message\":\"system\",  \"status\":1, \"info\":\"已经连接管理平台\" }";
         Enum<Status> status = StateFactory.Format(szData);
-        VoBase vo = StateFactory.Serialize(status, szData);
+        NotifyBase vo = StateFactory.Serialize(status, szData);
         RxBus.getDefault().post(new Event(vo));
 
         szData = "{\"message\":\"不能识别的类型\",  \"status\":1, \"info\":\"已经连接管理平台\" }";

@@ -5,7 +5,7 @@ import com.kggs.c9000sdk.factory.StateFactory;
 import com.kggs.c9000sdk.factory.state.NotifyState;
 import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.vo.MachineNotify;
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 
 /**
  * 平台所管辖的报警主机状态
@@ -15,7 +15,7 @@ import com.kggs.c9000sdk.vo.base.VoBase;
  */
 public class MachineState implements NotifyState {
     @Override
-    public VoBase Serialize( Enum<Status> currentStatus, String szData) {
+    public NotifyBase Serialize(Enum<Status> currentStatus, String szData) {
         if (currentStatus == Status.machine) {
             return JSONObject.parseObject(szData, MachineNotify.class);
         } else {

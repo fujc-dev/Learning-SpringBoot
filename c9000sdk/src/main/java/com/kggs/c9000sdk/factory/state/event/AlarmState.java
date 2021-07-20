@@ -5,7 +5,7 @@ import com.kggs.c9000sdk.factory.StateFactory;
 import com.kggs.c9000sdk.factory.state.NotifyState;
 import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.vo.AlarmNotify;
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 
 /**
  * 报警主机事件通知
@@ -15,7 +15,7 @@ import com.kggs.c9000sdk.vo.base.VoBase;
  */
 public class AlarmState implements NotifyState {
     @Override
-    public VoBase Serialize(Enum<Status> currentStatus, String szData) {
+    public NotifyBase Serialize(Enum<Status> currentStatus, String szData) {
         if (currentStatus == Status.alarm) {
             return  JSONObject.parseObject(szData, AlarmNotify.class);
         } else {

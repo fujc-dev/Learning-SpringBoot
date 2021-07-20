@@ -1,6 +1,6 @@
 package com.kggs.c9000sdk.vo;
 
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 
 /**
  * SDK和平台连接状态通知对象模型
@@ -8,7 +8,7 @@ import com.kggs.c9000sdk.vo.base.VoBase;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/20 9:56
  */
-public class ConnectNotify extends VoBase {
+public class ConnectNotify extends NotifyBase {
 
 
     /**

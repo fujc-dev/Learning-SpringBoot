@@ -1,6 +1,6 @@
 package com.kggs.c9000sdk.vo;
 
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 
 /**
  * 报警主机事件通知对象模型
@@ -8,7 +8,7 @@ import com.kggs.c9000sdk.vo.base.VoBase;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/20 10:05
  */
-public class AlarmNotify extends VoBase {
+public class AlarmNotify extends NotifyBase {
     /**
      * 连接类型 1 为网络，2 为串口
      */

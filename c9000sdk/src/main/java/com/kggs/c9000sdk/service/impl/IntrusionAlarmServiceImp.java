@@ -9,7 +9,7 @@ import com.kggs.c9000sdk.rxbus.event.Event;
 import com.kggs.c9000sdk.sdk.LHB9000NetSdk;
 import com.kggs.c9000sdk.sdk.callback.SDK9000ClientCallBack;
 import com.kggs.c9000sdk.service.IntrusionAlarmService;
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,7 +119,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
         public void invoke(String szData, int nDataLength) throws UnsupportedEncodingException {
             log.debug(szData);
             Enum<Status> status = StateFactory.Format(szData);
-            VoBase vo = StateFactory.Serialize(status, szData);
+            NotifyBase vo = StateFactory.Serialize(status, szData);
             RxBus.getDefault().post(new Event(vo));
         }
     }

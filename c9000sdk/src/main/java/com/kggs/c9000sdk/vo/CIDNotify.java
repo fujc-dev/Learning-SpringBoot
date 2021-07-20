@@ -1,6 +1,6 @@
 package com.kggs.c9000sdk.vo;
 
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 
 /**
  * CID码详细信息对象模型
@@ -9,7 +9,7 @@ import com.kggs.c9000sdk.vo.base.VoBase;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/20 14:36
  */
-public class CIDNotify extends VoBase {
+public class CIDNotify extends NotifyBase {
     private String cidcode;
     private int cidlevel;
     private String cidtype;

@@ -5,7 +5,7 @@ package com.kggs.c9000sdk.vo.base;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/20 10:00
  */
-public class VoBase {
+public class NotifyBase {
     /**
      * 消息类型
      */
@@ -22,7 +22,7 @@ public class VoBase {
 
     @Override
     public String toString() {
-        return "VoBase{" +
+        return "NotifyBase{" +
                 "message='" + message + '\'' +
                 '}';
     }

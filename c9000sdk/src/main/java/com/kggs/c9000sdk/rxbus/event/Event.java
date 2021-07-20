@@ -1,6 +1,6 @@
 package com.kggs.c9000sdk.rxbus.event;
 
-import com.kggs.c9000sdk.vo.base.VoBase;
+import com.kggs.c9000sdk.vo.base.NotifyBase;
 
 /**
  * RxBus事件消息总线传递事件消息对象
@@ -9,17 +9,17 @@ import com.kggs.c9000sdk.vo.base.VoBase;
  * @createtime : 2021/7/20 11:26
  */
 public class Event {
-    public VoBase event;
+    public NotifyBase event;
 
-    public Event(VoBase event) {
+    public Event(NotifyBase event) {
         this.event = event;
     }
 
-    public VoBase getEvent() {
+    public NotifyBase getEvent() {
         return event;
     }
 
-    public void setEvent(VoBase event) {
+    public void setEvent(NotifyBase event) {
         this.event = event;
     }
 }
