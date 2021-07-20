@@ -3,6 +3,8 @@ package com.kggs.c9000sdk.vo;
 import com.kggs.c9000sdk.vo.base.VoBase;
 
 /**
+ * 报警主机事件通知对象模型
+ *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/20 10:05
  */
@@ -24,35 +26,35 @@ public class AlarmNotify extends VoBase {
      */
     private int port;
     /**
-     *  事件报警类型返回值可能有两个 1,0 【 1代表是 dk903键盘事件】，【0 代表是 主机事件】
+     * 事件报警类型返回值可能有两个 1,0 【 1代表是 dk903键盘事件】，【0 代表是 主机事件】
      */
     private int eventflag;
     /**
-     *事件触发返回值可能有两个     1,0 【 1代表是 触发事件】，     【0 代表是 恢复事件】
+     * 事件触发返回值可能有两个     1,0 【 1代表是 触发事件】，     【0 代表是 恢复事件】
      */
     private int eventtriger;
     /**
-     *CID码
+     * CID码
      */
     private String cidcode;
     /**
-     *CID级别
+     * CID级别
      */
     private int cidlevel;
     /**
-     *CID类型
+     * CID类型
      */
     private String cidtype;
     /**
-     *CID内容
+     * CID内容
      */
     private String cidmemo;
     /**
-     *分区号
+     * 分区号
      */
     private int partcode;
     /**
-     *防区号
+     * 防区号
      */
     private int guardcode;
 

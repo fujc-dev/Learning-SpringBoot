@@ -1,8 +1,10 @@
 package com.kggs.c9000sdk.vo;
 
 import com.kggs.c9000sdk.vo.base.VoBase;
+
 /**
- * 平台所管辖的报警主机状态
+ * 平台所管辖的报警主机状态对象模型
+ *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/20 10:03
  */

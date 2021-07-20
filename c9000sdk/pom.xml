@@ -66,6 +66,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.76</version>
         </dependency>
+        <!-- rxjava  -->
         <dependency>
             <groupId>io.reactivex</groupId>
             <artifactId>rxjava</artifactId>
@@ -79,7 +80,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <!--引入外部jar包 并配置 无此项外部jar打包时无法引入包中 -->
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>

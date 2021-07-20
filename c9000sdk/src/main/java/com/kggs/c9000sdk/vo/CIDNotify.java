@@ -3,6 +3,9 @@ package com.kggs.c9000sdk.vo;
 import com.kggs.c9000sdk.vo.base.VoBase;
 
 /**
+ * CID码详细信息对象模型
+ * //TODO 这个不知意义在哪里，我看说明文档中也有详细的定义，这个属于上层业务层面的，不知道怎么跑到接口中1去了
+ *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/20 14:36
  */
