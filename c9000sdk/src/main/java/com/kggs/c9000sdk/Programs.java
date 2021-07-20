@@ -20,15 +20,12 @@ import rx.Subscription;
  */
 public class Programs {
 
-    private static Subscription mRxSub;
-
     /**
      * @param args
      */
     public static void main(String[] args) {
         //
-        RxSubscriptions.remove(mRxSub);
-        mRxSub = RxBus.getDefault().toObservable(Event.class).map(event -> event)
+        Subscription mRxSub = RxBus.getDefault().toObservable(Event.class).map(event -> event)
                 .subscribe(new RxBusSubscriber<Event>() {
                     @Override
                     protected void onEvent(Event event) {

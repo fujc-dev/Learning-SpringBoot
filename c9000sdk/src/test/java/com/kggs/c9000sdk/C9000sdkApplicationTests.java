@@ -19,8 +19,7 @@ class C9000sdkApplicationTests {
 
     @Test
     void contextLoads() {
-        Subscription mRxSub = null;
-        mRxSub = RxBus.getDefault().toObservable(Event.class).map(event -> event)
+        Subscription mRxSub = RxBus.getDefault().toObservable(Event.class).map(event -> event)
                 .subscribe(new RxBusSubscriber<Event>() {
                     @Override
                     protected void onEvent(Event event) {
