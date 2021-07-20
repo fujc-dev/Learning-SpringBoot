@@ -117,7 +117,6 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
     public final class SDK9000ClientCallBackImp implements SDK9000ClientCallBack {
 
         public void invoke(String szData, int nDataLength) throws UnsupportedEncodingException {
-            //
             log.debug(szData);
             Enum<Status> status = StateFactory.Format(szData);
             VoBase vo = StateFactory.Serialize(status, szData);

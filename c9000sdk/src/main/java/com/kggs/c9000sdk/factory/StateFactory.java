@@ -22,12 +22,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class StateFactory {
     /**
-     *
+     * 为了方便直接用键值对存储状态
      */
     private static Map<Enum<Status>, Enum<Status>> statusContainers = new ConcurrentHashMap<Enum<Status>, Enum<Status>>();
 
     /**
-     *
+     * 对应数据类型需要有对应的序列化方式
      */
     private static Map<Enum<Status>, NotifyState> stateMap = new ConcurrentHashMap<Enum<Status>, NotifyState>();
 
