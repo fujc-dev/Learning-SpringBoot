@@ -9,8 +9,6 @@ import com.kggs.c9000sdk.factory.state.event.AlarmState;
 import com.kggs.c9000sdk.factory.state.event.CidinfoState;
 import com.kggs.c9000sdk.factory.state.event.MachineState;
 import com.kggs.c9000sdk.factory.state.event.SystemState;
-import com.kggs.c9000sdk.rxbus.RxBus;
-import com.kggs.c9000sdk.rxbus.event.Event;
 import com.kggs.c9000sdk.vo.base.VoBase;
 
 import java.util.Map;
@@ -22,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/20 13:16
  */
-public class RxBusFactory {
+public class StateFactory {
     /**
      *
      */
@@ -60,7 +58,7 @@ public class RxBusFactory {
             if (jsonObject != null) {
                 String message = String.valueOf(jsonObject.get("message"));
                 status = Enum.valueOf(Status.class, message);
-                RxBusFactory.init(status);
+                StateFactory.init(status);
             }
         } catch (JSONException e) {
             e.printStackTrace();

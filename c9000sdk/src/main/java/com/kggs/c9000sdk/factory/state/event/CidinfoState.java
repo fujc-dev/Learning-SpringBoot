@@ -1,12 +1,9 @@
 package com.kggs.c9000sdk.factory.state.event;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.kggs.c9000sdk.factory.RxBusFactory;
 import com.kggs.c9000sdk.factory.state.NotifyState;
 import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.vo.CIDNotify;
-import com.kggs.c9000sdk.vo.ConnectNotify;
 import com.kggs.c9000sdk.vo.base.VoBase;
 
 /**

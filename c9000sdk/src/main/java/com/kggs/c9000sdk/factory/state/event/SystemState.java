@@ -1,8 +1,7 @@
 package com.kggs.c9000sdk.factory.state.event;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.kggs.c9000sdk.factory.RxBusFactory;
+import com.kggs.c9000sdk.factory.StateFactory;
 import com.kggs.c9000sdk.factory.state.NotifyState;
 import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.vo.ConnectNotify;
@@ -20,7 +19,7 @@ public class SystemState implements NotifyState {
         if (currentStatus == Status.system) {
             return JSONObject.parseObject(szData, ConnectNotify.class);
         } else {
-            return RxBusFactory.Serialize(Status.machine, szData);
+            return StateFactory.Serialize(Status.machine, szData);
         }
     }
 

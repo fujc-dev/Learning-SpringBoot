@@ -1,10 +1,8 @@
 package com.kggs.c9000sdk.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.kggs.c9000sdk.annotations.ServiceImpl;
 import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
-import com.kggs.c9000sdk.factory.RxBusFactory;
+import com.kggs.c9000sdk.factory.StateFactory;
 import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.rxbus.RxBus;
 import com.kggs.c9000sdk.rxbus.event.Event;
@@ -121,8 +119,8 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
         public void invoke(String szData, int nDataLength) throws UnsupportedEncodingException {
             //
             log.debug(szData);
-            Enum<Status> status = RxBusFactory.Format(szData);
-            VoBase vo = RxBusFactory.Serialize(status, szData);
+            Enum<Status> status = StateFactory.Format(szData);
+            VoBase vo = StateFactory.Serialize(status, szData);
             RxBus.getDefault().post(new Event(vo));
         }
     }
