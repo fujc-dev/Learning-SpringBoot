@@ -21,14 +21,13 @@ public class WG5000Factory {
      * @param doorNumber 门号
      */
     public static void Open(String ip, int port, String username, String password, String doorNumber) {
-        WG5000RemoteService service = new WG5000RemoteService();
-        RemoteAddress address = new RemoteAddress(ip, port);
-        Instructions instructions = new Instructions();
-        instructions.setAddress(address);
-        instructions.setUsername(username);
-        instructions.setPassword(password);
-        instructions.setStatus(Status.OPEN);
-        instructions.setDoorNumber(doorNumber);
-        service.Open(instructions);
+        try {
+            WG5000RemoteService service = new WG5000RemoteService();
+            Instructions instructions = new Instructions(ip, port,username,password,doorNumber);
+            service.Open(instructions);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

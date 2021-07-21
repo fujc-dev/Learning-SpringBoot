@@ -13,8 +13,10 @@ import com.kggs.wg5000sdk.enums.Status;
  */
 public class Instructions {
 
-    private  RemoteAddress address;
-
+    /**
+     * 远程服务地址
+     */
+    private RemoteAddress address;
     /**
      * 用户名
      */
@@ -32,6 +34,17 @@ public class Instructions {
      */
     private String doorNumber;
 
+    public Instructions() {
+        this.status = Status.OPEN;
+    }
+
+    public Instructions(String ip, int port, String username, String password, String doorNumber) {
+        this();
+        this.address = new RemoteAddress(ip, port);
+        this.username = username;
+        this.password = password;
+        this.doorNumber = doorNumber;
+    }
 
     public RemoteAddress getAddress() {
         return address;
