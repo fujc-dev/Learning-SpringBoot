@@ -42,7 +42,7 @@ class C9000sdkApplicationTests {
         NotifyBase vo = StateFactory.Serialize(status, szData);
         RxBus.getDefault().post(new Event(vo));
 
-        szData = "{\"message\":\"不能识别的类型\",  \"status\":1, \"info\":\"已经连接管理平台\" }";
+        szData = "{\"message\":\"system\",  \"status\":1, \"info\":\"已经连接管理平台\" }";
         status = StateFactory.Format(szData);
         vo = StateFactory.Serialize(status, szData);
         RxBus.getDefault().post(new Event(vo));

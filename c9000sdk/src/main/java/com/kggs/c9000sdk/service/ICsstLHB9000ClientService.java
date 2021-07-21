@@ -3,6 +3,11 @@ package com.kggs.c9000sdk.service;
 import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
 
 /**
+ * 入侵报警服务
+ * <p>
+ * 参考资料：CSST-R&D-豪恩9000主机系统网络版V1.0_SDK规范说明书
+ * </p>
+ *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/19 9:25
  */

@@ -8,6 +8,13 @@ class Wg5000sdkApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("111");
     }
+
+    @Test
+    void contextLoads1() {
+        System.out.println("222");
+    }
+
 
 }
