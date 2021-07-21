@@ -85,4 +85,16 @@ public class Instructions {
     public void setDoorNumber(String doorNumber) {
         this.doorNumber = doorNumber;
     }
+
+
+    @Override
+    public String toString() {
+        return "Instructions{" +
+                "address=" + address.toString() +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", doorNumber='" + doorNumber + '\'' +
+                '}';
+    }
 }

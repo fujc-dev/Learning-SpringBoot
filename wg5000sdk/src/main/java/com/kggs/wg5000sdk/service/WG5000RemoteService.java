@@ -31,6 +31,7 @@ public class WG5000RemoteService {
      * @param instructions
      */
     public void Open(Instructions instructions) {
+        log.info(instructions.toString());
         this.client = new Client();
         this.client.Start(instructions);
         log.info("远程开门执行完毕");

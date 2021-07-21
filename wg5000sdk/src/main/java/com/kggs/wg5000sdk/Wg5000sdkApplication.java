@@ -12,6 +12,9 @@ public class Wg5000sdkApplication {
         SpringApplication.run(Wg5000sdkApplication.class, args);
         //
         WG5000Factory.Open("127.0.0.1", 6000, "zhangsan", "zhangsan", "10001");
+
+        //如果有新的操作，可以直接在此处增加新的方法
+
     }
 
 }
