@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.nio.charset.Charset;
 
 /**
+ * Netty 太重了，感觉改成Socket直连要轻便一些
+ *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/21 9:16
  */
@@ -55,10 +57,10 @@ public class WG5000RemoteService {
                         }
                     });
             try {
-                ChannelFuture   channelFuture = bootstrap.connect(instructions.getAddress().getIp(), instructions.getAddress().getPort()).sync();
+                ChannelFuture channelFuture = bootstrap.connect(instructions.getAddress().getIp(), instructions.getAddress().getPort()).sync();
                 log.info("客户端连接服务器成功....");
                 Thread.sleep(100);
-                String command = this.CmdBuilder(instructions.getUsername(),instructions.getPassword(),instructions.getStatus().name(),instructions.getDoorNumber());
+                String command = this.CmdBuilder(instructions.getUsername(), instructions.getPassword(), instructions.getStatus().name(), instructions.getDoorNumber());
                 channelFuture.channel().writeAndFlush(command);
                 channelFuture.channel().closeFuture().await();
             } catch (InterruptedException e) {
@@ -67,7 +69,6 @@ public class WG5000RemoteService {
                 group.shutdownGracefully();
             }
         }
-
 
 
         /**

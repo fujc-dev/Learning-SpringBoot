@@ -93,4 +93,15 @@ public interface LHB9000NetSdk extends StdCallLibrary {
      */
     boolean csst_lhb9000_client_operate_remove(int nMachine, int nRemoveType, int nAreaNo);
 
+
+    /**
+     * 主机旁路、恢复旁路
+     * @param nMachine 与主机连接ID号
+     * @param nZoneNo 防区号（取值范围0~247）
+     * @param operateType 操作类型（ 旁路恢复 0 旁路 1   ）
+     * @return
+     */
+    boolean csst_lhb9000_client_operate_bypass(int nMachine,int nZoneNo, int operateType);
+
+
 }
