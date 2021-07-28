@@ -1,9 +1,11 @@
 package com.kggs.c9000sdk;
 
+import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
 import com.kggs.c9000sdk.factory.StateFactory;
 import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.rxbus.RxBus;
 import com.kggs.c9000sdk.rxbus.RxBusSubscriber;
+import com.kggs.c9000sdk.rxbus.RxBusSubscriberBuilder;
 import com.kggs.c9000sdk.rxbus.RxSubscriptions;
 import com.kggs.c9000sdk.rxbus.event.Event;
 import com.kggs.c9000sdk.vo.ConnectNotify;
@@ -25,10 +27,21 @@ public class Programs {
      */
     public static void main(String[] args) {
         //
-        Subscription mRxSub = RxBus.getDefault().toObservable(Event.class).map(event -> event)
-                .subscribe(new RxBusSubscriber<Event>() {
+        Subscription mRxSub = RxBus.getDefault().toObservable().map(event -> event)
+                .subscribe(new RxBusSubscriberBuilder() {
                     @Override
                     protected void onEvent(Event event) {
+                        //过滤消息
+                        System.out.println(event.getEvent().toString());
+                    }
+                });
+        RxSubscriptions.add(mRxSub);
+
+        mRxSub = RxBus.getDefault().toObservable().map(event -> event)
+                .subscribe(new RxBusSubscriberBuilder() {
+                    @Override
+                    protected void onEvent(Event event) {
+                        //过滤消息
                         System.out.println(event.getEvent().toString());
                     }
                 });
@@ -61,13 +74,18 @@ public class Programs {
         vo = StateFactory.Serialize(status, szData);
         RxBus.getDefault().post(new Event(vo));
 
-        szData = "{\"message\":\"不能识别的类型\",  \"status\":1, \"info\":\"已经连接管理平台\" }";
+        szData = "{\"message\":\"cidinfo\",  \"status\":1, \"info\":\"已经连接管理平台\" }";
         status = StateFactory.Format(szData);
         vo = StateFactory.Serialize(status, szData);
         RxBus.getDefault().post(new Event(vo));
 
-        //Bundle.csst_lhb9000_client_operate_place("127.0.0.1", 1, 1, 1);
-        //Bundle.csst_lhb9000_client_operate_remove("127.0.0.1", 1, 1, 1);
+        try {
+            Bundle.csst_lhb9000_client_operate_place("127.0.0.1", 1, 1, 1);
+            Bundle.csst_lhb9000_client_operate_remove("127.0.0.1", 1, 1, 1);
+        } catch (CsstLHB9000Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

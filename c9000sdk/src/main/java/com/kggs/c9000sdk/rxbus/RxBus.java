@@ -3,6 +3,7 @@ package com.kggs.c9000sdk.rxbus;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.kggs.c9000sdk.rxbus.event.Event;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;
@@ -49,6 +50,10 @@ public class RxBus {
      */
     public <T> Observable<T> toObservable(Class<T> eventType) {
         return mBus.ofType(eventType);
+    }
+
+    public   Observable toObservable() {
+        return mBus.ofType(Event.class);
     }
 
     /**

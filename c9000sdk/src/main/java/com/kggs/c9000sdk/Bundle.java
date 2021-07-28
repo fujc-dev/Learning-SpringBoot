@@ -26,12 +26,10 @@ public class Bundle {
      *                   ）
      */
     public static void csst_lhb9000_client_operate_place(String szIP, int nMachine, int nPlaceType, int nAreaNo) throws CsstLHB9000Exception {
-
             ICsstLHB9000ClientService csstLHB9000ClientService = ServiceFactory.GetService(ICsstLHB9000ClientService.class);
             if (csstLHB9000ClientService != null) {
                 csstLHB9000ClientService.OperatePlace(szIP, nMachine, nPlaceType, nAreaNo);
             }
-
     }
 
 
