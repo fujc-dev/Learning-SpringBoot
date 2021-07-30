@@ -3,7 +3,7 @@ package com.kggs.c9000sdk.rxbus;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.kggs.c9000sdk.rxbus.event.Event;
+import com.kggs.c9000sdk.rxbus.event.base.Event;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;

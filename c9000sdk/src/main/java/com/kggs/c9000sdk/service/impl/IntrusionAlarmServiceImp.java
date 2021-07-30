@@ -1,17 +1,13 @@
 package com.kggs.c9000sdk.service.impl;
 
-import com.kggs.c9000sdk.annotations.ServiceImpl;
 import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
 import com.kggs.c9000sdk.factory.StateFactory;
 import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.rxbus.RxBus;
-import com.kggs.c9000sdk.rxbus.event.Event;
-import com.kggs.c9000sdk.sdk.LHB9000NetSdk;
-import com.kggs.c9000sdk.sdk.callback.SDK9000ClientCallBack;
+import com.kggs.c9000sdk.rxbus.event.base.Event;
+import com.kggs.c9000sdk.sdk.SDK9000Client;
 import com.kggs.c9000sdk.service.IntrusionAlarmService;
-import com.kggs.c9000sdk.vo.base.NotifyBase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 
@@ -24,18 +20,16 @@ import java.io.UnsupportedEncodingException;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/19 9:16
  */
-@ServiceImpl(classz = IntrusionAlarmService.class)
+@Service
 public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
-
-    private static final Logger log = LoggerFactory.getLogger(IntrusionAlarmService.class);
+    private SDK9000Client.SDK9000ClientCallBack _callback = new SDK9000ClientCallBackImp();
 
     public boolean Init() throws CsstLHB9000Exception {
         boolean _status = false;
         try {
-            log.debug("CSST：----Init Begin");
-            SDK9000ClientCallBack _callback = new SDK9000ClientCallBackImp();
-            _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_init(_callback, true);
-            log.debug("CSST：----，{}，Init End", _status);
+            System.out.println("CSST：----Init Begin");
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_init(_callback, true);
+            System.out.println("CSST：----" + _status + "，Init End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
         }
@@ -45,9 +39,9 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
     public boolean UnInit() throws CsstLHB9000Exception {
         boolean _status = false;
         try {
-            log.debug("CSST：----UnInit Begin");
-            _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_uninit();
-            log.debug("CSST：----，{}，UnInit End", _status);
+            System.out.println("CSST：----UnInit Begin");
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_uninit();
+            System.out.println("CSST：----" + _status + "，UnInit End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
         }
@@ -57,9 +51,9 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
     public boolean Connect(String szIP, int nPort, int nTimeoutSecond) throws CsstLHB9000Exception {
         boolean _status = false;
         try {
-            log.debug("CSST：----Connect Begin");
-            _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_connect(szIP, nPort, nTimeoutSecond);
-            log.debug("CSST：----，{}，Connect End", _status);
+            System.out.println("CSST：----Connect Begin");
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_connect(szIP, nPort, nTimeoutSecond);
+            System.out.println("CSST：----" + _status + "，Connect End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
         }
@@ -69,9 +63,9 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
     public boolean Connect(String szIP, int nTimeoutSecond) throws CsstLHB9000Exception {
         boolean _status = false;
         try {
-            log.debug("CSST：----Connect Begin");
-            _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_connect(szIP, 6769, nTimeoutSecond);
-            log.debug("CSST：----，{}，Connect End", _status);
+            System.out.println("CSST：----Connect Begin");
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_connect(szIP, 6769, nTimeoutSecond);
+            System.out.println("CSST：----" + _status + "，Connect End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
         }
@@ -79,11 +73,11 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
     }
 
     public boolean DisConnect() throws CsstLHB9000Exception {
-        log.debug("CSST：----DisConnect Begin");
+        System.out.println("CSST：----DisConnect Begin");
         boolean _status = false;
         try {
-            _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_disconnect();
-            log.debug("CSST：----，{}，DisConnect End", _status);
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_disconnect();
+            System.out.println("CSST：----" + _status + "，DisConnect End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
         }
@@ -93,9 +87,9 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
     public boolean OperatePlace(int nMachine, int nPlaceType, int nAreaNo) throws CsstLHB9000Exception {
         boolean _status = false;
         try {
-            log.debug("CSST：----OperatePlace Begin");
-            _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_operate_place(nMachine, nPlaceType, nAreaNo);
-            log.debug("CSST：----，{}，OperatePlace End", _status);
+            System.out.println("CSST：----OperatePlace Begin");
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_operate_place(nMachine, nPlaceType, nAreaNo);
+            System.out.println("CSST：----" + _status + "，OperatePlace End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
         }
@@ -105,22 +99,21 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
     public boolean OperateRemove(int nMachine, int nRemoveType, int nAreaNo) throws CsstLHB9000Exception {
         boolean _status = false;
         try {
-            log.debug("CSST：----OperateRemove Begin");
-            _status = LHB9000NetSdk.INSTANCE.csst_lhb9000_client_operate_remove(nMachine, nRemoveType, nAreaNo);
-            log.debug("CSST：----，{}，OperateRemove End", _status);
+            System.out.println("CSST：----OperateRemove Begin");
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_operate_remove(nMachine, nRemoveType, nAreaNo);
+            System.out.println("CSST：----" + _status + "，OperateRemove End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
         }
         return _status;
     }
 
-    public final class SDK9000ClientCallBackImp implements SDK9000ClientCallBack {
+    public static class SDK9000ClientCallBackImp implements SDK9000Client.SDK9000ClientCallBack {
 
         public void invoke(String szData, int nDataLength) throws UnsupportedEncodingException {
-            log.debug(szData);
             Enum<Status> status = StateFactory.Format(szData);
-            NotifyBase vo = StateFactory.Serialize(status, szData);
-            RxBus.getDefault().post(new Event(vo));
+            Event vo = StateFactory.Serialize(status, szData);
+            RxBus.getDefault().post(vo);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.kggs.c9000sdk.factory.state;
 
-import com.kggs.c9000sdk.vo.base.NotifyBase;
+import com.kggs.c9000sdk.rxbus.event.base.Event;
 
 /**
  * @author : fjc.dane@gmail.com
@@ -11,7 +11,7 @@ public interface NotifyState {
     /**
      * SDK和平台连接状态通知
      */
-    NotifyBase Serialize(Enum<Status> currentStatus, String szData);
+    Event Serialize(Enum<Status> currentStatus, String szData);
 
 
 }

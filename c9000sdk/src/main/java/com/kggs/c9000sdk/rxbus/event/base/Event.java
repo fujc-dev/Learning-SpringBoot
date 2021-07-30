@@ -1,4 +1,4 @@
-package com.kggs.c9000sdk.rxbus.event;
+package com.kggs.c9000sdk.rxbus.event.base;
 
 import com.kggs.c9000sdk.vo.base.NotifyBase;
 

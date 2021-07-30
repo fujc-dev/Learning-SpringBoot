@@ -29,6 +29,13 @@ public interface IntrusionAlarmService {
      */
     boolean Connect(String szIP, int nPort, int nTimeoutSecond) throws CsstLHB9000Exception;
 
+    /**
+     *  连接豪恩管理平台
+     * @param szIP
+     * @param nTimeoutSecond
+     * @return
+     * @throws CsstLHB9000Exception
+     */
     boolean Connect(String szIP, int nTimeoutSecond) throws CsstLHB9000Exception;
 
     /**

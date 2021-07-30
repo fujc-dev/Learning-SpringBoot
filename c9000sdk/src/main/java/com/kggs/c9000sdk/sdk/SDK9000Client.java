@@ -1,8 +1,10 @@
 package com.kggs.c9000sdk.sdk;
 
-import com.kggs.c9000sdk.sdk.callback.SDK9000ClientCallBack;
+import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.win32.StdCallLibrary;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * SDK接口规范均基于LHB9000约束：此接口规范只适用于LHB9000及键盘设备，通信协议是豪恩自定义协议。
@@ -22,12 +24,28 @@ import com.sun.jna.win32.StdCallLibrary;
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/15 17:23
  */
-public interface LHB9000NetSdk extends StdCallLibrary {
+public interface SDK9000Client extends StdCallLibrary {
 
     String filePath = "D:\\SDK9000NET_v3.0.3\\SDK9000Client";
-    LHB9000NetSdk INSTANCE = Native.load(filePath, LHB9000NetSdk.class);
+    SDK9000Client INSTANCE = Native.load(filePath, SDK9000Client.class);
 
 
+    /**
+     *  回调接口
+     */
+    interface SDK9000ClientCallBack extends StdCallLibrary.StdCallCallback {
+
+        /**
+         * 回调函数原型csst_lhb9000_callback
+         *
+         * @param szData      接收数据(详见json数据格式说明.txt)
+         * @param nDataLength 接收数据长度
+         * @throws UnsupportedEncodingException
+         */
+        default void invoke(String szData, int nDataLength) throws UnsupportedEncodingException {
+
+        }
+    }
     /**
      * 初始化客户端，调用其他SDK函数的前提。
      *
@@ -96,12 +114,13 @@ public interface LHB9000NetSdk extends StdCallLibrary {
 
     /**
      * 主机旁路、恢复旁路
-     * @param nMachine 与主机连接ID号
-     * @param nZoneNo 防区号（取值范围0~247）
+     *
+     * @param nMachine    与主机连接ID号
+     * @param nZoneNo     防区号（取值范围0~247）
      * @param operateType 操作类型（ 旁路恢复 0 旁路 1   ）
      * @return
      */
-    boolean csst_lhb9000_client_operate_bypass(int nMachine,int nZoneNo, int operateType);
+    boolean csst_lhb9000_client_operate_bypass(int nMachine, int nZoneNo, int operateType);
 
 
 }

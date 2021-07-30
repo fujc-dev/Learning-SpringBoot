@@ -9,6 +9,7 @@ import com.kggs.c9000sdk.factory.state.event.AlarmState;
 import com.kggs.c9000sdk.factory.state.event.CidinfoState;
 import com.kggs.c9000sdk.factory.state.event.MachineState;
 import com.kggs.c9000sdk.factory.state.event.SystemState;
+import com.kggs.c9000sdk.rxbus.event.base.Event;
 import com.kggs.c9000sdk.vo.base.NotifyBase;
 
 import java.util.Map;
@@ -70,18 +71,18 @@ public class StateFactory {
 
     /**
      * 根据不同的数据类型，序列化
+     *
      * @param currentStatus
      * @param szData
      * @return
      */
-    public static synchronized NotifyBase Serialize(Enum<Status> currentStatus, String szData) {
+    public static synchronized Event Serialize(Enum<Status> currentStatus, String szData) {
         if (stateMap.containsKey(currentStatus)) {
             return stateMap.get(currentStatus).Serialize(currentStatus, szData);
         } else {
             NotifyBase voBase = new NotifyBase();
             voBase.setMessage(currentStatus.name());
-            return voBase;
+            return new Event(voBase);
         }
-
     }
 }

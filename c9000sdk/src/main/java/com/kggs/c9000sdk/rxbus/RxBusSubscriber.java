@@ -1,5 +1,6 @@
 package com.kggs.c9000sdk.rxbus;
 
+import com.kggs.c9000sdk.exception.CsstLHB9000Exception;
 import rx.Subscriber;
 
 /**
@@ -27,5 +28,5 @@ public abstract class RxBusSubscriber<T> extends Subscriber<T> {
         e.printStackTrace();
     }
 
-    protected abstract void onEvent(T t);
+    protected abstract void onEvent(T t) throws CsstLHB9000Exception;
 }
