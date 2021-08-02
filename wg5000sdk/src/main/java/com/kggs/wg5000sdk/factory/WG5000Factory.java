@@ -1,7 +1,6 @@
 package com.kggs.wg5000sdk.factory;
 
 import com.kggs.wg5000sdk.enums.Status;
-import com.kggs.wg5000sdk.req.Instructions;
 import com.kggs.wg5000sdk.service.WG5000ClientService;
 
 /**
