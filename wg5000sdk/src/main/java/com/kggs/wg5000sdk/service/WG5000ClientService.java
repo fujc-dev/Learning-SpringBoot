@@ -29,6 +29,11 @@ public class WG5000ClientService {
     private String doorNumber;
     private Status status;
 
+    /**
+     * 远程开门执行结果维护
+     */
+    private Boolean _execute_status = false;
+
     public WG5000ClientService(String ip, int port, String username, String password, Status status, String doorNumber) {
         this.ip = ip;
         this.port = port;
@@ -39,7 +44,7 @@ public class WG5000ClientService {
     }
 
 
-    public void Open() {
+    public boolean Open() {
         EventLoopGroup group = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap()
                 .group(group)
@@ -56,7 +61,7 @@ public class WG5000ClientService {
         try {
             ChannelFuture channelFuture = bootstrap.connect(ip, port).sync();
             System.out.println("----->客户端连接服务器成功....");
-            channelFuture.channel().closeFuture().await();
+            channelFuture.channel().closeFuture().await(2000);
             System.out.println("----->客户端与服务器连接已关闭..");
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -64,6 +69,7 @@ public class WG5000ClientService {
             group.shutdownGracefully();
         }
         System.out.println("----->远程开门执行完毕");
+        return _execute_status;
     }
 
 
@@ -135,6 +141,7 @@ public class WG5000ClientService {
             System.out.println("----->thread.name=" + Thread.currentThread().getName());
             System.out.println("----->Server ChannelRead......");
             System.out.println("----->" + ctx.channel().remoteAddress() + "Server Say  :" + msg.toString());
+            _execute_status = true;
             ctx.disconnect();
             ctx.close();
         }

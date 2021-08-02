@@ -25,14 +25,14 @@ public class HomeController {
     @RequestMapping("/open")
     public Map<String, Object> RemoteDoorOpening(
             @RequestParam("server_ip") String serverIp,
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
+            @RequestParam("user") String userName,
+            @RequestParam("pwd") String passWord,
             @RequestParam("door_name") String doorName) {
         System.out.println("=====================Remote Door Opening Begin=====================");
         Map<String, Object> map = new HashMap<>();
         try {
-            WG5000Factory.Open(serverIp, 60006, username, password, doorName);
-            map.put("status", true);
+            boolean _execute_status = WG5000Factory.Open(serverIp, userName, passWord, doorName);
+            map.put("status", _execute_status);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("status", false);

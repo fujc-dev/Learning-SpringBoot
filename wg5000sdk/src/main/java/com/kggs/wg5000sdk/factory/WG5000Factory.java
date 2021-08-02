@@ -19,13 +19,14 @@ public class WG5000Factory {
      * @param password   登录密码
      * @param doorNumber 门号
      */
-    public static void Open(String ip, int port, String username, String password, String doorNumber) {
+    public static boolean Open(String ip, int port, String username, String password, String doorNumber) {
         try {
             WG5000ClientService service = new WG5000ClientService(ip, port, username, password, Status.OPEN, doorNumber);
-            service.Open();
+            return service.Open();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     /**
@@ -36,8 +37,8 @@ public class WG5000Factory {
      * @param password   登录密码
      * @param doorNumber 门号
      */
-    public static void Open(String ip, String username, String password, String doorNumber) {
-        Open(ip, 60006, username, password, doorNumber);
+    public static boolean Open(String ip, String username, String password, String doorNumber) {
+        return Open(ip, 60006, username, password, doorNumber);
     }
 
 }
