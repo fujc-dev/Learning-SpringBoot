@@ -31,7 +31,7 @@ public interface SDK9000Client extends StdCallLibrary {
 
 
     /**
-     *  回调接口
+     * 回调接口
      */
     interface SDK9000ClientCallBack extends StdCallLibrary.StdCallCallback {
 
@@ -46,6 +46,7 @@ public interface SDK9000Client extends StdCallLibrary {
 
         }
     }
+
     /**
      * 初始化客户端，调用其他SDK函数的前提。
      *
@@ -78,6 +79,22 @@ public interface SDK9000Client extends StdCallLibrary {
      * @return
      */
     boolean csst_lhb9000_client_disconnect();
+
+
+    /**
+     * 查询报警主机一览表（包括在线、离线主机）
+     *
+     * @return
+     */
+    boolean csst_lhb9000_client_get_machinelist();
+
+
+    /**
+     * 查询某一台主机分区、防区详细信息
+     * @param nMachine 与主机的连接ID号
+     * @return
+     */
+    boolean csst_lhb9000_client_get_machine_areainfo(int nMachine);
 
     /**
      * 主机分区、防区布防

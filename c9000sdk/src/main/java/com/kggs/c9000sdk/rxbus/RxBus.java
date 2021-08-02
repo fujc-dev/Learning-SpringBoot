@@ -52,10 +52,6 @@ public class RxBus {
         return mBus.ofType(eventType);
     }
 
-    public   Observable toObservable() {
-        return mBus.ofType(Event.class);
-    }
-
     /**
      * 判断是否有订阅者
      */

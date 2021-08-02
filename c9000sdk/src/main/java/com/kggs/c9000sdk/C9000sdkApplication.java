@@ -34,7 +34,7 @@ public class C9000sdkApplication {
                     @Override
                     protected void onEvent(AlarmNotifyEvent event) {
                         //过滤消息
-                        System.out.println(event.getEvent().toString());
+                        System.out.println("application：" + event.getEvent().toString());
                     }
                 });
         RxSubscriptions.add(mRxSub);

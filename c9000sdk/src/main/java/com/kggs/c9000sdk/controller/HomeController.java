@@ -5,6 +5,7 @@ import com.kggs.c9000sdk.service.ICsstLHB9000ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -29,27 +30,35 @@ public class HomeController {
 
     @ResponseBody
     @RequestMapping("/csst_place")
-    public Map<String, Object> csst_lhb9000_client_operate_place(String szIP, int nPlaceType, int nAreaNo) {
-        System.out.println("csst_lhb9000_client_operate_place Begin");
+    public Map<String, Object> csst_lhb9000_client_operate_place(
+            @RequestParam("ip") String szIP,
+            @RequestParam("type") int nPlaceType,
+            @RequestParam("no") int nAreaNo,
+            @RequestParam("sub_ip") String subControlIp) {
+        System.out.println("=====================csst_lhb9000_client_operate_place Begin=====================");
         Map<String, Object> map = new HashMap<>();
         try {
-            boolean _exec_result = csstLHB9000ClientService.OperatePlace(szIP, nPlaceType, nAreaNo);
+            boolean _exec_result = csstLHB9000ClientService.OperatePlace(szIP, nPlaceType, nAreaNo, subControlIp);
             map.put("status", _exec_result);
         } catch (CsstLHB9000Exception e) {
             e.printStackTrace();
             map.put("status", false);
         }
-        System.out.println("csst_lhb9000_client_operate_place End");
+        System.out.println("=====================csst_lhb9000_client_operate_place End=====================\r\n");
         return map;
     }
 
     @ResponseBody
     @RequestMapping("/csst_remove")
-    public Map<String, Object> csst_lhb9000_client_operate_remove(String szIP, int nRemoveType, int nAreaNo) {
+    public Map<String, Object> csst_lhb9000_client_operate_remove(
+            @RequestParam("ip") String szIP,
+            @RequestParam("type") int nRemoveType,
+            @RequestParam("no") int nAreaNo,
+            @RequestParam("sub_ip") String subControlIp) {
         System.out.println("csst_lhb9000_client_operate_remove Begin");
         Map<String, Object> map = new HashMap<>();
         try {
-            boolean _exec_result = csstLHB9000ClientService.OperateRemove(szIP, nRemoveType, nAreaNo);
+            boolean _exec_result = csstLHB9000ClientService.OperateRemove(szIP, nRemoveType, nAreaNo, subControlIp);
             map.put("status", _exec_result);
             map.put("status", _exec_result);
         } catch (CsstLHB9000Exception e) {

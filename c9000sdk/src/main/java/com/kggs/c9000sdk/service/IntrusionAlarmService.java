@@ -39,6 +39,20 @@ public interface IntrusionAlarmService {
     boolean Connect(String szIP, int nTimeoutSecond) throws CsstLHB9000Exception;
 
     /**
+     *  查询报警主机一览表（包括在线、离线主机）
+     * @return
+     */
+    boolean QueryMachinelist() throws CsstLHB9000Exception;
+
+
+    /**
+     * 查询某一台主机分区、防区详细信息
+     * @param nMachine 与主机的连接ID号
+     * @return
+     */
+    boolean QueryMachineAreainfo(int nMachine) throws CsstLHB9000Exception;
+
+    /**
      * 断开与管理平台的连接。
      */
     boolean DisConnect() throws CsstLHB9000Exception;

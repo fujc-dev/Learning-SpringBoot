@@ -7,9 +7,11 @@ import com.kggs.c9000sdk.rxbus.RxBus;
 import com.kggs.c9000sdk.rxbus.event.base.Event;
 import com.kggs.c9000sdk.sdk.SDK9000Client;
 import com.kggs.c9000sdk.service.IntrusionAlarmService;
+import com.kggs.c9000sdk.utils.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 /**
  * 依照《CSST-R&D-豪恩9000主机系统网络版V1.0_SDK规范说明书》对进行进行二次包装
@@ -28,7 +30,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
         boolean _status = false;
         try {
             System.out.println("CSST：----Init Begin");
-            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_init(_callback, true);
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_init(_callback, false);
             System.out.println("CSST：----" + _status + "，Init End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
@@ -66,6 +68,32 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
             System.out.println("CSST：----Connect Begin");
             _status = SDK9000Client.INSTANCE.csst_lhb9000_client_connect(szIP, 6769, nTimeoutSecond);
             System.out.println("CSST：----" + _status + "，Connect End");
+        } catch (Exception e) {
+            throw new CsstLHB9000Exception(e);
+        }
+        return _status;
+    }
+
+    @Override
+    public boolean QueryMachinelist() throws CsstLHB9000Exception {
+        boolean _status = false;
+        try {
+            System.out.println("CSST：----Query Machinelist Begin");
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_get_machinelist();
+            System.out.println("CSST：----" + _status + "，Query Machinelist End");
+        } catch (Exception e) {
+            throw new CsstLHB9000Exception(e);
+        }
+        return _status;
+    }
+
+    @Override
+    public boolean QueryMachineAreainfo(int nMachine) throws CsstLHB9000Exception {
+        boolean _status = false;
+        try {
+            System.out.println("CSST：----Query Machine Areainfo Begin");
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_get_machine_areainfo(nMachine);
+            System.out.println("CSST：----" + _status + "，Query Machine Areainfo End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);
         }
@@ -111,6 +139,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
     public static class SDK9000ClientCallBackImp implements SDK9000Client.SDK9000ClientCallBack {
 
         public void invoke(String szData, int nDataLength) throws UnsupportedEncodingException {
+            System.out.println(DateUtil.dateToStrLong(new Date()) + "接收到消息：" + szData);
             Enum<Status> status = StateFactory.Format(szData);
             Event vo = StateFactory.Serialize(status, szData);
             RxBus.getDefault().post(vo);
