@@ -5,6 +5,7 @@ import com.kggs.c9000sdk.rxbus.RxBus;
 import com.kggs.c9000sdk.rxbus.RxBusSubscriber;
 import com.kggs.c9000sdk.rxbus.RxSubscriptions;
 import com.kggs.c9000sdk.rxbus.event.AlarmNotifyEvent;
+import com.kggs.c9000sdk.rxbus.event.base.Event;
 import com.kggs.c9000sdk.service.IntrusionAlarmService;
 import com.kggs.c9000sdk.utils.SpringContextUtil;
 import org.springframework.boot.SpringApplication;
@@ -29,10 +30,10 @@ public class C9000sdkApplication {
             System.out.println("CSST：----初始化平台Sdk失败");
         }
         RxSubscriptions.clear();
-        Subscription mRxSub = RxBus.getDefault().toObservable(AlarmNotifyEvent.class).map(event -> event)
-                .subscribe(new RxBusSubscriber<AlarmNotifyEvent>() {
+        Subscription mRxSub = RxBus.getDefault().toObservable(Event.class).map(event -> event)
+                .subscribe(new RxBusSubscriber<Event>() {
                     @Override
-                    protected void onEvent(AlarmNotifyEvent event) {
+                    protected void onEvent(Event event) {
                         //过滤消息
                         System.out.println("application：" + event.getEvent().toString());
                     }

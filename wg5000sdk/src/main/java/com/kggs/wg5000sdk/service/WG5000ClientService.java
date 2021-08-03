@@ -1,8 +1,6 @@
 package com.kggs.wg5000sdk.service;
 
 import com.kggs.wg5000sdk.enums.Status;
-import com.kggs.wg5000sdk.req.Instructions;
-import com.kggs.wg5000sdk.req.RemoteAddress;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -34,7 +32,12 @@ public class WG5000ClientService {
      */
     private Boolean _execute_status = false;
 
-    public WG5000ClientService(String ip, int port, String username, String password, Status status, String doorNumber) {
+    public WG5000ClientService(String ip,
+                               int port,
+                               String username,
+                               String password,
+                               Status status,
+                               String doorNumber) {
         this.ip = ip;
         this.port = port;
         this.username = username;

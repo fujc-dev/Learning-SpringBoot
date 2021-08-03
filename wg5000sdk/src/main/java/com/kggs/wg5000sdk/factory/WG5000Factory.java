@@ -20,7 +20,13 @@ public class WG5000Factory {
      */
     public static boolean Open(String ip, int port, String username, String password, String doorNumber) {
         try {
-            WG5000ClientService service = new WG5000ClientService(ip, port, username, password, Status.OPEN, doorNumber);
+            WG5000ClientService service = new WG5000ClientService(
+                    ip,
+                    port,
+                    username,
+                    password,
+                    Status.OPEN,
+                    doorNumber);
             return service.Open();
         } catch (Exception e) {
             e.printStackTrace();

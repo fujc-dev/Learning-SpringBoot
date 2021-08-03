@@ -42,6 +42,13 @@ public class CsstLHB9000ClientServiceImp implements ICsstLHB9000ClientService {
             Thread currentThread = Thread.currentThread();
             final boolean[] _connect_status_callback = {false};
             final int[] _machine_connect_id = {-1};
+            Subscription mConnectRxSub = Bundle.AddSubscription(ConnectNotifyEvent.class, new RxBusSubscriber<ConnectNotifyEvent>() {
+                @Override
+                protected void onEvent(ConnectNotifyEvent event) throws CsstLHB9000Exception {
+                    _connect_status_callback[0] = event.getEvent().getStatus() == 1 ? true : false;
+                }
+            });
+
             //1、发起订阅，接收平台所管辖的报警主机状态
             Subscription mRxSub = Bundle.AddSubscription(MachineNotifyEvent.class, new RxBusSubscriber<MachineNotifyEvent>() {
                 @Override
@@ -50,22 +57,27 @@ public class CsstLHB9000ClientServiceImp implements ICsstLHB9000ClientService {
                         //获取与分控一致的主机连接ID
                         _machine_connect_id[0] = event.getEvent().getConnect();
                     }
-                    //使用返回过来的Machine参数的State判断连接平台成功状态
-                    _connect_status_callback[0] = event.getEvent().getStatus() == 1 ? true : false;
-                    LockSupport.unpark(currentThread);
+                    //LockSupport.unpark(currentThread);
                 }
             });
+            RxSubscriptions.add(mConnectRxSub);
             RxSubscriptions.add(mRxSub);
             //2、连接平台
             boolean _connect_status = intrusionService.Connect(szIP, nPort, 5);
             //锁住当前线程，等待
             if (_connect_status) {
-                //等待回调
-                LockSupport.park(currentThread);
+                //等待回调，直接定义一个固定超时时间就好了,如果2s没有收到连接成功与当前平台所管辖的报警主机状态数据
+                Thread.sleep(2000);
+                //LockSupport.park(currentThread);
                 if (_connect_status_callback[0]) {
                     System.out.println("CSST：----连接平台成功，获取到指定的主机连接ID为：" + _machine_connect_id[0]);
-                    LockSupport.park(currentThread);
+                    RxSubscriptions.remove(mConnectRxSub);
                     RxSubscriptions.remove(mRxSub);
+
+                    if (_machine_connect_id[0] == -1) {
+                        System.out.println("CSST：----获取到指定的主机连接ID失败");
+                        return false;
+                    }
                     //执行布控
                     boolean place_status = intrusionService.OperatePlace(_machine_connect_id[0], nPlaceType, nAreaNo);
                     if (place_status) {
@@ -117,8 +129,9 @@ public class CsstLHB9000ClientServiceImp implements ICsstLHB9000ClientService {
             boolean _connect_status = intrusionService.Connect(szIP, nPort, 5);
             //锁住当前线程，等待
             if (_connect_status) {
-                //等待回调
+                //阻塞线程，等待回调
                 LockSupport.park(currentThread);
+
                 if (_connect_status_callback[0]) {
                     System.out.println("CSST：----连接平台成功，获取到指定的主机连接ID为：" + _machine_connect_id[0]);
                     LockSupport.park(currentThread);
@@ -147,4 +160,5 @@ public class CsstLHB9000ClientServiceImp implements ICsstLHB9000ClientService {
         return false;
 
     }
+
 }
