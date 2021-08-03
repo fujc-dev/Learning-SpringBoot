@@ -18,11 +18,7 @@ public enum Status {
      */
     alarm,
     /**
-     * CID码详细信息
-     */
-    cidinfo,
-    /**
      * 未知的消息类型
      */
-    nothing
+    unknown
 }

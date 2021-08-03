@@ -30,7 +30,7 @@ public class IntrusionAlarmServiceImp implements IntrusionAlarmService {
         boolean _status = false;
         try {
             System.out.println("CSST：----Init Begin");
-            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_init(_callback, false);
+            _status = SDK9000Client.INSTANCE.csst_lhb9000_client_init(_callback, true);
             System.out.println("CSST：----" + _status + "，Init End");
         } catch (Exception e) {
             throw new CsstLHB9000Exception(e);

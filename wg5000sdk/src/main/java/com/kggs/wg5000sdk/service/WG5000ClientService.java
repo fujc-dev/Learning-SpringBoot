@@ -20,6 +20,12 @@ import java.nio.charset.Charset;
  * @createtime : 2021/7/21 9:16
  */
 public class WG5000ClientService {
+
+    /**
+     *
+     */
+    private final String SERVER_ERROR_MSG = "iRet=0, Failed";
+    private final String SERVER_SUCCESS_MSG = "iRet=1, OK";
     private String ip;
     private int port;
     private String username;
@@ -56,15 +62,15 @@ public class WG5000ClientService {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
-                        ch.pipeline().addLast(new StringDecoder(Charset.forName("UTF-8")));
+                        ch.pipeline().addLast(new StringEncoder(Charset.forName("utf-8")));
+                        ch.pipeline().addLast(new StringDecoder(Charset.forName("utf-8")));
                         ch.pipeline().addLast(new ClientHandler());
                     }
                 });
         try {
             ChannelFuture channelFuture = bootstrap.connect(ip, port).sync();
             System.out.println("----->客户端连接服务器成功....");
-            channelFuture.channel().closeFuture().await(2000);
+            channelFuture.channel().closeFuture().await();
             System.out.println("----->客户端与服务器连接已关闭..");
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -133,7 +139,6 @@ public class WG5000ClientService {
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
             String command = CmdBuilderByDoorName(username, password, status.name(), doorNumber);
             System.out.println("----->客户端与服务端通道-开启：" + ctx.channel().localAddress() + "ChannelActive");
-            String sendInfo = "Hello 这里是客户端  你好啊！";
             System.out.println("----->客户端准备发送的数据包：" + command);
             ctx.writeAndFlush(Unpooled.copiedBuffer(command, CharsetUtil.UTF_8));
         }
@@ -141,6 +146,7 @@ public class WG5000ClientService {
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
             super.channelRead(ctx, msg);
+            //iRet=0, Failed
             System.out.println("----->thread.name=" + Thread.currentThread().getName());
             System.out.println("----->Server ChannelRead......");
             System.out.println("----->" + ctx.channel().remoteAddress() + "Server Say  :" + msg.toString());
@@ -151,8 +157,11 @@ public class WG5000ClientService {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+            System.out.println("----->Throwable Begin");
             cause.printStackTrace();
+            System.out.println("----->Throwable End");
             ctx.close();
+
         }
     }
 }

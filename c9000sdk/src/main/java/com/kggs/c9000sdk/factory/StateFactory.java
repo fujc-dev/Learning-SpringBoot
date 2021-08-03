@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.kggs.c9000sdk.factory.state.NotifyState;
 import com.kggs.c9000sdk.factory.state.Status;
 import com.kggs.c9000sdk.factory.state.event.AlarmState;
-import com.kggs.c9000sdk.factory.state.event.CidinfoState;
+import com.kggs.c9000sdk.factory.state.event.UnKnownState;
 import com.kggs.c9000sdk.factory.state.event.MachineState;
 import com.kggs.c9000sdk.factory.state.event.SystemState;
 import com.kggs.c9000sdk.rxbus.event.base.Event;
@@ -37,7 +37,7 @@ public class StateFactory {
         stateMap.put(Status.system, new SystemState());
         stateMap.put(Status.machine, new MachineState());
         stateMap.put(Status.alarm, new AlarmState());
-        stateMap.put(Status.cidinfo, new CidinfoState());
+        stateMap.put(Status.unknown, new UnKnownState());
     }
 
     private static synchronized void init(Enum<Status> status) {
@@ -52,7 +52,7 @@ public class StateFactory {
      * @return
      */
     public static synchronized Enum<Status> Format(String szData) {
-        Status status = Status.nothing;
+        Status status = Status.unknown;
         try {
             //获取消息提示的类型
             JSONObject jsonObject = JSON.parseObject(szData);
