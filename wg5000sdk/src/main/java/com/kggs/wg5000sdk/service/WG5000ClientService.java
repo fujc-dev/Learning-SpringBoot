@@ -9,12 +9,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-import io.netty.util.CharsetUtil;
 
 import java.nio.charset.Charset;
 
 /**
- * Netty 太重了，感觉改成Socket直连要轻便一些
+ * Netty 太重了，感觉改成Socket直连要轻便一些，架不住方便
  *
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/7/21 9:16
@@ -62,15 +61,15 @@ public class WG5000ClientService {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new StringEncoder(Charset.forName("utf-8")));
-                        ch.pipeline().addLast(new StringDecoder(Charset.forName("utf-8")));
+                        ch.pipeline().addLast(new StringEncoder(Charset.forName("gb2312")));
+                        ch.pipeline().addLast(new StringDecoder(Charset.forName("gb2312")));
                         ch.pipeline().addLast(new ClientHandler());
                     }
                 });
         try {
             ChannelFuture channelFuture = bootstrap.connect(ip, port).sync();
             System.out.println("----->客户端连接服务器成功....");
-            channelFuture.channel().closeFuture().await();
+            channelFuture.channel().closeFuture().await(5000);
             System.out.println("----->客户端与服务器连接已关闭..");
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -140,7 +139,7 @@ public class WG5000ClientService {
             String command = CmdBuilderByDoorName(username, password, status.name(), doorNumber);
             System.out.println("----->客户端与服务端通道-开启：" + ctx.channel().localAddress() + "Channel Active");
             System.out.println("----->客户端准备发送的数据包：" + command);
-            ctx.writeAndFlush(Unpooled.copiedBuffer(command, Charset.forName("utf-8")));
+            ctx.writeAndFlush(Unpooled.copiedBuffer(command, Charset.forName("gb2312")));
         }
 
         @Override
@@ -149,8 +148,11 @@ public class WG5000ClientService {
             //iRet=0, Failed
             System.out.println("----->thread.name=" + Thread.currentThread().getName());
             System.out.println("----->Server ChannelRead......");
-            System.out.println("----->" + ctx.channel().remoteAddress() + "Server Say  :" + msg.toString());
-            _execute_status = true;
+            String _callback = msg.toString();
+            System.out.println("----->" + ctx.channel().remoteAddress() + "Server Say  :" + _callback);
+            if (_callback.endsWith(SERVER_SUCCESS_MSG)) {
+                _execute_status = true;
+            }
             ctx.disconnect();
             ctx.close();
         }
