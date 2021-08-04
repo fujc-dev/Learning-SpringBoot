@@ -138,9 +138,9 @@ public class WG5000ClientService {
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
             String command = CmdBuilderByDoorName(username, password, status.name(), doorNumber);
-            System.out.println("----->客户端与服务端通道-开启：" + ctx.channel().localAddress() + "ChannelActive");
+            System.out.println("----->客户端与服务端通道-开启：" + ctx.channel().localAddress() + "Channel Active");
             System.out.println("----->客户端准备发送的数据包：" + command);
-            ctx.writeAndFlush(Unpooled.copiedBuffer(command, CharsetUtil.UTF_8));
+            ctx.writeAndFlush(Unpooled.copiedBuffer(command, Charset.forName("utf-8")));
         }
 
         @Override

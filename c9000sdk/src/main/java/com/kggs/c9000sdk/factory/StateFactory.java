@@ -69,6 +69,22 @@ public class StateFactory {
         return status;
     }
 
+    public static synchronized String Format(String szData, String key) {
+        String value = "";
+        try {
+            //获取消息提示的类型
+            JSONObject jsonObject = JSON.parseObject(szData);
+            if (jsonObject != null) {
+                value = String.valueOf(jsonObject.get(key));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
+
     /**
      * 根据不同的数据类型，序列化
      *

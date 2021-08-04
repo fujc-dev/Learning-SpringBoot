@@ -6,8 +6,11 @@ import com.kggs.c9000sdk.rxbus.RxBus;
 import com.kggs.c9000sdk.rxbus.RxBusSubscriber;
 import com.kggs.c9000sdk.rxbus.RxSubscriptions;
 import com.kggs.c9000sdk.rxbus.event.ConnectNotifyEvent;
+import com.kggs.c9000sdk.rxbus.event.ProtectionRemovalNotifyEvent;
+import com.kggs.c9000sdk.rxbus.event.base.AlarmNotifyEvent;
 import com.kggs.c9000sdk.rxbus.event.base.Event;
 import com.kggs.c9000sdk.vo.ConnectNotify;
+import com.kggs.c9000sdk.vo.ProtectionRemovalNotify;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +30,15 @@ class C9000sdkApplicationTests {
                     }
                 });
         RxSubscriptions.add(mRxSub);
+        Subscription mAlarmRxSub = RxBus.getDefault().toObservable(ProtectionRemovalNotifyEvent.class).map(event -> event)
+                .subscribe(new RxBusSubscriber<ProtectionRemovalNotifyEvent>() {
+                    @Override
+                    protected void onEvent(ProtectionRemovalNotifyEvent event) {
+                        //过滤消息
+                        System.out.println("application：" + event.getEvent().toString());
+                    }
+                });
+        RxSubscriptions.add(mAlarmRxSub);
         ConnectNotify connectNotify = new ConnectNotify();
         connectNotify.setInfo("1");
         RxBus.getDefault().post(new Event(connectNotify));
@@ -52,11 +64,8 @@ class C9000sdkApplicationTests {
         vo = StateFactory.Serialize(status, szData);
         RxBus.getDefault().post(vo);
 
-        szData = "{\"message\":\"alarm\",\"commtype\":1,\"connect\":2408,\"ip\":\"127.0.0.1\",\"port\":6016,\"eventflag\":1,\"EventTriger\":1,\"cidcode\":\"133\",\"cidlevel\":1,\"cidtype\":\"窃盗\",\"cidmemo\":\"24小时防区\",\"partcode\":1,\"guardcode\":4}";
-        status = StateFactory.Format(szData);
-        vo = StateFactory.Serialize(status, szData);
-        RxBus.getDefault().post(vo);
-        szData = " {\"message\":\"cidinfo\",\"cidcode\":\"000\",\"cidlevel\":0,\"cidtype\":\"错误\",\"cidmemo\":\"未明事件\"} ";
+        szData = "{\"message\":\"alarm\",\"commtype\":1,\"connect\":2724,\"ip\":\"192.168.4.7\",\"port\":6000,\"eventflag\":0,\"eventtriger\":1,\"cidcode\":\"466\",\"cidlevel\":2,\"cidtype\":\"\n" +
+                "撤布防\",\"cidmemo\":\"电脑\",\"partcode\":1,\"guardcode\":32}";
         status = StateFactory.Format(szData);
         vo = StateFactory.Serialize(status, szData);
         RxBus.getDefault().post(vo);

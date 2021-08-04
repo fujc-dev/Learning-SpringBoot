@@ -58,6 +58,8 @@ public class C9000sdkApplication {
         RxSubscriptions.add(mAlarmRxSub);
 
         //连接到入侵报警平台
+        //TODO  如果对方的平台重启后，我们的平台也需要重启，这是个很大的问题
+        //TODO
         IntrusionAlarmService intrusionService = SpringContextUtil.getBean(IntrusionAlarmService.class);
         C9000SdkConfig config = SpringContextUtil.getBean(C9000SdkConfig.class);
         try {
@@ -66,7 +68,7 @@ public class C9000sdkApplication {
             if (_init_status) {
                 System.out.println("CSST：----初始化平台Sdk成功，等待连接到平台");
                 boolean _connect_status = intrusionService.Connect(config.getServer(), config.getPort(), 5);
-                if(_connect_status){
+                if (_connect_status) {
 
                 }
             }
