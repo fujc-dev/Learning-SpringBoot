@@ -7,12 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
-/**
- * Spring 获取 bean工具类
- * Created: 13-6-12 上午7:44
- *
- * @author skyline{http://my.oschina.net/skyline520}
- */
+
 @Component
 public class SpringContextUtil implements ApplicationContextAware {
 
